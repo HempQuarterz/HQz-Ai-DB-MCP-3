@@ -1,0 +1,33 @@
+[vite] connecting...
+[vite] connected.
+Firebase initialized with config: 
+Object {apiKey: "mock-api-key", authDomain: "hempdb.firebaseapp.com", projectId: "hempdb", storageBucket: "hempdb.appspot.com", messagingSenderId: "123456789", …}
+Warning: Invalid prop &#x60;data-replit-metadata&#x60; supplied to &#x60;React.Fragment&#x60;. React.Fragment can only have &#x60;key&#x60; and &#x60;children&#x60; props.
+    at ResearchPage (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/src/pages/research.tsx:25:39)
+    at Route (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=03b77ba1:323:16)
+    at Switch (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=03b77ba1:379:17)
+    at Router
+    at main
+    at div
+    at Provider (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-K5HKAUYU.js?v=03b77ba1:51:15)
+    at TooltipProvider (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=03b77ba1:2246:5)
+    at QueryClientProvider (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=03b77ba1:2805:3)
+    at App
+    at V (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/next-themes.js?v=03b77ba1:44:25)
+    at J (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/next-themes.js?v=03b77ba1:42:18)
+at ResearchPage (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/src/pages/research.tsx:25:39)
+at Route (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=03b77ba1:323:16)
+at Switch (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=03b77ba1:379:17)
+at Router
+at main
+at div
+at Provider (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-K5HKAUYU.js?v=03b77ba1:51:15)
+at TooltipProvider (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=03b77ba1:2246:5)
+at QueryClientProvider (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=03b77ba1:2805:3)
+at App
+at V (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/next-themes.js?v=03b77ba1:44:25)
+at J (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/next-themes.js?v=03b77ba1:42:18)
+at t.value (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://27cb2de6-00c9-4a8b-8384-e3e8e005b7de-00-2hw3obdqkcco.spock.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
