@@ -1,10 +1,10 @@
 import { Pool } from 'pg';
+import dotenv from 'dotenv';
 
-// Using the connection string format from Supabase with sslmode=no-verify
-const connectionString = `postgresql://postgres:${encodeURIComponent('#4HQZgasswo')}@db.lnclfnomfnoaqpatmqhj.supabase.co:5432/postgres?sslmode=no-verify`;
+dotenv.config();
 
 const pool = new Pool({
-  connectionString,
+  connectionString: process.env.DATABASE_URL,
   // Disable SSL verification (only for testing)
   ssl: {
     rejectUnauthorized: false

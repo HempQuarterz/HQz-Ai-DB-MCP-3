@@ -101,12 +101,22 @@ The database includes the following main tables:
 ### Python Scripts
 - `populate_supabase_db.py` - Populates all tables with realistic data
 - `populate_hemp_products_advanced.py` - Adds detailed product information
-- `HempResourceHub/db_manger.py` - Database management utilities
+- `HempResourceHub/db_manager.py` - Database management utilities
 
 ### TypeScript Scripts (in HempResourceHub/scripts/)
 - `populate-hemp-products.ts` - Product population
 - `populate-from-pubmed.ts` - Research data import
 - `data-automation.ts` - Automated data collection
+
+### Running TypeScript Tests
+
+Tests for the Express API are located under `HempResourceHub/server/tests` and
+can be executed with:
+
+```bash
+cd HempResourceHub
+npm run test
+```
 
 ## 📚 Documentation
 
