@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 
 // Using the connection string format from Supabase with sslmode=no-verify
-const connectionString = `postgresql://postgres:${encodeURIComponent('#4HQZgasswo')}@db.lnclfnomfnoaqpatmqhj.supabase.co:5432/postgres?sslmode=no-verify`;
+const connectionString = `postgresql://postgres:${encodeURIComponent(process.env.DB_PASSWORD || '')}@db.lnclfnomfnoaqpatmqhj.supabase.co:5432/postgres?sslmode=no-verify`;
 
 const pool = new Pool({
   connectionString,

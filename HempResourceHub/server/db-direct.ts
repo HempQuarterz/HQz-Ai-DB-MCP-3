@@ -7,7 +7,7 @@ console.log('Attempting direct connection to Supabase with SSL disabled...');
 
 // Try connecting with a direct connection string with SSL disabled
 // This is sometimes necessary to bypass self-signed certificate errors
-const directConnectionString = `postgresql://postgres:${encodeURIComponent(process.env.DB_PASSWORD || '#4HQZgasswo')}@db.lnclfnomfnoaqpatmqhj.supabase.co:5432/postgres?sslmode=disable`;
+const directConnectionString = `postgresql://postgres:${encodeURIComponent(process.env.DB_PASSWORD || '')}@db.lnclfnomfnoaqpatmqhj.supabase.co:5432/postgres?sslmode=disable`;
 
 // Create a direct pool without SSL
 const directPool = new Pool({
@@ -26,7 +26,7 @@ directPool.query('SELECT NOW()', (err, res) => {
       port: 5432,
       database: 'postgres',
       user: 'postgres',
-      password: process.env.DB_PASSWORD || '#4HQZgasswo',
+      password: process.env.DB_PASSWORD,
       // No SSL option at all
     });
     
