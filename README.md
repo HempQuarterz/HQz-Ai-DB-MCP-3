@@ -101,7 +101,7 @@ The database includes the following main tables:
 ### Python Scripts
 - `populate_supabase_db.py` - Populates all tables with realistic data
 - `populate_hemp_products_advanced.py` - Adds detailed product information
-- `HempResourceHub/db_manger.py` - Database management utilities
+- `HempResourceHub/db_manager.py` - Database management utilities
 
 ### TypeScript Scripts (in HempResourceHub/scripts/)
 - `populate-hemp-products.ts` - Product population
