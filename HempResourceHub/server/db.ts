@@ -17,26 +17,33 @@ if (!process.env.DATABASE_URL) {
 
 console.log('Using database URL:', process.env.DATABASE_URL);
 
-const connectionConfig = {
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-    ca: process.env.SSL_CERT
-  }
-};
+let db: any;
 
-// Create the connection pool with the Supabase configuration
-const pool = new Pool(connectionConfig);
+if (process.env.NODE_ENV !== 'test') {
+  const connectionConfig = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+      ca: process.env.SSL_CERT
+    }
+  };
 
-// Test the connection
-pool.query('SELECT NOW()', (err, res) => {
-  if (err) {
-    console.error('Database connection error:', err);
-    console.error('Error details:', err.message);
-    throw new Error('Failed to connect to database');
-  }
-  console.log(`Successfully connected to database! Server time: ${res.rows[0].now}`);
-});
+  const pool = new Pool(connectionConfig);
 
-// Export the drizzle instance with the configured pool and schema
-export const db = drizzle(pool, { schema });
+  // Test the connection
+  pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+      console.error('Database connection error:', err);
+      console.error('Error details:', err.message);
+      throw new Error('Failed to connect to database');
+    }
+    console.log(`Successfully connected to database! Server time: ${res.rows[0].now}`);
+  });
+
+  db = drizzle(pool, { schema });
+} else {
+  console.log('Test environment detected, skipping database connection.');
+  db = {};
+}
+
+export { db };

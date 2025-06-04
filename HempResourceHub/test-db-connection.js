@@ -1,12 +1,10 @@
 import { Pool } from 'pg';
+import dotenv from 'dotenv';
 
-// Connection configuration
+dotenv.config();
+
 const pool = new Pool({
-  host: 'db.lnclfnomfnoaqpatmqhj.supabase.co',
-  port: 5432,
-  database: 'postgres',
-  user: 'postgres',
-  password: '#4HQZgasswo',
+  connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
 
