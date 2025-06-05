@@ -12,14 +12,14 @@ const dotenv = await import('dotenv');
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL environment variable is required');
+  console.warn('DATABASE_URL environment variable is not set. Skipping database connection.');
+} else {
+  console.log('Using database URL:', process.env.DATABASE_URL);
 }
-
-console.log('Using database URL:', process.env.DATABASE_URL);
 
 let db: any;
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && process.env.DATABASE_URL) {
   const connectionConfig = {
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -35,9 +35,10 @@ if (process.env.NODE_ENV !== 'test') {
     if (err) {
       console.error('Database connection error:', err);
       console.error('Error details:', err.message);
-      throw new Error('Failed to connect to database');
+      console.warn('Proceeding without a database connection.');
+    } else {
+      console.log(`Successfully connected to database! Server time: ${res.rows[0].now}`);
     }
-    console.log(`Successfully connected to database! Server time: ${res.rows[0].now}`);
   });
 
   db = drizzle(pool, { schema });
