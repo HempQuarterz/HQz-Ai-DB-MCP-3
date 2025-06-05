@@ -87,7 +87,9 @@ This will create the tables with full-text search capabilities.
 ## Getting Started
 
 1. Clone the repository
-2. Install dependencies: `npm install`
+2. **Install dependencies first**: `npm install`
+   - Run this command before executing any `npm run` scripts.
+   - `npm run check` in particular relies on packages in the `node_modules` directory.
 3. Set up environment variables in `.env`:
    ```
    VITE_SUPABASE_URL=your_supabase_url
