@@ -2,6 +2,52 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Recent Session Summary (Jan 2025)
+
+### What Was Fixed
+1. **Supabase Connection Issues**
+   - Updated project URL from `lnclfnomfnoaqpatmqhj` to `ktoqznqmlnxrtvubewyz`
+   - Fixed environment variables (added both VITE_ prefixed and non-prefixed versions)
+   - Resolved SSL certificate issues by setting `rejectUnauthorized: false`
+   - URL-encoded password with special characters (#4HQZgasswo → %234HQZgasswo)
+
+2. **Database Table Mismatches**
+   - Fixed `hemp_products` → `uses_products` references in frontend
+   - Plant types cards now correctly fetch from Supabase
+   - Stats counter now shows actual data (products, industries, plant parts)
+
+3. **UI Fixes**
+   - Limited home page to show only first 3 plant type cards
+   - Changed background images from `cover` to `contain` to prevent stretching
+   - Fixed plant parts page to fetch from `plant_parts` table instead of plant types
+   - Added `useAllPlantParts()` hook for fetching all plant parts
+
+4. **Cleanup**
+   - Removed outdated schema files (supabase-schema.sql, supabase-schema-modified.sql)
+   - Main schema.sql in root is the correct one to use
+
+### Current Database Structure (IMPORTANT)
+The actual Supabase database uses these table names:
+- `hemp_plant_archetypes` (NOT plant_types)
+- `uses_products` (NOT hemp_products)
+- `industry_sub_categories` (NOT sub_industries)
+- `plant_parts` with `archetype_id` foreign key (NOT plant_type_id)
+
+### Known Issues to Fix Next
+1. **Table Name Inconsistencies**: Many files still reference old table names
+2. **Foreign Key Mismatches**: Code uses `plant_type_id` but schema has `archetype_id`
+3. **Missing Routes**: `/archetypes/[id]` should be `/plant-type/[id]`
+4. **No Product Data**: Database has structure but `uses_products` is empty
+5. **Search Not Implemented**: Search bar exists but doesn't function
+6. **Server DB Connection**: Still fails due to missing correct password
+
+### Environment Variables Required
+```
+VITE_SUPABASE_URL=https://ktoqznqmlnxrtvubewyz.supabase.co
+VITE_SUPABASE_ANON_KEY=[actual key from Supabase dashboard]
+DATABASE_URL=postgresql://postgres:[password]@db.ktoqznqmlnxrtvubewyz.supabase.co:5432/postgres
+```
+
 ## Common Development Commands
 
 ### Frontend Development (HempResourceHub)
