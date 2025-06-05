@@ -39,11 +39,6 @@ CREATE TABLE IF NOT EXISTS public.industry_sub_categories (
 );
 CREATE INDEX IF NOT EXISTS idx_industry_sub_categories_industry_id ON public.industry_sub_categories(industry_id);
 
--- TODO: Add keywords field and update search_vector for uses_products
--- PLANNED ADDITION for uses_products table:
--- keywords TEXT[],
--- PLANNED UPDATE for uses_products.search_vector:
--- search_vector TSVECTOR GENERATED ALWAYS AS (to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, '') || ' ' || coalesce(array_to_string(keywords, ' '), ''))) STORED,
 CREATE TABLE IF NOT EXISTS public.uses_products (
     id BIGSERIAL PRIMARY KEY,
     name TEXT NOT NULL,
@@ -57,7 +52,14 @@ CREATE TABLE IF NOT EXISTS public.uses_products (
     historical_context_facts TEXT[],
     technical_specifications JSONB,
     miscellaneous_info JSONB,
-    search_vector TSVECTOR GENERATED ALWAYS AS (to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, ''))) STORED,
+    keywords TEXT[],
+    search_vector TSVECTOR GENERATED ALWAYS AS (
+        to_tsvector('english',
+            coalesce(name, '') || ' ' ||
+            coalesce(description, '') || ' ' ||
+            coalesce(array_to_string(keywords, ' '), '')
+        )
+    ) STORED,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

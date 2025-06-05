@@ -97,7 +97,10 @@ export const usesProducts = pgTable("uses_products", {
   historicalContextFacts: text("historical_context_facts").array(),
   technicalSpecifications: jsonb("technical_specifications"),
   miscellaneousInfo: jsonb("miscellaneous_info"),
+  // keywords used for full-text search
   keywords: text("keywords").array(),
+  // stored tsvector column generated from name, description and keywords
+  searchVector: text("search_vector"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow().$onUpdate(() => new Date()),
 });
