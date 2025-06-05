@@ -9,11 +9,12 @@ const HomepageHero = () => {
     <div className="relative py-16 sm:py-24 overflow-hidden" style={{ minHeight: "600px" }}>
       {/* Background image with overlay */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center" 
+        className="absolute inset-0 z-0" 
         style={{ 
           backgroundImage: `url(${hempBrainImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       >
         <div className="absolute inset-0 bg-black/50"></div>

@@ -1,22 +1,13 @@
 import { Link } from "wouter";
 import { Helmet } from "react-helmet";
-import { usePlantTypes } from "@/hooks/use-plant-data";
+import { useAllPlantParts } from "@/hooks/use-plant-data";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Breadcrumb from "@/components/ui/breadcrumb";
-import { PlantType } from "@shared/schema";
-import { useState, useEffect } from "react";
 
 const PlantPartsPage = () => {
-  const { data: plantTypesData, isLoading } = usePlantTypes();
-  const [plantTypes, setPlantTypes] = useState<PlantType[]>([]);
-  
-  useEffect(() => {
-    if (plantTypesData) {
-      setPlantTypes(plantTypesData as PlantType[]);
-    }
-  }, [plantTypesData]);
+  const { data: plantParts, isLoading } = useAllPlantParts();
 
   return (
     <>
@@ -73,22 +64,22 @@ const PlantPartsPage = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {plantTypes.map((plantType: PlantType) => (
-                <div key={plantType.id} className="relative group">
+              {plantParts && plantParts.map((plantPart: any) => (
+                <div key={plantPart.id} className="relative group">
                   <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 ease-in-out group-hover:shadow-lg">
                     <img 
-                      src={plantType.imageUrl || 'https://via.placeholder.com/800x1000'} 
-                      alt={`${plantType.name} plant`} 
+                      src={plantPart.image_url || '/placeholder-hemp.jpg'} 
+                      alt={`${plantPart.name}`} 
                       className="h-full w-full object-cover transition-all duration-500 ease-in-out group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 p-6">
-                      <h3 className="text-xl font-heading font-semibold text-white text-outline-white">{plantType.name}</h3>
-                      <p className="mt-2 text-sm text-white/80 line-clamp-3">{plantType.description}</p>
+                      <h3 className="text-xl font-heading font-semibold text-white text-outline-white">{plantPart.name}</h3>
+                      <p className="mt-2 text-sm text-white/80 line-clamp-3">{plantPart.description}</p>
                     </div>
                   </div>
-                  <Link href={`/plant-type/${plantType.id}`}>
-                    <div className="absolute inset-0 z-10 block cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" aria-label={`View ${plantType.name} applications`}></div>
+                  <Link href={`/plant-part/${plantPart.id}`}>
+                    <div className="absolute inset-0 z-10 block cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" aria-label={`View ${plantPart.name} applications`}></div>
                   </Link>
                 </div>
               ))}

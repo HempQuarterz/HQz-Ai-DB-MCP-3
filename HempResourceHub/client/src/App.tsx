@@ -20,6 +20,7 @@ import ResearchDetailPage from "./pages/research-detail";
 import SupabaseTest from "./components/supabase-test";
 import SupabaseIndustries from "./components/supabase-industries";
 import SupabaseTestConnection from "./components/supabase-test-connection";
+import DebugSupabase from "./pages/debug-supabase";
 
 function Router() {
   return (
@@ -38,6 +39,7 @@ function Router() {
       <Route path="/supabase-test" component={SupabaseTest} />
       <Route path="/supabase-industries" component={SupabaseIndustries} />
       <Route path="/supabase-connection" component={SupabaseTestConnection} />
+      <Route path="/debug" component={DebugSupabase} />
       <Route component={NotFound} />
     </Switch>
   );

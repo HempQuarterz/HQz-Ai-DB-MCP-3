@@ -1,46 +1,54 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase-client"; // Supabase is the backend for this project
 
-// Function to fetch hemp plant archetypes from Supabase
-async function fetchHempPlantArchetypes() {
+// Function to fetch plant types from Supabase
+async function fetchPlantTypes() {
+  console.log('Fetching plant types from Supabase...');
+  
   const { data, error } = await supabase
-    .from('hemp_plant_archetypes')
+    .from('plant_types')
     .select('*');
 
+  console.log('Plant types response:', { data, error });
+
   if (error) {
-    console.error('Error fetching hemp plant archetypes:', error);
+    console.error('Error fetching plant types:', error);
     throw new Error(error.message);
   }
+  
   // Map snake_case fields to camelCase for frontend compatibility
-  return Array.isArray(data)
+  const result = Array.isArray(data)
     ? data.map((item) => ({
         id: item.id,
         name: item.name,
         description: item.description,
         imageUrl: item.image_url,
-        cultivationFocusNotes: item.cultivation_focus_notes,
+        plantingDensity: item.planting_density,
+        characteristics: item.characteristics,
         createdAt: item.created_at,
-        updatedAt: item.updated_at,
       }))
     : [];
+    
+  console.log('Mapped plant types:', result);
+  return result;
 }
 
-export function usePlantTypes() { // Consider renaming to useHempPlantArchetypes later
+export function usePlantTypes() {
   return useQuery({
-    queryKey: ['hemp_plant_archetypes'], // Updated queryKey
-    queryFn: fetchHempPlantArchetypes,    // Added queryFn
+    queryKey: ['plant_types'],
+    queryFn: fetchPlantTypes,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
 
 export function usePlantType(id: number | null) {
   return useQuery({
-    queryKey: ['hemp_plant_archetype', id],
+    queryKey: ['plant_type', id],
     enabled: !!id,
     queryFn: async () => {
       if (!id) return null;
       const { data, error } = await supabase
-        .from('hemp_plant_archetypes')
+        .from('plant_types')
         .select('*')
         .eq('id', id)
         .single();
@@ -66,6 +74,24 @@ export function usePlantParts(plantTypeId: number | null) {
         .eq('plant_type_id', plantTypeId);
       if (error) {
         console.error('Error fetching plant parts:', error);
+        throw new Error(error.message);
+      }
+      return data || [];
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+}
+
+export function useAllPlantParts() {
+  return useQuery({
+    queryKey: ['all_plant_parts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('plant_parts')
+        .select('*')
+        .order('name');
+      if (error) {
+        console.error('Error fetching all plant parts:', error);
         throw new Error(error.message);
       }
       return data || [];
@@ -117,15 +143,52 @@ export function useStats() {
   return useQuery({
     queryKey: ['stats'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('stats')
-        .select('*')
-        .single();
-      if (error) {
-        console.error('Error fetching stats:', error);
-        throw new Error(error.message);
+      console.log('Fetching stats...');
+      
+      // Count total products
+      const { count: totalProducts, error: productsError } = await supabase
+        .from('uses_products')
+        .select('*', { count: 'exact', head: true });
+      
+      console.log('Products count:', { totalProducts, productsError });
+      
+      if (productsError) {
+        console.error('Error counting products:', productsError);
+        throw new Error(productsError.message);
       }
-      return data || {};
+      
+      // Count industries
+      const { count: totalIndustries, error: industriesError } = await supabase
+        .from('industries')
+        .select('*', { count: 'exact', head: true });
+        
+      console.log('Industries count:', { totalIndustries, industriesError });
+        
+      if (industriesError) {
+        console.error('Error counting industries:', industriesError);
+        throw new Error(industriesError.message);
+      }
+      
+      // Count plant parts
+      const { count: totalPlantParts, error: partsError } = await supabase
+        .from('plant_parts')
+        .select('*', { count: 'exact', head: true });
+        
+      console.log('Plant parts count:', { totalPlantParts, partsError });
+        
+      if (partsError) {
+        console.error('Error counting plant parts:', partsError);
+        throw new Error(partsError.message);
+      }
+      
+      const stats = {
+        totalProducts: totalProducts || 0,
+        totalIndustries: totalIndustries || 0,
+        totalPlantParts: totalPlantParts || 0,
+      };
+      
+      console.log('Final stats:', stats);
+      return stats;
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
   });

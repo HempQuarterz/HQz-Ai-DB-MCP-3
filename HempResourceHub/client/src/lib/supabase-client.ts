@@ -1,11 +1,31 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Get the Supabase URL and anon key from environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+let supabaseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_ANON_KEY;
+
+// Ensure URL has https:// protocol
+if (supabaseUrl && !supabaseUrl.startsWith('http://') && !supabaseUrl.startsWith('https://')) {
+  supabaseUrl = `https://${supabaseUrl}`;
+}
+
+// Debug logging
+console.log('Supabase initialization:', {
+  url: supabaseUrl ? `${supabaseUrl.substring(0, 30)}...` : 'MISSING',
+  key: supabaseKey ? `${supabaseKey.substring(0, 30)}...` : 'MISSING',
+  envVars: import.meta.env
+});
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('Missing Supabase environment variables. Please check your .env file.');
+  console.error('Available env vars:', Object.keys(import.meta.env));
+  console.error('Make sure your .env file contains:');
+  console.error('VITE_SUPABASE_URL=https://your-project.supabase.co');
+  console.error('VITE_SUPABASE_ANON_KEY=your-anon-key');
+}
 
 // Create the Supabase client
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = createClient(supabaseUrl || '', supabaseKey || '');
 
 // Simple test function to check the connection
 export async function testSupabaseConnection() {

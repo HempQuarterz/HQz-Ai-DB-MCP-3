@@ -17,11 +17,12 @@ const PlantTypeCards = () => {
       {/* Hemp ecosystem background image */}
       <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
       <div
-        className="absolute inset-0 w-full h-full bg-center bg-no-repeat z-0 opacity-90 mix-blend-normal"
+        className="absolute inset-0 w-full h-full z-0 opacity-90 mix-blend-normal"
         style={{ 
           backgroundImage: `url(${hempEcosystemImage})`,
-          backgroundSize: 'cover',
+          backgroundSize: 'contain',
           backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
           filter: 'brightness(1.2) contrast(1.3) saturate(1.3)'
         }}
         aria-label="Hemp ecosystem background"
@@ -52,7 +53,7 @@ const PlantTypeCards = () => {
           </div>
         ) : (
           <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:max-w-5xl lg:mx-auto">
-            {plantTypes.map((plantType: PlantType) => (
+            {plantTypes.slice(0, 3).map((plantType: PlantType) => (
               <div key={plantType.id} className="relative group">
                 <div className="relative h-80 w-full overflow-hidden rounded-lg bg-transparent backdrop-blur-[2px] border-2 border-green-500/70 shadow-[0_0_20px_rgba(0,255,0,0.5)] transition-all duration-300 ease-in-out group-hover:shadow-[0_0_30px_rgba(0,255,0,0.7)] after:absolute after:inset-0 after:bg-black/30 after:group-hover:bg-black/20 after:transition-all after:z-[1]">
                   {plantType.id === 1 ? (
@@ -63,7 +64,7 @@ const PlantTypeCards = () => {
                     </div>
                   ) : (
                     <img 
-                      src={plantType.imageUrl || 'https://via.placeholder.com/800x1000'} 
+                      src={plantType.imageUrl || '/placeholder-hemp.jpg'} 
                       alt={`${plantType.name} plant`} 
                       className="h-full w-full object-cover opacity-70 transition-all duration-500 ease-in-out group-hover:scale-105 group-hover:opacity-85 mix-blend-overlay relative z-10"
                     />
@@ -78,7 +79,7 @@ const PlantTypeCards = () => {
                     <p className="mt-2 text-sm text-white/90">{plantType.description}</p>
                   </div>
                 </div>
-                <Link href={`/archetypes/${plantType.id}`}>
+                <Link href={`/plant-type/${plantType.id}`}>
                   <div className="absolute inset-0 z-10 block cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" aria-label={`View ${plantType.name} applications`}></div>
                 </Link>
               </div>

@@ -23,8 +23,7 @@ if (process.env.NODE_ENV !== 'test' && process.env.DATABASE_URL) {
   const connectionConfig = {
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      rejectUnauthorized: false,
-      ca: process.env.SSL_CERT
+      rejectUnauthorized: false
     }
   };
 
@@ -35,7 +34,9 @@ if (process.env.NODE_ENV !== 'test' && process.env.DATABASE_URL) {
     if (err) {
       console.error('Database connection error:', err);
       console.error('Error details:', err.message);
-      console.warn('Proceeding without a database connection.');
+      console.warn('WARNING: Server database connection failed. Running in client-only mode.');
+      console.warn('The frontend will connect directly to Supabase.');
+      // Don't throw error, just warn
     } else {
       console.log(`Successfully connected to database! Server time: ${res.rows[0].now}`);
     }
