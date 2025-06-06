@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import * as THREE from 'three';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import React, { useRef, useEffect } from "react";
+import * as THREE from "three";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 
 interface ModelViewerProps {
   objPath: string;
@@ -14,7 +14,7 @@ function Model({ objPath }: { objPath: string }) {
 
   useEffect(() => {
     const loader = new OBJLoader();
-    
+
     // Load the OBJ file
     loader.load(
       objPath,
@@ -23,7 +23,7 @@ function Model({ objPath }: { objPath: string }) {
         object.traverse((child) => {
           if (child instanceof THREE.Mesh) {
             child.material = new THREE.MeshStandardMaterial({
-              color: '#2EBD59', // Green color to match our theme
+              color: "#2EBD59", // Green color to match our theme
               roughness: 0.5,
               metalness: 0.2,
             });
@@ -46,12 +46,12 @@ function Model({ objPath }: { objPath: string }) {
       },
       (xhr) => {
         // Loading progress
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
       },
       (error) => {
         // Error handling
-        console.error('An error happened while loading the model:', error);
-      }
+        console.error("An error happened while loading the model:", error);
+      },
     );
 
     // Add lights to scene
@@ -75,15 +75,22 @@ function Model({ objPath }: { objPath: string }) {
     }
   });
 
-  return <group ref={meshRef as any} />;
+  return <group ref={meshRef as any} data-oid="3mcb0fm" />;
 }
 
-const HempModelViewer: React.FC<ModelViewerProps> = ({ objPath, className = '' }) => {
+const HempModelViewer: React.FC<ModelViewerProps> = ({
+  objPath,
+  className = "",
+}) => {
   return (
-    <div className={`w-full h-full ${className}`}>
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-        <Model objPath={objPath} />
-        <OrbitControls enableZoom={false} enablePan={false} />
+    <div className={`w-full h-full ${className}`} data-oid="0_pk82s">
+      <Canvas camera={{ position: [0, 0, 5], fov: 50 }} data-oid="oc8urc:">
+        <Model objPath={objPath} data-oid="weina4b" />
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          data-oid="nh3kcyo"
+        />
       </Canvas>
     </div>
   );

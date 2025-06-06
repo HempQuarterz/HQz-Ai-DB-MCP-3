@@ -24,39 +24,79 @@ import DebugSupabase from "./pages/debug-supabase";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={HomePage} />
-      <Route path="/about" component={AboutPage} />
-      <Route path="/plant-parts" component={PlantPartsPage} />
-      <Route path="/plant-types" component={PlantTypesListPage} />
-      <Route path="/plant-type/:id" component={PlantTypePage} />
-      <Route path="/plant-part/:id" component={PlantPartPage} />
-      <Route path="/products/:plantPartId/:industryId?" component={ProductListingPage} />
-      <Route path="/product/:id" component={ProductDetailPage} />
-      <Route path="/industries" component={IndustriesPage} />
-      <Route path="/research" component={ResearchPage} />
-      <Route path="/research/:paperId" component={ResearchDetailPage} />
-      <Route path="/supabase-test" component={SupabaseTest} />
-      <Route path="/supabase-industries" component={SupabaseIndustries} />
-      <Route path="/supabase-connection" component={SupabaseTestConnection} />
-      <Route path="/debug" component={DebugSupabase} />
-      <Route component={NotFound} />
+    <Switch data-oid=":c:eg63">
+      <Route path="/" component={HomePage} data-oid="_p5uugv" />
+      <Route path="/about" component={AboutPage} data-oid=".hzwc8t" />
+      <Route
+        path="/plant-parts"
+        component={PlantPartsPage}
+        data-oid="jejwnax"
+      />
+      <Route
+        path="/plant-types"
+        component={PlantTypesListPage}
+        data-oid="2ckj:iv"
+      />
+      <Route
+        path="/plant-type/:id"
+        component={PlantTypePage}
+        data-oid="iz.qqmd"
+      />
+      <Route
+        path="/plant-part/:id"
+        component={PlantPartPage}
+        data-oid="1r1iqvt"
+      />
+      <Route
+        path="/products/:plantPartId/:industryId?"
+        component={ProductListingPage}
+        data-oid="c6qut6f"
+      />
+      <Route
+        path="/product/:id"
+        component={ProductDetailPage}
+        data-oid="hxo9qvh"
+      />
+      <Route path="/industries" component={IndustriesPage} data-oid="uc:qclq" />
+      <Route path="/research" component={ResearchPage} data-oid="704d.pj" />
+      <Route
+        path="/research/:paperId"
+        component={ResearchDetailPage}
+        data-oid="mbrpa0:"
+      />
+      <Route
+        path="/supabase-test"
+        component={SupabaseTest}
+        data-oid="yz9m6ge"
+      />
+      <Route
+        path="/supabase-industries"
+        component={SupabaseIndustries}
+        data-oid="zc16m69"
+      />
+      <Route
+        path="/supabase-connection"
+        component={SupabaseTestConnection}
+        data-oid="h5a91h:"
+      />
+      <Route path="/debug" component={DebugSupabase} data-oid="1a1:ca9" />
+      <Route component={NotFound} data-oid="bhiel9m" />
     </Switch>
   );
 }
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow">
-            <Router />
+    <QueryClientProvider client={queryClient} data-oid="f_5wujg">
+      <TooltipProvider data-oid="54nvnx-">
+        <div className="flex flex-col min-h-screen" data-oid="lxa9ai_">
+          <Navbar data-oid="2qx9g79" />
+          <main className="flex-grow" data-oid="k2nyhcx">
+            <Router data-oid="w4s69wh" />
           </main>
-          <Footer />
+          <Footer data-oid="2.y61a_" />
         </div>
-        <Toaster />
+        <Toaster data-oid="82tqtb5" />
       </TooltipProvider>
     </QueryClientProvider>
   );
