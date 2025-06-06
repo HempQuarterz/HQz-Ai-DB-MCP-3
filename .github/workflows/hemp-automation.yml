@@ -1,0 +1,203 @@
+name: Hemp Product Automation
+
+on:
+  # Manual trigger with agent selection
+  workflow_dispatch:
+    inputs:
+      agent_type:
+        description: 'Hemp agent type to run'
+        required: true
+        type: choice
+        options:
+          - all
+          - seeds-food
+          - fiber-textiles
+          - oil-cosmetics
+          - flower-cbd
+          - hurds-construction
+          - leaves-medicine
+          - roots-biotech
+          - seeds-nutrition
+          - fiber-composites
+          - oil-biofuel
+          - flower-wellness
+          - hurds-hempcrete
+          - biomass-energy
+  
+  # Scheduled runs - optimized for free tier
+  schedule:
+    # Seeds-Food: Every 6 hours (0, 6, 12, 18)
+    - cron: '0 0,6,12,18 * * *'
+    
+    # Fiber-Textiles & Oil-Cosmetics: Every 12 hours (3, 15)
+    - cron: '0 3,15 * * *'
+    
+    # Flower-CBD & Hurds-Construction: Daily at 9 AM UTC
+    - cron: '0 9 * * *'
+    
+    # Other agents: Every 2 days at different times to spread load
+    - cron: '0 21 */2 * *'  # Leaves, Roots, Seeds-Nutrition
+    - cron: '0 2 */2 * *'   # Fiber-Composites, Oil-Biofuel
+    - cron: '0 14 */2 * *'  # Flower-Wellness, Hurds-Hempcrete, Biomass
+
+jobs:
+  determine-agents:
+    runs-on: ubuntu-latest
+    outputs:
+      agents: ${{ steps.set-agents.outputs.agents }}
+    steps:
+      - name: Determine which agents to run
+        id: set-agents
+        run: |
+          HOUR=$(date -u +%H)
+          DAY=$(date -u +%j)
+          
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            if [ "${{ github.event.inputs.agent_type }}" == "all" ]; then
+              echo 'agents=["seeds-food", "fiber-textiles", "oil-cosmetics", "flower-cbd", "hurds-construction", "leaves-medicine", "roots-biotech", "seeds-nutrition", "fiber-composites", "oil-biofuel", "flower-wellness", "hurds-hempcrete", "biomass-energy"]' >> $GITHUB_OUTPUT
+            else
+              echo 'agents=["${{ github.event.inputs.agent_type }}"]' >> $GITHUB_OUTPUT
+            fi
+          else
+            # Schedule-based agent selection
+            case $HOUR in
+              0|6|12|18)
+                echo 'agents=["seeds-food"]' >> $GITHUB_OUTPUT
+                ;;
+              3|15)
+                echo 'agents=["fiber-textiles", "oil-cosmetics"]' >> $GITHUB_OUTPUT
+                ;;
+              9)
+                echo 'agents=["flower-cbd", "hurds-construction"]' >> $GITHUB_OUTPUT
+                ;;
+              21)
+                if [ $((DAY % 2)) -eq 0 ]; then
+                  echo 'agents=["leaves-medicine", "roots-biotech", "seeds-nutrition"]' >> $GITHUB_OUTPUT
+                else
+                  echo 'agents=[]' >> $GITHUB_OUTPUT
+                fi
+                ;;
+              2)
+                if [ $((DAY % 2)) -eq 0 ]; then
+                  echo 'agents=["fiber-composites", "oil-biofuel"]' >> $GITHUB_OUTPUT
+                else
+                  echo 'agents=[]' >> $GITHUB_OUTPUT
+                fi
+                ;;
+              14)
+                if [ $((DAY % 2)) -eq 0 ]; then
+                  echo 'agents=["flower-wellness", "hurds-hempcrete", "biomass-energy"]' >> $GITHUB_OUTPUT
+                else
+                  echo 'agents=[]' >> $GITHUB_OUTPUT
+                fi
+                ;;
+              *)
+                echo 'agents=[]' >> $GITHUB_OUTPUT
+                ;;
+            esac
+          fi
+
+  run-hemp-automation:
+    needs: determine-agents
+    if: needs.determine-agents.outputs.agents != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30  # Prevent runaway jobs
+    strategy:
+      matrix:
+        agent: ${{ fromJson(needs.determine-agents.outputs.agents) }}
+      max-parallel: 2  # Limit concurrent runs to reduce API load
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run Hemp Agent - ${{ matrix.agent }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          echo "🌿 Starting Hemp Agent: ${{ matrix.agent }}"
+          echo "⏰ Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          
+          # Run the agent with specific type
+          python hemp_agent.py --type "${{ matrix.agent }}" --limit 5
+          
+          # Check exit code
+          if [ $? -eq 0 ]; then
+            echo "✅ Agent completed successfully"
+          else
+            echo "❌ Agent failed with exit code $?"
+            exit 1
+          fi
+      
+      - name: Generate run summary
+        if: always()
+        run: |
+          echo "## Hemp Agent Run Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Agent**: ${{ matrix.agent }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- **Run ID**: ${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Monitor agent results
+        if: success()
+        continue-on-error: true
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          echo "📊 Checking agent results..."
+          python monitor_hemp.py --agent "${{ matrix.agent }}" --recent 1
+
+  error-notification:
+    needs: run-hemp-automation
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create issue on failure
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const date = new Date().toISOString().split('T')[0];
+            const title = `Hemp Automation Failed - ${date}`;
+            
+            // Check if issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ['automation-failure']
+            });
+            
+            const existingIssue = issues.data.find(issue => issue.title === title);
+            
+            if (!existingIssue) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: `## Automation Failure Report\n\n- **Workflow Run**: [${context.runId}](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})\n- **Time**: ${new Date().toUTCString()}\n- **Event**: ${context.eventName}\n\nPlease check the workflow logs for details.`,
+                labels: ['automation-failure', 'hemp-automation']
+              });
+            }

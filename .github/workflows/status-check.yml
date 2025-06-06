@@ -1,0 +1,47 @@
+name: Hemp Status Check
+
+on:
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run twice daily for health checks
+  schedule:
+    - cron: '0 6,18 * * *'
+
+jobs:
+  status-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run status check
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          echo "🔍 Hemp Automation Status Check"
+          echo "==============================="
+          echo "Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo ""
+          
+          # Run the monitoring script
+          python monitor_hemp.py --recent 24
+          
+          # Check database connectivity
+          echo ""
+          echo "🔌 Database Connectivity:"
+          python verify_setup.py
