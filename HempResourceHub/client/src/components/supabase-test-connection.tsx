@@ -154,52 +154,54 @@ export default function SupabaseTestConnection() {
     switch (connectionStatus) {
       case "success":
         return (
-          <CheckCircle className="h-6 w-6 text-green-600" data-oid="cqz3.b1" />
+          <CheckCircle className="h-6 w-6 text-green-600" data-oid="2.r391f" />
         );
+
       case "error":
         return (
-          <AlertCircle className="h-6 w-6 text-red-600" data-oid="jscrkls" />
+          <AlertCircle className="h-6 w-6 text-red-600" data-oid="fnyq7::" />
         );
+
       case "loading":
         return (
           <div
             className="h-6 w-6 rounded-full border-2 border-blue-600 border-t-transparent animate-spin"
-            data-oid="v43nyoq"
+            data-oid="otmw9ol"
           />
         );
 
       default:
-        return <Info className="h-6 w-6 text-blue-600" data-oid="4vaxq78" />;
+        return <Info className="h-6 w-6 text-blue-600" data-oid="grl0sw." />;
     }
   };
 
   return (
-    <Card className="w-full max-w-lg mx-auto mt-6" data-oid="qxj4itl">
-      <CardHeader data-oid="gy4d_63">
-        <CardTitle className="flex items-center gap-2" data-oid="kt2:ef0">
-          <span data-oid="fel43tb">Supabase Connection Test</span>
+    <Card className="w-full max-w-lg mx-auto mt-6" data-oid="fl7ixcf">
+      <CardHeader data-oid="lcb8kf1">
+        <CardTitle className="flex items-center gap-2" data-oid="nw80zed">
+          <span data-oid="3g.a__q">Supabase Connection Test</span>
           {connectionStatus !== "idle" && getStatusIcon()}
         </CardTitle>
       </CardHeader>
-      <CardContent data-oid="0tuyxbs">
-        <div className="space-y-4" data-oid="vtpke73">
+      <CardContent data-oid="wdvl8qy">
+        <div className="space-y-4" data-oid="9uiy55x">
           <Alert
             variant={
               supabaseUrl && supabaseUrl !== "Not found"
                 ? "default"
                 : "destructive"
             }
-            data-oid=":dm3xit"
+            data-oid="7l9e.1x"
           >
-            <AlertTitle data-oid="77rcqlo">Configuration</AlertTitle>
-            <AlertDescription data-oid="mmms:lm">
-              <div className="mt-2 space-y-2 text-sm" data-oid="tf1ds3d">
-                <div data-oid="rq4eunr">
-                  <strong data-oid="m9h1wnr">Supabase URL:</strong>{" "}
+            <AlertTitle data-oid="xyzz_ce">Configuration</AlertTitle>
+            <AlertDescription data-oid="pxy4p8i">
+              <div className="mt-2 space-y-2 text-sm" data-oid="yhzs1oh">
+                <div data-oid="dp9-cg1">
+                  <strong data-oid="3veagi0">Supabase URL:</strong>{" "}
                   {supabaseUrl}
                 </div>
-                <div data-oid="l1guz.j">
-                  <strong data-oid="8w6wlgt">Supabase Key:</strong>{" "}
+                <div data-oid="-w_x-g8">
+                  <strong data-oid="8jm5.q3">Supabase Key:</strong>{" "}
                   {supabaseKey}
                 </div>
               </div>
@@ -214,15 +216,15 @@ export default function SupabaseTestConnection() {
                   ? "destructive"
                   : "default"
             }
-            data-oid="90xjxq7"
+            data-oid="rn:o8z3"
           >
-            <AlertTitle data-oid="er3cab3">Connection Status</AlertTitle>
-            <AlertDescription className="mt-2" data-oid="b_q_wqq">
+            <AlertTitle data-oid="luuejoi">Connection Status</AlertTitle>
+            <AlertDescription className="mt-2" data-oid="oh3o_:d">
               {message}
               {errorDetails && (
                 <div
                   className="mt-2 p-2 bg-gray-100 rounded text-xs font-mono whitespace-pre-wrap max-h-48 overflow-y-auto"
-                  data-oid="fq3w-my"
+                  data-oid="6o76lk3"
                 >
                   {errorDetails}
                 </div>
@@ -232,13 +234,13 @@ export default function SupabaseTestConnection() {
 
           <div
             className="flex flex-col gap-2 sm:flex-row sm:gap-4"
-            data-oid="gyx:6dn"
+            data-oid="nzk743d"
           >
             <Button
               onClick={handleTestConnection}
               disabled={connectionStatus === "loading"}
               className="flex-1"
-              data-oid="yi-k43z"
+              data-oid="z:z6_c0"
             >
               Test Supabase API
             </Button>
@@ -248,22 +250,22 @@ export default function SupabaseTestConnection() {
               disabled={connectionStatus === "loading"}
               variant="outline"
               className="flex-1"
-              data-oid="aiybb4k"
+              data-oid="-_6s-o0"
             >
               Test Connectivity
             </Button>
           </div>
 
-          <div className="text-sm text-gray-500 mt-4" data-oid="5z.r7-g">
-            <p data-oid="l13qzof">
+          <div className="text-sm text-gray-500 mt-4" data-oid=".qagpqy">
+            <p data-oid="3t2w0l4">
               If you're seeing connection errors, here are some possible
               reasons:
             </p>
-            <ul className="list-disc pl-5 mt-2 space-y-1" data-oid="nb6ydlx">
-              <li data-oid="2b2oo_7">Supabase URL or key might be incorrect</li>
-              <li data-oid="l0xlmvg">CORS policies might be blocking access</li>
-              <li data-oid="oo5sg4m">Network connectivity issues</li>
-              <li data-oid="6leaqe8">
+            <ul className="list-disc pl-5 mt-2 space-y-1" data-oid="qf.cxhh">
+              <li data-oid="kiza6zw">Supabase URL or key might be incorrect</li>
+              <li data-oid="2i49dh-">CORS policies might be blocking access</li>
+              <li data-oid="8dq2-6y">Network connectivity issues</li>
+              <li data-oid="1af-459">
                 The tables may not exist in your Supabase project
               </li>
             </ul>

@@ -40,18 +40,18 @@ const UseProductCard: React.FC<UseProductCardProps> = ({
   industryIcon,
 }) => {
   return (
-    <Link href={href} data-oid="ha9-sgv">
+    <Link href={href} data-oid="b62z2is">
       {" "}
       {/* Adjusted for Wouter - passHref and legacyBehavior usually not needed for simple <a> child */}
-      <a className="block h-full" data-oid="kah3ybr">
+      <a className="block h-full" data-oid="lphdr9u">
         <Card
           className="h-full flex flex-col hover:shadow-lg transition-shadow duration-200 overflow-hidden"
-          data-oid="dw0z7e1"
+          data-oid=".n0dl.:"
         >
           {imageUrl && (
             <div
               className="relative w-full aspect-[16/9] overflow-hidden"
-              data-oid="32-p74."
+              data-oid="e_njk_z"
             >
               {/* Using standard img tag as next/image is not available */}
               <img
@@ -59,67 +59,67 @@ const UseProductCard: React.FC<UseProductCardProps> = ({
                 alt={name || "Product image"}
                 className="w-full h-full object-cover" // Ensure image covers the area
                 loading="lazy" // Basic lazy loading
-                data-oid="fowvexb"
+                data-oid="3x8ahq_"
               />
             </div>
           )}
 
-          <CardHeader className="p-4" data-oid="f.0w1ki">
+          <CardHeader className="p-4" data-oid="mdtcyzt">
             {industryName && (
               <div
                 className="flex items-center text-xs text-muted-foreground mb-1"
-                data-oid="ejazpp-"
+                data-oid="ne4ykg:"
               >
                 {industryIcon && (
-                  <span className="mr-1.5" data-oid="7de3orv">
+                  <span className="mr-1.5" data-oid="2:e5axz">
                     {industryIcon}
                   </span>
                 )}
-                <span data-oid=".s072:k">{industryName}</span>
+                <span data-oid="6u:qfrg">{industryName}</span>
                 {subIndustryName && (
-                  <span className="mx-1" data-oid="r16i.op">
+                  <span className="mx-1" data-oid="f91t-tq">
                     /
                   </span>
                 )}
                 {subIndustryName && (
-                  <span data-oid="6adjxsi">{subIndustryName}</span>
+                  <span data-oid="im8utfp">{subIndustryName}</span>
                 )}
               </div>
             )}
             <CardTitle
               className="text-lg font-semibold line-clamp-2"
-              data-oid="ropzacm"
+              data-oid="r0:xqbn"
             >
               {name}
             </CardTitle>
           </CardHeader>
 
-          <CardContent className="p-4 flex-grow" data-oid="5nbmx0q">
+          <CardContent className="p-4 flex-grow" data-oid="_a1nve.">
             {descriptionSnippet && (
               <CardDescription
                 className="text-sm line-clamp-3 mb-3"
-                data-oid=":eoj6iz"
+                data-oid="lprc2u:"
               >
                 {descriptionSnippet}
               </CardDescription>
             )}
 
             {plantPartName && (
-              <div className="mb-3" data-oid="ujrspq0">
-                <Badge variant="outline" className="text-xs" data-oid="sk5xjy9">
+              <div className="mb-3" data-oid="-1b1v90">
+                <Badge variant="outline" className="text-xs" data-oid="02kby90">
                   Plant Part: {plantPartName}
                 </Badge>
               </div>
             )}
 
             {tags && tags.length > 0 && (
-              <div className="mb-3 flex flex-wrap gap-1" data-oid="m..suf6">
+              <div className="mb-3 flex flex-wrap gap-1" data-oid="bqv:23p">
                 {tags.slice(0, 3).map((tag) => (
                   <Badge
                     key={tag}
                     variant="secondary"
                     className="text-xs"
-                    data-oid="a2h96bj"
+                    data-oid="yp9w28v"
                   >
                     {tag}
                   </Badge>
@@ -130,19 +130,19 @@ const UseProductCard: React.FC<UseProductCardProps> = ({
 
           <CardFooter
             className="p-4 flex justify-between items-center"
-            data-oid="hdfqm7h"
+            data-oid="i6b-ek4"
           >
             {commercializationStage && (
-              <Badge variant="default" className="text-xs" data-oid="5u1i5.e">
+              <Badge variant="default" className="text-xs" data-oid="vs_um-_">
                 {commercializationStage}
               </Badge>
             )}
             <div
               className="text-primary hover:text-primary/80 font-medium text-sm flex items-center"
-              data-oid="x:u7ffy"
+              data-oid="ugqlj_8"
             >
               View Details
-              <ArrowRight className="h-4 w-4 ml-1" data-oid="jm2kcu1" />
+              <ArrowRight className="h-4 w-4 ml-1" data-oid="7j:041." />
             </div>
           </CardFooter>
         </Card>

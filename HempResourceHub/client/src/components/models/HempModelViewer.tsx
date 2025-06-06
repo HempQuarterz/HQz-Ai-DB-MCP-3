@@ -75,7 +75,7 @@ function Model({ objPath }: { objPath: string }) {
     }
   });
 
-  return <group ref={meshRef as any} data-oid="3mcb0fm" />;
+  return <group ref={meshRef as any} data-oid="sb:5wbv" />;
 }
 
 const HempModelViewer: React.FC<ModelViewerProps> = ({
@@ -83,13 +83,13 @@ const HempModelViewer: React.FC<ModelViewerProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`w-full h-full ${className}`} data-oid="0_pk82s">
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }} data-oid="oc8urc:">
-        <Model objPath={objPath} data-oid="weina4b" />
+    <div className={`w-full h-full ${className}`} data-oid="a5a5nn8">
+      <Canvas camera={{ position: [0, 0, 5], fov: 50 }} data-oid="b3wkv72">
+        <Model objPath={objPath} data-oid="7qrzqbm" />
         <OrbitControls
           enableZoom={false}
           enablePan={false}
-          data-oid="nh3kcyo"
+          data-oid="fc:qby-"
         />
       </Canvas>
     </div>

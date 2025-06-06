@@ -64,16 +64,16 @@ export default function ResearchDetailPage() {
     isLoadingIndustries;
 
   return (
-    <div className="research-detail-page" data-oid="tgahz19">
-      <Helmet data-oid="-i6-uew">
-        <title data-oid="uge9-3e">{pageTitle}</title>
-        <meta name="description" content={pageDescription} data-oid="ue8_7u8" />
+    <div className="research-detail-page">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
       </Helmet>
 
-      <div className="container mx-auto px-4 py-8" data-oid="436ppin">
-        <div className="max-w-5xl mx-auto" data-oid="t55fquy">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-5xl mx-auto">
           {/* Breadcrumb */}
-          <div className="mb-6" data-oid="6uk2zzk">
+          <div className="mb-6">
             {createBreadcrumb([
               { href: "/", label: "Home" },
               { href: "/research", label: "Research" },
@@ -90,14 +90,13 @@ export default function ResearchDetailPage() {
           </div>
 
           {/* Back button */}
-          <div className="mb-6" data-oid="jzrhao6">
-            <Link href="/research" data-oid="-i:.uxv">
+          <div className="mb-6">
+            <Link href="/research">
               <Button
                 variant="outline"
                 className="text-green-400 border-green-700 hover:bg-green-900/30 hover:text-green-300"
-                data-oid="nm9csc4"
               >
-                <ArrowLeft size={16} className="mr-1" data-oid="_i_dysw" />
+                <ArrowLeft size={16} className="mr-1" />
                 Back to Research
               </Button>
             </Link>
@@ -112,14 +111,9 @@ export default function ResearchDetailPage() {
               plantPart={plantPart || null}
               industry={industry || null}
               relatedPapers={filteredRelatedPapers || []}
-              data-oid="htczdhb"
             />
           ) : (
-            <ResearchPaperDetail
-              paper={{} as any}
-              isLoading={true}
-              data-oid="aj:hfmy"
-            />
+            <ResearchPaperDetail paper={{} as any} isLoading={true} />
           )}
         </div>
       </div>

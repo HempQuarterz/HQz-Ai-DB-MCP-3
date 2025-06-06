@@ -97,122 +97,122 @@ export default function AddPlantTypeForm() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto mt-6" data-oid="c4kfj.3">
-      <CardHeader data-oid="mcvmduq">
-        <CardTitle data-oid="6g9a2gm">Add New Plant Type</CardTitle>
-        <CardDescription data-oid="e:jwk97">
+    <Card className="w-full max-w-2xl mx-auto mt-6" data-oid="sv7_fsm">
+      <CardHeader data-oid="1lcnyvj">
+        <CardTitle data-oid="39.jmvu">Add New Plant Type</CardTitle>
+        <CardDescription data-oid="cghhpgw">
           Create a new hemp plant type in the database
         </CardDescription>
       </CardHeader>
-      <CardContent data-oid="c66ryhr">
-        <Form {...form} data-oid="yczm_y1">
+      <CardContent data-oid="mhj0xom">
+        <Form {...form} data-oid="d0gl12g">
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-6"
-            data-oid="-0q:1dv"
+            data-oid="igokf.i"
           >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem data-oid=".rg1icu">
-                  <FormLabel data-oid="vd:zj74">Name</FormLabel>
-                  <FormControl data-oid="tic0dti">
+                <FormItem data-oid="emup5ch">
+                  <FormLabel data-oid="1vya52b">Name</FormLabel>
+                  <FormControl data-oid="rptaq-9">
                     <Input
                       placeholder="Enter plant type name"
                       {...field}
-                      data-oid=".klkp3j"
+                      data-oid="a684-nt"
                     />
                   </FormControl>
-                  <FormDescription data-oid="fu93l-t">
+                  <FormDescription data-oid="389-qlx">
                     The name of the hemp plant type (e.g., "Fiber Hemp")
                   </FormDescription>
-                  <FormMessage data-oid="aipwx4f" />
+                  <FormMessage data-oid="6ng-rr8" />
                 </FormItem>
               )}
-              data-oid="ga134xo"
+              data-oid="2-7hb:t"
             />
 
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
-                <FormItem data-oid="vjfrzf9">
-                  <FormLabel data-oid="6o_fg5i">Description</FormLabel>
-                  <FormControl data-oid="yh185c:">
+                <FormItem data-oid="1kmoi2e">
+                  <FormLabel data-oid="y8pcne2">Description</FormLabel>
+                  <FormControl data-oid="cbr:oa2">
                     <Textarea
                       placeholder="Enter a detailed description of this plant type"
                       className="min-h-32"
                       {...field}
                       value={field.value || ""}
-                      data-oid="ozsk3hk"
+                      data-oid="pkixf_p"
                     />
                   </FormControl>
-                  <FormMessage data-oid="h1n12oz" />
+                  <FormMessage data-oid="3g2nh:f" />
                 </FormItem>
               )}
-              data-oid=".j.p_9k"
+              data-oid="nlxwgk9"
             />
 
             <FormField
               control={form.control}
               name="imageUrl"
               render={({ field }) => (
-                <FormItem data-oid="tdg684k">
-                  <FormLabel data-oid="ak5asug">Image URL</FormLabel>
-                  <FormControl data-oid="q5t.1op">
+                <FormItem data-oid="jq8:s.4">
+                  <FormLabel data-oid="43xg2vf">Image URL</FormLabel>
+                  <FormControl data-oid="8jh493s">
                     <Input
                       placeholder="Enter image URL (optional)"
                       {...field}
-                      data-oid="caljj7s"
+                      data-oid="hn_mtiy"
                     />
                   </FormControl>
-                  <FormMessage data-oid="dsj4500" />
+                  <FormMessage data-oid="q0ftagk" />
                 </FormItem>
               )}
-              data-oid="hkn2y8k"
+              data-oid="9_y4os8"
             />
 
             <FormField
               control={form.control}
               name="plantingDensity"
               render={({ field }) => (
-                <FormItem data-oid="4vd0:ql">
-                  <FormLabel data-oid="_s7.nqw">Planting Density</FormLabel>
-                  <FormControl data-oid="bfvl0j0">
+                <FormItem data-oid="_764u_4">
+                  <FormLabel data-oid="f9lsigi">Planting Density</FormLabel>
+                  <FormControl data-oid="55qh-b3">
                     <Input
                       placeholder="Enter planting density (optional)"
                       {...field}
-                      data-oid="-x.q65d"
+                      data-oid="hypzq21"
                     />
                   </FormControl>
-                  <FormMessage data-oid=":e0bbf8" />
+                  <FormMessage data-oid=".sxg6mt" />
                 </FormItem>
               )}
-              data-oid="yg3tyux"
+              data-oid="rbtp6zs"
             />
 
             <FormField
               control={form.control}
               name="characteristics"
               render={({ field }) => (
-                <FormItem data-oid="5wh7nh_">
-                  <FormLabel data-oid="1rp_i6-">Characteristics</FormLabel>
-                  <FormControl data-oid="j7wzvjk">
+                <FormItem data-oid="nepqz1v">
+                  <FormLabel data-oid="642o6nm">Characteristics</FormLabel>
+                  <FormControl data-oid="ri-4072">
                     <Textarea
                       placeholder="Enter characteristics (optional)"
                       className="min-h-24"
                       {...field}
-                      data-oid="d6s_irj"
+                      data-oid="v04y..d"
                     />
                   </FormControl>
-                  <FormMessage data-oid="4n.j3f9" />
+                  <FormMessage data-oid=":e57-hk" />
                 </FormItem>
               )}
-              data-oid="y7sgnxm"
+              data-oid="ce7469u"
             />
 
-            <Button type="submit" disabled={isSubmitting} data-oid="kzu15.k">
+            <Button type="submit" disabled={isSubmitting} data-oid="i:pt.2d">
               {isSubmitting ? "Adding..." : "Add Plant Type"}
             </Button>
           </form>

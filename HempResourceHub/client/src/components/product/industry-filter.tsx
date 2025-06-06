@@ -13,12 +13,12 @@ const IndustryFilter = ({
   onSelectIndustry,
 }: IndustryFilterProps) => {
   return (
-    <div className="mb-8" data-oid="_iulj3-">
-      <div className="border-b border-neutral-light" data-oid="uiomuw6">
+    <div className="mb-8" data-oid=":.dh0uw">
+      <div className="border-b border-neutral-light" data-oid="o87d0ba">
         <nav
           className="-mb-px flex space-x-8 overflow-x-auto"
           aria-label="Tabs"
-          data-oid="mxhj8et"
+          data-oid="qfbkwc1"
         >
           <Button
             variant="link"
@@ -28,7 +28,7 @@ const IndustryFilter = ({
                 : "border-transparent text-neutral-medium hover:text-primary hover:border-primary"
             }`}
             onClick={() => onSelectIndustry(null)}
-            data-oid="nwfpv94"
+            data-oid="bqrx5v1"
           >
             All Industries
           </Button>
@@ -43,7 +43,7 @@ const IndustryFilter = ({
                   : "border-transparent text-neutral-medium hover:text-primary hover:border-primary"
               }`}
               onClick={() => onSelectIndustry(industry.id)}
-              data-oid="9-0708b"
+              data-oid="4_wv4im"
             >
               {industry.name}
             </Button>

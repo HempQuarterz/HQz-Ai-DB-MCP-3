@@ -124,88 +124,88 @@ export default function AddPlantPartForm() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto mt-6" data-oid="awulb3y">
-      <CardHeader data-oid="r_hobbo">
-        <CardTitle data-oid="sqllvz5">Add New Plant Part</CardTitle>
-        <CardDescription data-oid="uii0p46">
+    <Card className="w-full max-w-2xl mx-auto mt-6" data-oid="jqb4-jo">
+      <CardHeader data-oid="_8u5li:">
+        <CardTitle data-oid="cxomvvs">Add New Plant Part</CardTitle>
+        <CardDescription data-oid="g56oili">
           Create a new hemp plant part in the database
         </CardDescription>
       </CardHeader>
-      <CardContent data-oid="0pp2.d:">
-        <Form {...form} data-oid="4r_rgaf">
+      <CardContent data-oid="bb32dz7">
+        <Form {...form} data-oid="a4a_wjj">
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-6"
-            data-oid="f0nbka0"
+            data-oid="_c5jh2r"
           >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem data-oid="ol24buu">
-                  <FormLabel data-oid="gx9_vyf">Name</FormLabel>
-                  <FormControl data-oid="p.v5xzs">
+                <FormItem data-oid="noqedm9">
+                  <FormLabel data-oid="2sm..9c">Name</FormLabel>
+                  <FormControl data-oid="74tlrs9">
                     <Input
                       placeholder="Enter plant part name"
                       {...field}
-                      data-oid="t8k2byw"
+                      data-oid="8mbxq6o"
                     />
                   </FormControl>
-                  <FormDescription data-oid="rivbv:4">
+                  <FormDescription data-oid="4usagjs">
                     The name of the hemp plant part (e.g., "Seeds", "Stalk",
                     "Flower")
                   </FormDescription>
-                  <FormMessage data-oid="tsrj8nk" />
+                  <FormMessage data-oid="-rspa6i" />
                 </FormItem>
               )}
-              data-oid="u5m.k6p"
+              data-oid="uhqvfox"
             />
 
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
-                <FormItem data-oid="wc3zno9">
-                  <FormLabel data-oid="-k_22vo">Description</FormLabel>
-                  <FormControl data-oid="oz7grf7">
+                <FormItem data-oid="x500v9y">
+                  <FormLabel data-oid="kiyjml6">Description</FormLabel>
+                  <FormControl data-oid="nykt1xo">
                     <Textarea
                       placeholder="Enter a detailed description of this plant part"
                       className="min-h-32"
                       {...field}
                       value={field.value || ""}
-                      data-oid=".:_kcq1"
+                      data-oid="48h11pb"
                     />
                   </FormControl>
-                  <FormMessage data-oid="i7t0-qa" />
+                  <FormMessage data-oid="2xcw-qr" />
                 </FormItem>
               )}
-              data-oid="7on1csr"
+              data-oid="a-30469"
             />
 
             <FormField
               control={form.control}
               name="plantTypeId"
               render={({ field }) => (
-                <FormItem data-oid="7q8-vhw">
-                  <FormLabel data-oid="m_1-0m_">Plant Type</FormLabel>
-                  <FormControl data-oid="d8fue_c">
+                <FormItem data-oid="4gx8tc4">
+                  <FormLabel data-oid="qjjfn:g">Plant Type</FormLabel>
+                  <FormControl data-oid="5nrqiwd">
                     <Select
                       onValueChange={(value) => field.onChange(parseInt(value))}
                       defaultValue={field.value.toString()}
-                      data-oid="38:0l8c"
+                      data-oid="6zqk54_"
                     >
-                      <SelectTrigger data-oid="byc5jsx">
+                      <SelectTrigger data-oid="j38vtqu">
                         <SelectValue
                           placeholder="Select a plant type"
-                          data-oid="w6pq2.j"
+                          data-oid="t-7:ivk"
                         />
                       </SelectTrigger>
-                      <SelectContent data-oid="v7lo3gh">
+                      <SelectContent data-oid="5hpkrhn">
                         {plantTypes.map((type) => (
                           <SelectItem
                             key={type.id}
                             value={type.id.toString()}
-                            data-oid="zvjdwl4"
+                            data-oid="p1f15nm"
                           >
                             {type.name}
                           </SelectItem>
@@ -213,35 +213,35 @@ export default function AddPlantPartForm() {
                       </SelectContent>
                     </Select>
                   </FormControl>
-                  <FormDescription data-oid="9sehm3:">
+                  <FormDescription data-oid="ovuj0zg">
                     The type of hemp plant this part belongs to
                   </FormDescription>
-                  <FormMessage data-oid="xc38g9c" />
+                  <FormMessage data-oid="0dg3pno" />
                 </FormItem>
               )}
-              data-oid="z_vve84"
+              data-oid="6r5nt7b"
             />
 
             <FormField
               control={form.control}
               name="imageUrl"
               render={({ field }) => (
-                <FormItem data-oid="6nq5033">
-                  <FormLabel data-oid="l20th3:">Image URL</FormLabel>
-                  <FormControl data-oid="s5:l3_r">
+                <FormItem data-oid=".wsjgfx">
+                  <FormLabel data-oid="uktrra4">Image URL</FormLabel>
+                  <FormControl data-oid="l7yg-oa">
                     <Input
                       placeholder="Enter image URL (optional)"
                       {...field}
-                      data-oid="tgi1ewa"
+                      data-oid="8ynh3k1"
                     />
                   </FormControl>
-                  <FormMessage data-oid="dk0khc6" />
+                  <FormMessage data-oid="jbb2b90" />
                 </FormItem>
               )}
-              data-oid="a7h4cfh"
+              data-oid="0cdnir4"
             />
 
-            <Button type="submit" disabled={isSubmitting} data-oid="7cv-m9h">
+            <Button type="submit" disabled={isSubmitting} data-oid="rd.7zja">
               {isSubmitting ? "Adding..." : "Add Plant Part"}
             </Button>
           </form>

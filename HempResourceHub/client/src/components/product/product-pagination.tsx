@@ -62,14 +62,14 @@ const ProductPagination = ({
   const pageNumbers = getPageNumbers();
 
   return (
-    <div className="mt-8 flex items-center justify-between" data-oid="4g_6gun">
-      <div className="flex-1 flex justify-between sm:hidden" data-oid="83qu421">
+    <div className="mt-8 flex items-center justify-between" data-oid="ijy90oi">
+      <div className="flex-1 flex justify-between sm:hidden" data-oid=":73fquq">
         <Button
           variant="outline"
           size="sm"
           disabled={currentPage === 1}
           onClick={() => onPageChange(currentPage - 1)}
-          data-oid="8.:.b13"
+          data-oid="8bi:for"
         >
           Previous
         </Button>
@@ -78,7 +78,7 @@ const ProductPagination = ({
           size="sm"
           disabled={currentPage === totalPages}
           onClick={() => onPageChange(currentPage + 1)}
-          data-oid="l9r9sho"
+          data-oid=".y-03qw"
         >
           Next
         </Button>
@@ -86,31 +86,31 @@ const ProductPagination = ({
 
       <div
         className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
-        data-oid="-gxgi:t"
+        data-oid="qg5643."
       >
-        <div data-oid="yymer6w">
-          <p className="text-sm text-neutral-dark" data-oid="i.89_pf">
+        <div data-oid="wpr6p58">
+          <p className="text-sm text-neutral-dark" data-oid="oyte9hv">
             Showing{" "}
-            <span className="font-medium" data-oid=".nsehn3">
+            <span className="font-medium" data-oid="8-daaqo">
               {startItem}
             </span>{" "}
             to{" "}
-            <span className="font-medium" data-oid="u8kkp8y">
+            <span className="font-medium" data-oid="sk2wc:s">
               {endItem}
             </span>{" "}
             of{" "}
-            <span className="font-medium" data-oid=":co3qwu">
+            <span className="font-medium" data-oid="yd:16.s">
               {totalItems}
             </span>{" "}
             results
           </p>
         </div>
 
-        <div data-oid="hxpyk.b">
+        <div data-oid="p-u4xj9">
           <nav
             className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
             aria-label="Pagination"
-            data-oid="cn-a35:"
+            data-oid="mqi.nan"
           >
             <Button
               variant="outline"
@@ -118,12 +118,12 @@ const ProductPagination = ({
               className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-neutral-light bg-white text-sm font-medium text-neutral-dark hover:bg-neutral-lightest"
               disabled={currentPage === 1}
               onClick={() => onPageChange(currentPage - 1)}
-              data-oid="9-r-5j0"
+              data-oid="2lhojhp"
             >
-              <span className="sr-only" data-oid="m4fc0x0">
+              <span className="sr-only" data-oid="915pooh">
                 Previous
               </span>
-              <ChevronLeft className="h-5 w-5" data-oid=".8r8co_" />
+              <ChevronLeft className="h-5 w-5" data-oid="xriyltm" />
             </Button>
 
             {pageNumbers.map((page, index) => {
@@ -132,7 +132,7 @@ const ProductPagination = ({
                   <span
                     key={`ellipsis-${index}`}
                     className="relative inline-flex items-center px-4 py-2 border border-neutral-light bg-white text-sm font-medium text-neutral-dark"
-                    data-oid="fdn8jej"
+                    data-oid="g4u6ugw"
                   >
                     ...
                   </span>
@@ -149,7 +149,7 @@ const ProductPagination = ({
                       : "bg-white border-neutral-light text-neutral-dark hover:bg-neutral-lightest"
                   }`}
                   onClick={() => onPageChange(page as number)}
-                  data-oid="ld.0l6z"
+                  data-oid="yy0-a.7"
                 >
                   {page}
                 </Button>
@@ -162,12 +162,12 @@ const ProductPagination = ({
               className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-neutral-light bg-white text-sm font-medium text-neutral-dark hover:bg-neutral-lightest"
               disabled={currentPage === totalPages}
               onClick={() => onPageChange(currentPage + 1)}
-              data-oid=":a7t6_j"
+              data-oid="703z7:3"
             >
-              <span className="sr-only" data-oid="w6a-ckn">
+              <span className="sr-only" data-oid="mxbhpf.">
                 Next
               </span>
-              <ChevronRight className="h-5 w-5" data-oid="gp0lnd3" />
+              <ChevronRight className="h-5 w-5" data-oid="pv7jk0p" />
             </Button>
           </nav>
         </div>

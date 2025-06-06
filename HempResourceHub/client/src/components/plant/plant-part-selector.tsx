@@ -25,22 +25,22 @@ const PlantPartSelector = ({
   const getIconForPart = (partName: string) => {
     const name = partName.toLowerCase();
     if (name.includes("stalk"))
-      return <Shirt className="h-6 w-6 text-primary" data-oid="8w9kl4d" />;
+      return <Shirt className="h-6 w-6 text-primary" data-oid="qfq:gj8" />;
     if (name.includes("leaf") || name.includes("leaves"))
-      return <Leaf className="h-6 w-6 text-primary" data-oid="tv_04jx" />;
+      return <Leaf className="h-6 w-6 text-primary" data-oid="qfter75" />;
     if (name.includes("seed"))
-      return <FileText className="h-6 w-6 text-primary" data-oid="sc2268a" />;
+      return <FileText className="h-6 w-6 text-primary" data-oid="1rn-gmi" />;
     if (name.includes("flower"))
-      return <Flower className="h-6 w-6 text-primary" data-oid="46n6w8r" />;
+      return <Flower className="h-6 w-6 text-primary" data-oid="6j-sxre" />;
     if (name.includes("root"))
-      return <Trees className="h-6 w-6 text-primary" data-oid="rq-v6x5" />;
-    return <FlaskConical className="h-6 w-6 text-primary" data-oid="r02l1o-" />;
+      return <Trees className="h-6 w-6 text-primary" data-oid="dpihad0" />;
+    return <FlaskConical className="h-6 w-6 text-primary" data-oid="58zo7o4" />;
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-oid="i6e2_d1">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-oid="cuq_u3l">
       {plantParts.map((part) => (
-        <Link key={part.id} href={`/plant-part/${part.id}`} data-oid="x6bkb02">
+        <Link key={part.id} href={`/plant-part/${part.id}`} data-oid="gexpb6f">
           <div
             id={part.name.toLowerCase()}
             className={`flex items-center p-4 bg-white rounded-lg border ${
@@ -54,19 +54,19 @@ const PlantPartSelector = ({
               onSelectPart(part.id);
               // Then navigate programmatically if needed
             }}
-            data-oid="1dgztd7"
+            data-oid="ujf69x1"
           >
             <div
               className="bg-primary/10 rounded-full p-3 mr-4"
-              data-oid="vudpfxr"
+              data-oid="rmypw3z"
             >
               {getIconForPart(part.name)}
             </div>
-            <div data-oid="i857-id">
-              <h4 className="font-heading font-medium" data-oid="s9tsg3r">
+            <div data-oid="oqdtcuc">
+              <h4 className="font-heading font-medium" data-oid="s9a.jow">
                 {part.name}
               </h4>
-              <p className="text-sm text-neutral-dark" data-oid="ax7d9-r">
+              <p className="text-sm text-neutral-dark" data-oid="ljf:j5m">
                 {part.description.length > 30
                   ? part.description.substring(0, 30) + "..."
                   : part.description}

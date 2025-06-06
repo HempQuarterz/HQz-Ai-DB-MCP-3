@@ -31,29 +31,17 @@ const ProductDetailPage = () => {
 
   if (!match) {
     return (
-      <div className="py-12 bg-neutral-lightest" data-oid="e-um7ck">
-        <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          data-oid="w9ca872"
-        >
-          <div
-            className="bg-white rounded-xl shadow-md p-8 text-center"
-            data-oid="9br-tpc"
-          >
-            <h1
-              className="text-2xl font-heading font-bold text-neutral-darkest mb-4"
-              data-oid="8tkcsvd"
-            >
+      <div className="py-12 bg-neutral-lightest">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-xl shadow-md p-8 text-center">
+            <h1 className="text-2xl font-heading font-bold text-neutral-darkest mb-4">
               Product Not Found
             </h1>
-            <p className="text-neutral-dark mb-6" data-oid="0bt4.ir">
+            <p className="text-neutral-dark mb-6">
               The requested product could not be found.
             </p>
-            <Link href="/" data-oid="58wlpbh">
-              <a
-                className="text-primary hover:text-primary-dark font-medium"
-                data-oid="bib1w_5"
-              >
+            <Link href="/">
+              <a className="text-primary hover:text-primary-dark font-medium">
                 Return to Homepage
               </a>
             </Link>
@@ -65,8 +53,8 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      <Helmet data-oid="q8:0c0l">
-        <title data-oid="85vrp9e">
+      <Helmet>
+        <title>
           {isLoadingProduct
             ? "Loading Product..."
             : `${product?.name || "Hemp Product"} - HempDB`}
@@ -78,18 +66,14 @@ const ProductDetailPage = () => {
               ? "Loading hemp product information..."
               : `Detailed information about ${product?.name || "this hemp product"}. ${product?.description?.substring(0, 150) || ""}`
           }
-          data-oid="w0mlt1m"
         />
       </Helmet>
 
-      <div className="py-12 bg-neutral-lightest" data-oid="2tv4bdk">
-        <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          data-oid="8zw:-ny"
-        >
+      <div className="py-12 bg-neutral-lightest">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {isLoadingProduct || isLoadingIndustries ? (
-            <div className="mb-6" data-oid="y4jb77j">
-              <Skeleton className="h-6 w-48 mb-2" data-oid="g3d3704" />
+            <div className="mb-6">
+              <Skeleton className="h-6 w-48 mb-2" />
             </div>
           ) : (
             <Breadcrumb
@@ -105,7 +89,6 @@ const ProductDetailPage = () => {
                 },
                 { label: product?.name || "Product" },
               ]}
-              data-oid="zeedwn9"
             />
           )}
 
@@ -115,7 +98,6 @@ const ProductDetailPage = () => {
               productId={productId}
               industryNames={industryNames}
               subIndustryNames={subIndustryNames}
-              data-oid="ck.xlf2"
             />
           )}
         </div>

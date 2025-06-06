@@ -38,38 +38,38 @@ const ProductDetailView = ({
   const getIconForIndustry = (industryName: string = "") => {
     const name = industryName.toLowerCase();
     if (name.includes("textile"))
-      return <Shirt className="h-6 w-6 text-primary" data-oid="v2g-i6s" />;
+      return <Shirt className="h-6 w-6 text-primary" data-oid="42h3r17" />;
     if (name.includes("construction"))
-      return <Building2 className="h-6 w-6 text-primary" data-oid="apagrkt" />;
+      return <Building2 className="h-6 w-6 text-primary" data-oid="gbxknls" />;
     if (name.includes("paper"))
-      return <FileText className="h-6 w-6 text-primary" data-oid="ez9d51:" />;
-    return <Info className="h-6 w-6 text-primary" data-oid="zm9v0a6" />; // Default
+      return <FileText className="h-6 w-6 text-primary" data-oid=".dezqy2" />;
+    return <Info className="h-6 w-6 text-primary" data-oid="norgku9" />; // Default
   };
 
   if (isLoadingProduct || isLoadingPlantPart) {
     return (
       <div
         className="bg-white rounded-xl shadow-md overflow-hidden"
-        data-oid="52amy:9"
+        data-oid="uj4ljub"
       >
-        <div className="flex flex-col lg:flex-row" data-oid="kqrws_y">
-          <div className="lg:w-1/2" data-oid="08ah_oo">
-            <Skeleton className="h-96 lg:h-full" data-oid="83cfb2_" />
+        <div className="flex flex-col lg:flex-row" data-oid="8x.l1i9">
+          <div className="lg:w-1/2" data-oid="03lhs5p">
+            <Skeleton className="h-96 lg:h-full" data-oid="3v1:sa1" />
           </div>
 
-          <div className="lg:w-1/2 p-6 lg:p-8" data-oid="lcsovx3">
-            <div className="mb-6" data-oid="cs:3cb2">
-              <Skeleton className="h-8 w-3/4 mb-2" data-oid=":2uraf2" />
-              <Skeleton className="h-6 w-1/2" data-oid="2l1nx4o" />
+          <div className="lg:w-1/2 p-6 lg:p-8" data-oid="l9azw1n">
+            <div className="mb-6" data-oid="qeheyds">
+              <Skeleton className="h-8 w-3/4 mb-2" data-oid="n.tolh8" />
+              <Skeleton className="h-6 w-1/2" data-oid="sfkqh3q" />
             </div>
 
-            <Skeleton className="h-12 w-full mb-6" data-oid="ozy9d7x" />
+            <Skeleton className="h-12 w-full mb-6" data-oid="0psa5c3" />
 
-            <div className="space-y-4" data-oid="9sufnht">
-              <Skeleton className="h-6 w-32 mb-2" data-oid="n_cv-1r" />
-              <Skeleton className="h-4 w-full mb-1" data-oid="be4qs.i" />
-              <Skeleton className="h-4 w-full mb-1" data-oid="zd-3pdh" />
-              <Skeleton className="h-4 w-3/4" data-oid="2g.tt5-" />
+            <div className="space-y-4" data-oid="ly.aem.">
+              <Skeleton className="h-6 w-32 mb-2" data-oid="_y.wm61" />
+              <Skeleton className="h-4 w-full mb-1" data-oid="v7om5k1" />
+              <Skeleton className="h-4 w-full mb-1" data-oid="_-zt9.9" />
+              <Skeleton className="h-4 w-3/4" data-oid="9.-utkw" />
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ const ProductDetailView = ({
     return (
       <div
         className="bg-white rounded-xl shadow-md p-8 text-center"
-        data-oid="f--51p5"
+        data-oid=".h.9lmm"
       >
         Product not found
       </div>
@@ -99,23 +99,23 @@ const ProductDetailView = ({
   return (
     <div
       className="bg-white rounded-xl shadow-md overflow-hidden"
-      data-oid="iuo9:t:"
+      data-oid="a11ecko"
     >
-      <div className="flex flex-col lg:flex-row" data-oid="muu2x5_">
+      <div className="flex flex-col lg:flex-row" data-oid="1fir4gn">
         {/* Left column with images */}
-        <div className="lg:w-1/2" data-oid="8wfjifb">
-          <div className="relative h-64 sm:h-96 lg:h-full" data-oid="rlzc_2:">
+        <div className="lg:w-1/2" data-oid="ttb8zgg">
+          <div className="relative h-64 sm:h-96 lg:h-full" data-oid="24d8qps">
             <img
               src={productImages[activeImageIndex]}
               alt={product.name}
               className="absolute inset-0 w-full h-full object-cover"
-              data-oid="j235js."
+              data-oid="bgy_6lg"
             />
 
-            <div className="absolute top-4 left-4" data-oid="fpo2ghj">
+            <div className="absolute top-4 left-4" data-oid="3gwfx-u">
               <Badge
                 className="bg-white/80 backdrop-blur-sm text-primary text-xs font-medium px-3 py-1 rounded-full"
-                data-oid="ssv3mue"
+                data-oid="tejkepk"
               >
                 Hemp ID: #{product.id}
               </Badge>
@@ -123,23 +123,23 @@ const ProductDetailView = ({
 
             <div
               className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end lg:hidden"
-              data-oid="lkfzu3t"
+              data-oid="0kjykel"
             >
-              <div className="p-4 sm:p-6" data-oid="rl9wgbq">
-                <div className="flex items-center" data-oid="l6zutma">
+              <div className="p-4 sm:p-6" data-oid="1-3n7zz">
+                <div className="flex items-center" data-oid="j_8em7v">
                   <div
                     className="bg-primary/80 backdrop-blur-sm rounded-full p-2 mr-3"
-                    data-oid="l558mqt"
+                    data-oid=".4gjhca"
                   >
                     {getIconForIndustry(industryNames[product.industryId])}
                   </div>
-                  <div data-oid="4p..-mo">
-                    <span className="text-white/80 text-sm" data-oid="q.cojep">
+                  <div data-oid="ntoq-p2">
+                    <span className="text-white/80 text-sm" data-oid="j1o0oqt">
                       {industryNames[product.industryId]}
                     </span>
                     <h2
                       className="text-xl font-heading font-bold text-white"
-                      data-oid="e2gj0pz"
+                      data-oid="hq5grs0"
                     >
                       {product.name}
                     </h2>
@@ -152,7 +152,7 @@ const ProductDetailView = ({
           {/* Thumbnail gallery */}
           <div
             className="grid grid-cols-4 gap-2 p-4 bg-neutral-lightest lg:hidden"
-            data-oid="ri03rut"
+            data-oid="u_j-.1k"
           >
             {productImages.map((img, index) => (
               <div
@@ -161,13 +161,13 @@ const ProductDetailView = ({
                   activeImageIndex === index ? "border-2 border-primary" : ""
                 }`}
                 onClick={() => setActiveImageIndex(index)}
-                data-oid="oqsx.qx"
+                data-oid="86p8r34"
               >
                 <img
                   src={img}
                   alt={`${product.name} image ${index + 1}`}
                   className="w-full h-full object-cover"
-                  data-oid="wla6vrr"
+                  data-oid="wrg0hrc"
                 />
               </div>
             ))}
@@ -175,24 +175,24 @@ const ProductDetailView = ({
         </div>
 
         {/* Right column with details */}
-        <div className="lg:w-1/2 p-6 lg:p-8" data-oid="h:i1.nl">
+        <div className="lg:w-1/2 p-6 lg:p-8" data-oid=".bk.vfy">
           <div
             className="hidden lg:flex lg:items-center mb-6"
-            data-oid=":f5ns_t"
+            data-oid="eed22xo"
           >
             <div
               className="bg-primary/10 rounded-full p-3 mr-4"
-              data-oid="sdhq-0a"
+              data-oid="r5fvnxv"
             >
               {getIconForIndustry(industryNames[product.industryId])}
             </div>
-            <div data-oid="1cnxvl8">
-              <span className="text-primary font-medium" data-oid="33oe1-:">
+            <div data-oid="cemhh3m">
+              <span className="text-primary font-medium" data-oid="eiw8.xr">
                 {industryNames[product.industryId]}
               </span>
               <h2
                 className="text-2xl font-heading font-bold text-neutral-darkest"
-                data-oid="qczwqzk"
+                data-oid="eiseqnm"
               >
                 {product.name}
               </h2>
@@ -205,76 +205,77 @@ const ProductDetailView = ({
             value={activeTab}
             onValueChange={setActiveTab}
             className="mb-6"
-            data-oid="ezedfdc"
+            data-oid="cl9e3ax"
           >
             <TabsList
               className="border-b border-neutral-light w-full justify-start rounded-none bg-transparent"
-              data-oid="hqoyq2c"
+              data-oid="75.wke_"
             >
               <TabsTrigger
                 value="overview"
                 className={`data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent px-1 py-4`}
-                data-oid="oiax72t"
+                data-oid="4np3nna"
               >
                 Overview
               </TabsTrigger>
               <TabsTrigger
                 value="benefits"
                 className={`data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent px-1 py-4`}
-                data-oid="s8rmx7f"
+                data-oid="f-:42::"
               >
                 Benefits
               </TabsTrigger>
               <TabsTrigger
                 value="processing"
                 className={`data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent px-1 py-4`}
-                data-oid="2ksadfw"
+                data-oid="5gppvlq"
               >
                 Processing
               </TabsTrigger>
               <TabsTrigger
                 value="market"
                 className={`data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent px-1 py-4`}
-                data-oid="wpyp30-"
+                data-oid="6:f8a3i"
               >
                 Market
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="overview" className="mt-6" data-oid="g6ko95r">
+            <TabsContent value="overview" className="mt-6" data-oid="3f1lav1">
               <h3
                 className="font-heading font-medium text-lg mb-3"
-                data-oid="5tgc0is"
+                data-oid="g76q89_"
               >
                 Description
               </h3>
-              <p className="text-neutral-dark mb-4" data-oid=".p.5u_k">
+              <p className="text-neutral-dark mb-4" data-oid="2l6:j27">
                 {product.description}
               </p>
 
-              <div className="grid grid-cols-2 gap-6 my-6" data-oid="fv2p9bh">
+              <div className="grid grid-cols-2 gap-6 my-6" data-oid="6clwpwi">
                 <div
                   className="bg-neutral-lightest p-4 rounded-lg"
-                  data-oid="tk5-jog"
+                  data-oid="z.8mc64"
                 >
                   <h4
                     className="font-heading font-medium text-sm mb-2"
-                    data-oid="40y3p5:"
+                    data-oid="j1.02eh"
                   >
                     Properties
                   </h4>
-                  <ul className="space-y-2 text-sm" data-oid="ca26lgj">
+                  <ul className="space-y-2 text-sm" data-oid="os8206n">
                     {Array.isArray(product.properties) &&
                       product.properties.map((property, index) => (
                         <li
                           key={index}
                           className="flex items-start"
-                          data-oid="u6e2tr_"
+                          data-oid="lzlbktb"
                         >
                           <CheckCircle
                             className="h-5 w-5 mr-2 text-primary shrink-0"
-                            data-oid="jqwa5dj"
+                            data-oid="ig3-eer"
                           />
+
                           {property}
                         </li>
                       ))}
@@ -283,26 +284,27 @@ const ProductDetailView = ({
 
                 <div
                   className="bg-neutral-lightest p-4 rounded-lg"
-                  data-oid="6:e31s."
+                  data-oid="lqbu8u-"
                 >
                   <h4
                     className="font-heading font-medium text-sm mb-2"
-                    data-oid="-p_0h.c"
+                    data-oid="u5cu.g-"
                   >
                     Key Facts
                   </h4>
-                  <ul className="space-y-2 text-sm" data-oid="g37ux9s">
+                  <ul className="space-y-2 text-sm" data-oid="oc:2a9p">
                     {Array.isArray(product.facts) &&
                       product.facts.map((fact, index) => (
                         <li
                           key={index}
                           className="flex items-start"
-                          data-oid="6wm.pw3"
+                          data-oid="dov7m2c"
                         >
                           <CheckCircle
                             className="h-5 w-5 mr-2 text-primary shrink-0"
-                            data-oid="68zsom4"
+                            data-oid="5262i-f"
                           />
+
                           {fact}
                         </li>
                       ))}
@@ -314,52 +316,52 @@ const ProductDetailView = ({
                 <>
                   <h3
                     className="font-heading font-medium text-lg mb-3"
-                    data-oid="cb-w_gf"
+                    data-oid="hfgxroa"
                   >
                     Sustainability Impact
                   </h3>
-                  <p className="text-neutral-dark mb-6" data-oid="8ea-jfn">
+                  <p className="text-neutral-dark mb-6" data-oid="j3afi-.">
                     {product.sustainabilityImpact}
                   </p>
                 </>
               )}
             </TabsContent>
 
-            <TabsContent value="benefits" data-oid="-tyzx:w">
+            <TabsContent value="benefits" data-oid="s.6sfhw">
               <div
                 className="p-6 bg-neutral-lightest rounded-lg"
-                data-oid="7.11kqh"
+                data-oid="-mw:gvv"
               >
                 <h3
                   className="font-heading font-medium text-lg mb-4"
-                  data-oid="8r2cjdg"
+                  data-oid="agkt9us"
                 >
                   Key Benefits
                 </h3>
-                <ul className="space-y-4" data-oid="6mw61fd">
+                <ul className="space-y-4" data-oid="q1cjd6g">
                   {Array.isArray(product.properties) &&
                     product.properties.map((property, index) => (
                       <li
                         key={index}
                         className="flex items-start"
-                        data-oid="wi8xbd4"
+                        data-oid="xd7xqw8"
                       >
                         <div
                           className="bg-primary/10 rounded-full p-2 mr-3 mt-1"
-                          data-oid="qby8qs-"
+                          data-oid="vl6dhew"
                         >
                           <CheckCircle
                             className="h-5 w-5 text-primary"
-                            data-oid="x.b9va6"
+                            data-oid="b.0.ti_"
                           />
                         </div>
-                        <div data-oid="0d9d:dp">
-                          <h4 className="font-medium" data-oid="v5.iqj1">
+                        <div data-oid="i1m2t-u">
+                          <h4 className="font-medium" data-oid="7ylo6ci">
                             {property}
                           </h4>
                           <p
                             className="text-sm text-neutral-dark"
-                            data-oid="8lg15nq"
+                            data-oid="dwwi991"
                           >
                             Hemp products provide exceptional{" "}
                             {property.toLowerCase()} compared to conventional
@@ -372,18 +374,18 @@ const ProductDetailView = ({
               </div>
             </TabsContent>
 
-            <TabsContent value="processing" data-oid="fwzj4ti">
+            <TabsContent value="processing" data-oid="2ez_br6">
               <div
                 className="p-6 bg-neutral-lightest rounded-lg"
-                data-oid="if5-mzw"
+                data-oid="j65ah8l"
               >
                 <h3
                   className="font-heading font-medium text-lg mb-4"
-                  data-oid="g5dz84w"
+                  data-oid="qm.5meq"
                 >
                   Processing Methods
                 </h3>
-                <p className="text-neutral-dark mb-4" data-oid="b-0n.u5">
+                <p className="text-neutral-dark mb-4" data-oid="v3yq2k_">
                   Hemp {plantPart?.name.toLowerCase() || "material"} undergoes
                   several processing stages before becoming{" "}
                   {product.name.toLowerCase()}. The process typically includes
@@ -394,40 +396,40 @@ const ProductDetailView = ({
                   src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
                   alt="Hemp processing"
                   className="w-full h-48 object-cover rounded-lg mb-4"
-                  data-oid="1o4sh2z"
+                  data-oid="ty4gnm5"
                 />
 
                 <h4
                   className="font-heading font-medium mb-2"
-                  data-oid="evw-psv"
+                  data-oid="11krewe"
                 >
                   Production Steps:
                 </h4>
                 <ol
                   className="list-decimal list-inside space-y-2 text-sm text-neutral-dark"
-                  data-oid="zydxxq7"
+                  data-oid="a:tti0x"
                 >
-                  <li data-oid="ts1dg0i">Harvesting at optimal maturity</li>
-                  <li data-oid="fmzb.ks">Initial processing of raw material</li>
-                  <li data-oid=":wsmbru">Refinement and preparation</li>
-                  <li data-oid="88kc8_h">Manufacturing into final product</li>
-                  <li data-oid="s5-7-:g">Quality testing and packaging</li>
+                  <li data-oid="iip8imv">Harvesting at optimal maturity</li>
+                  <li data-oid="w0dqbz6">Initial processing of raw material</li>
+                  <li data-oid="hecxz.f">Refinement and preparation</li>
+                  <li data-oid="bb5koi8">Manufacturing into final product</li>
+                  <li data-oid=":k_y3o-">Quality testing and packaging</li>
                 </ol>
               </div>
             </TabsContent>
 
-            <TabsContent value="market" data-oid="0292rjf">
+            <TabsContent value="market" data-oid="fxasmlh">
               <div
                 className="p-6 bg-neutral-lightest rounded-lg"
-                data-oid="4clqzkf"
+                data-oid="j5b5sbi"
               >
                 <h3
                   className="font-heading font-medium text-lg mb-4"
-                  data-oid="5itu9h."
+                  data-oid="ylekes9"
                 >
                   Market Overview
                 </h3>
-                <p className="text-neutral-dark mb-4" data-oid="12fzrq9">
+                <p className="text-neutral-dark mb-4" data-oid="9:0h1.f">
                   The market for {product.name.toLowerCase()} is growing as
                   consumers and industries seek sustainable alternatives. Recent
                   trends show increased adoption across both specialty and
@@ -435,28 +437,28 @@ const ProductDetailView = ({
                 </p>
                 <div
                   className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4"
-                  data-oid="3gqcdw:"
+                  data-oid="_oilndi"
                 >
                   <div
                     className="bg-white p-4 rounded-lg border border-neutral-light"
-                    data-oid="h65w91q"
+                    data-oid="o9uiae6"
                   >
-                    <h4 className="font-medium mb-2" data-oid="8hzevp.">
+                    <h4 className="font-medium mb-2" data-oid="ptfw9ej">
                       Market Growth
                     </h4>
-                    <p className="text-sm text-neutral-dark" data-oid="7gt.l43">
+                    <p className="text-sm text-neutral-dark" data-oid="3scn9wx">
                       15-20% annual growth expected in this sector over the next
                       5 years
                     </p>
                   </div>
                   <div
                     className="bg-white p-4 rounded-lg border border-neutral-light"
-                    data-oid="mxa1p-7"
+                    data-oid="7lwtw6x"
                   >
-                    <h4 className="font-medium mb-2" data-oid="._.jind">
+                    <h4 className="font-medium mb-2" data-oid="xx078fx">
                       Price Points
                     </h4>
-                    <p className="text-sm text-neutral-dark" data-oid="gjrq76m">
+                    <p className="text-sm text-neutral-dark" data-oid=".xc:asu">
                       Premium positioning with increasing price competitiveness
                       as production scales
                     </p>
@@ -464,24 +466,24 @@ const ProductDetailView = ({
                 </div>
                 <h4
                   className="font-heading font-medium mb-2"
-                  data-oid="uioje2-"
+                  data-oid="vtur_:7"
                 >
                   Key Market Drivers:
                 </h4>
                 <ul
                   className="list-disc list-inside space-y-2 text-sm text-neutral-dark"
-                  data-oid="aboa.fp"
+                  data-oid="3-69u4g"
                 >
-                  <li data-oid="ei1oyy:">
+                  <li data-oid="c.hs3k5">
                     Growing consumer interest in sustainable products
                   </li>
-                  <li data-oid=".x5palm">
+                  <li data-oid="642x14h">
                     Corporate sustainability initiatives
                   </li>
-                  <li data-oid="n3z6k.q">
+                  <li data-oid="k8h.74u">
                     Improved manufacturing technologies
                   </li>
-                  <li data-oid="uj2l7h7">Favorable regulatory environment</li>
+                  <li data-oid="6-b8vlb">Favorable regulatory environment</li>
                 </ul>
               </div>
             </TabsContent>
@@ -492,40 +494,40 @@ const ProductDetailView = ({
             product.relatedProductIds.length > 0 && (
               <div
                 className="border-t border-neutral-light pt-6 mb-4"
-                data-oid="g2ebz9g"
+                data-oid="nejrmts"
               >
                 <h3
                   className="font-heading font-medium text-lg mb-4"
-                  data-oid="lj4zq2-"
+                  data-oid="9:pc0:t"
                 >
                   Related Products
                 </h3>
                 <div
                   className="flex space-x-4 overflow-x-auto pb-2"
-                  data-oid="e1lq:fw"
+                  data-oid="5o66etw"
                 >
                   {/* This would typically fetch related products from your database */}
                   {[1, 2, 3, 4].map((i) => (
                     <Link
                       key={i}
                       href={`/product/${product.relatedProductIds ? product.relatedProductIds[i % product.relatedProductIds.length] : i}`}
-                      data-oid="xh2h-3."
+                      data-oid="1zz0n_k"
                     >
-                      <a className="flex-shrink-0 group" data-oid="ty8lb35">
+                      <a className="flex-shrink-0 group" data-oid="mbunq:5">
                         <div
                           className="w-32 h-32 rounded-lg overflow-hidden"
-                          data-oid="jc22e_x"
+                          data-oid="cyoftxu"
                         >
                           <img
                             src={`https://images.unsplash.com/photo-${1500000000000 + i * 10000}?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150`}
                             alt={`Related hemp product ${i}`}
                             className="w-full h-full object-cover group-hover:scale-105 transition-all"
-                            data-oid="h:xd9hf"
+                            data-oid=":h9vr8_"
                           />
                         </div>
                         <p
                           className="mt-2 text-sm font-medium text-center"
-                          data-oid="nw_mzo7"
+                          data-oid="jae6_f7"
                         >
                           Related Product {i}
                         </p>
@@ -541,21 +543,21 @@ const ProductDetailView = ({
             product.affiliateLinks.length > 0 && (
               <div
                 className="border-t border-neutral-light pt-6"
-                data-oid="ccg3w1:"
+                data-oid="gli54gi"
               >
                 <h3
                   className="font-heading font-medium text-lg mb-4"
-                  data-oid="i.62f5."
+                  data-oid="i3o31gh"
                 >
                   Shop {product.name}
                 </h3>
                 <p
                   className="text-sm text-neutral-medium mb-4"
-                  data-oid="fbd9_4k"
+                  data-oid="en5k9l_"
                 >
                   Affiliate links to trusted retailers:
                 </p>
-                <div className="flex flex-wrap gap-3" data-oid="8300ywh">
+                <div className="flex flex-wrap gap-3" data-oid=".s0v4u2">
                   {product.affiliateLinks.map((link, index) => (
                     <a
                       key={index}
@@ -563,24 +565,24 @@ const ProductDetailView = ({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center px-4 py-2 bg-neutral-lightest hover:bg-neutral-light rounded-lg border border-neutral-light transition-colors"
-                      data-oid="xll_p6p"
+                      data-oid="syrkbur"
                     >
                       <span
                         className="font-medium text-neutral-dark"
-                        data-oid="xk8k.bu"
+                        data-oid="gs11qe:"
                       >
                         {link.name}
                       </span>
                       <ExternalLink
                         className="h-4 w-4 ml-2 text-neutral-medium"
-                        data-oid="gegtqf."
+                        data-oid="on_x74k"
                       />
                     </a>
                   ))}
                 </div>
                 <p
                   className="text-xs text-neutral-medium mt-3"
-                  data-oid="8qskko4"
+                  data-oid="7uy609e"
                 >
                   Disclaimer: Links may contain affiliate codes. We may receive
                   a commission for purchases made through these links.

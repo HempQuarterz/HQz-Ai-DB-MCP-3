@@ -56,47 +56,53 @@ const ResearchPaperList = ({
     isLoadingIndustries
   ) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-oid="ffy0q0_">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-oid="pjz60.i">
         {Array.from({ length: 3 }).map((_, index) => (
           <div
             key={index}
             className="border border-green-800/30 rounded-md p-6 bg-black/50"
-            data-oid="9x9_d:m"
+            data-oid="u.b6:u."
           >
             <Skeleton
               className="h-8 w-3/4 mb-2 bg-green-900/20"
-              data-oid="txal736"
+              data-oid="9zrtxhd"
             />
+
             <Skeleton
               className="h-4 w-1/2 mb-4 bg-green-900/20"
-              data-oid="4s:3:z2"
+              data-oid=".s2sy86"
             />
+
             <Skeleton
               className="h-24 w-full mb-4 bg-green-900/20"
-              data-oid="hguc8a_"
+              data-oid="83eq.4w"
             />
-            <div className="flex gap-2 mb-3" data-oid="72tb:92">
+
+            <div className="flex gap-2 mb-3" data-oid="4n4nft_">
               <Skeleton
                 className="h-6 w-16 bg-green-900/20"
-                data-oid=".hb-_qc"
+                data-oid="_x26p6-"
               />
+
               <Skeleton
                 className="h-6 w-16 bg-green-900/20"
-                data-oid="ca:my9r"
+                data-oid="o4u.1be"
               />
+
               <Skeleton
                 className="h-6 w-16 bg-green-900/20"
-                data-oid="h3ldzz8"
+                data-oid="8fqq9oj"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4" data-oid="h5o5a.3">
+            <div className="grid grid-cols-2 gap-4" data-oid="dhdp-3f">
               <Skeleton
                 className="h-12 w-full bg-green-900/20"
-                data-oid="slu3u.n"
+                data-oid="tl0rq-4"
               />
+
               <Skeleton
                 className="h-12 w-full bg-green-900/20"
-                data-oid="xrer586"
+                data-oid="m9yry7a"
               />
             </div>
           </div>
@@ -110,9 +116,9 @@ const ResearchPaperList = ({
     return (
       <div
         className="text-center py-12 border border-green-800/30 rounded-md bg-black/50"
-        data-oid="6yrror6"
+        data-oid="dfkrzsn"
       >
-        <p className="text-green-400 text-xl" data-oid="qidtb7j">
+        <p className="text-green-400 text-xl" data-oid="ps81nw6">
           {emptyMessage}
         </p>
       </div>
@@ -121,7 +127,7 @@ const ResearchPaperList = ({
 
   // Show research papers list
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-oid="ihhoi9a">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-oid="5..ei1p">
       {papers.map((paper) => (
         <ResearchPaperCard
           key={paper.id}
@@ -129,7 +135,7 @@ const ResearchPaperList = ({
           plantTypeNames={plantTypeNames}
           plantPartNames={plantPartNames}
           industryNames={industryNames}
-          data-oid="ctnf7c-"
+          data-oid="w64alza"
         />
       ))}
     </div>

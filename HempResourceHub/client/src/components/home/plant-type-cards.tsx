@@ -13,11 +13,11 @@ const PlantTypeCards = () => {
   // DEBUG: Log plantTypes to verify data is being received
   console.log("PlantTypeCards: plantTypes", plantTypes);
   return (
-    <div className="py-12 relative overflow-hidden" data-oid="_eu2cno">
+    <div className="py-12 relative overflow-hidden" data-oid="l3y5paq">
       {/* Hemp ecosystem background image */}
       <div
         className="absolute inset-0 bg-black opacity-40 z-0"
-        data-oid="cf1e7lq"
+        data-oid=":kj5.5j"
       ></div>
       <div
         className="absolute inset-0 w-full h-full z-0 opacity-90 mix-blend-normal"
@@ -29,26 +29,26 @@ const PlantTypeCards = () => {
           filter: "brightness(1.2) contrast(1.3) saturate(1.3)",
         }}
         aria-label="Hemp ecosystem background"
-        data-oid="xyqtjo."
+        data-oid="vi4xp8-"
       ></div>
       <div
         className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 z-0"
-        data-oid="r0edekv"
+        data-oid="ez7q99z"
       ></div>
 
       <div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
-        data-oid="d6oo122"
+        data-oid="xkzudud"
       >
         <h2
           className="text-2xl sm:text-3xl font-heading font-bold text-green-400 text-outline-white text-center mb-8 glow-green-sm"
-          data-oid="-r.sr55"
+          data-oid="ad9151l"
         >
           Select Hemp Plant Type
         </h2>
         <p
           className="text-center text-white text-outline-white max-w-3xl mx-auto mb-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
-          data-oid="z6kmg93"
+          data-oid="qzgclyk"
         >
           Industrial hemp is cultivated with different focuses depending on the
           desired output. Choose a cultivation type below to explore its
@@ -58,36 +58,39 @@ const PlantTypeCards = () => {
         {isLoading ? (
           <div
             className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:max-w-5xl lg:mx-auto"
-            data-oid=":_gyos2"
+            data-oid="nqv:hyy"
           >
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
                 className="overflow-hidden border border-green-500/20 rounded-lg shadow-[0_0_15px_rgba(0,255,0,0.15)]"
-                data-oid="kl4d9hy"
+                data-oid="k8f:gde"
               >
-                <div className="h-80 relative" data-oid="e5j3c3l">
+                <div className="h-80 relative" data-oid="xzp_6y_">
                   <Skeleton
                     className="absolute inset-0 bg-black/40"
-                    data-oid="evbawp-"
+                    data-oid="h8ddets"
                   />
+
                   <div
                     className="absolute inset-0 bg-matrix-effect opacity-10"
-                    data-oid="tjq934b"
+                    data-oid="j:sifwx"
                   ></div>
                 </div>
-                <div className="p-6 bg-black/90" data-oid="gk8uys3">
+                <div className="p-6 bg-black/90" data-oid="v:zbg.7">
                   <Skeleton
                     className="h-6 w-3/4 mb-2 bg-green-900/40"
-                    data-oid="48u-oq_"
+                    data-oid="l_-_.o."
                   />
+
                   <Skeleton
                     className="h-4 w-full mb-1 bg-green-900/30"
-                    data-oid="lodiuc9"
+                    data-oid="nin0fvj"
                   />
+
                   <Skeleton
                     className="h-4 w-5/6 bg-green-900/30"
-                    data-oid="5nmbg8u"
+                    data-oid=":k1.lzn"
                   />
                 </div>
               </div>
@@ -96,26 +99,26 @@ const PlantTypeCards = () => {
         ) : (
           <div
             className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:max-w-5xl lg:mx-auto"
-            data-oid="s0.v2us"
+            data-oid="755bxw3"
           >
             {plantTypes.slice(0, 3).map((plantType: PlantType) => (
               <div
                 key={plantType.id}
                 className="relative group"
-                data-oid="9vu62vn"
+                data-oid="sl_hug7"
               >
                 <div
                   className="relative h-80 w-full overflow-hidden rounded-lg bg-transparent backdrop-blur-[2px] border-2 border-green-500/70 shadow-[0_0_20px_rgba(0,255,0,0.5)] transition-all duration-300 ease-in-out group-hover:shadow-[0_0_30px_rgba(0,255,0,0.7)] after:absolute after:inset-0 after:bg-black/30 after:group-hover:bg-black/20 after:transition-all after:z-[1]"
-                  data-oid="tbu13s."
+                  data-oid="s1ax2cw"
                 >
                   {plantType.id === 1 ? (
                     <div
                       className="h-full w-full relative z-10"
-                      data-oid="..unv0a"
+                      data-oid="16df2vj"
                     >
                       <SimpleHempModel
                         className="h-full w-full opacity-70 transition-all duration-500 ease-in-out group-hover:opacity-85"
-                        data-oid="9ov5fk0"
+                        data-oid="_6oj.c4"
                       />
                     </div>
                   ) : (
@@ -123,43 +126,43 @@ const PlantTypeCards = () => {
                       src={plantType.imageUrl || "/placeholder-hemp.jpg"}
                       alt={`${plantType.name} plant`}
                       className="h-full w-full object-cover opacity-70 transition-all duration-500 ease-in-out group-hover:scale-105 group-hover:opacity-85 mix-blend-overlay relative z-10"
-                      data-oid="n.w2cx-"
+                      data-oid="1bck1a."
                     />
                   )}
                   {plantType.id !== 1 && (
                     <div
                       className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent mix-blend-multiply z-[5]"
-                      data-oid="q9f7nv3"
+                      data-oid="pbgr056"
                     ></div>
                   )}
                   {/* Glowing green overlay on hover */}
                   <div
                     className="absolute inset-0 bg-gradient-to-t from-green-500/20 to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-300 z-[5]"
-                    data-oid="ig_b6_t"
+                    data-oid="vr3qwgu"
                   ></div>
                   <div
                     className="absolute bottom-0 left-0 p-6 z-20"
-                    data-oid="gvi6knl"
+                    data-oid="78m3.gg"
                   >
                     <h3
                       className="text-xl font-heading font-semibold text-green-400 text-outline-white"
-                      data-oid="_ihdrry"
+                      data-oid=":1szms-"
                     >
                       {plantType.name}
                     </h3>
                     <p
                       className="mt-2 text-sm text-white/90"
-                      data-oid="0b23_71"
+                      data-oid="o7nxidl"
                     >
                       {plantType.description}
                     </p>
                   </div>
                 </div>
-                <Link href={`/plant-type/${plantType.id}`} data-oid="pftccbe">
+                <Link href={`/plant-type/${plantType.id}`} data-oid="8a-441g">
                   <div
                     className="absolute inset-0 z-10 block cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                     aria-label={`View ${plantType.name} applications`}
-                    data-oid="me8ziae"
+                    data-oid="mz2-ckz"
                   ></div>
                 </Link>
               </div>

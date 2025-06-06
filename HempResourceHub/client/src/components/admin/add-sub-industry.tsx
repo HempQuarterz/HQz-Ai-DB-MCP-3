@@ -124,88 +124,88 @@ export default function AddSubIndustryForm() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto mt-6" data-oid="yva:_d9">
-      <CardHeader data-oid="5:nw5d0">
-        <CardTitle data-oid="e56-gj6">Add New Sub-Industry</CardTitle>
-        <CardDescription data-oid="pj.xeiy">
+    <Card className="w-full max-w-2xl mx-auto mt-6" data-oid="cyqtqdg">
+      <CardHeader data-oid="b3ofouz">
+        <CardTitle data-oid="9sgj_mw">Add New Sub-Industry</CardTitle>
+        <CardDescription data-oid="7aabyvu">
           Create a new sub-industry category for more specific hemp applications
         </CardDescription>
       </CardHeader>
-      <CardContent data-oid="0jn00dk">
-        <Form {...form} data-oid="us.rb4l">
+      <CardContent data-oid="j0csqyc">
+        <Form {...form} data-oid="cf04btl">
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-6"
-            data-oid="so-lf9u"
+            data-oid="h9lb54p"
           >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem data-oid="bw73lnw">
-                  <FormLabel data-oid="p4kz:pq">Sub-Industry Name</FormLabel>
-                  <FormControl data-oid="89qff_z">
+                <FormItem data-oid="ow2klde">
+                  <FormLabel data-oid="sxqu70h">Sub-Industry Name</FormLabel>
+                  <FormControl data-oid="2rb14ao">
                     <Input
                       placeholder="Enter sub-industry name"
                       {...field}
-                      data-oid="qnsiiss"
+                      data-oid=".kx_78a"
                     />
                   </FormControl>
-                  <FormDescription data-oid="jx17teg">
+                  <FormDescription data-oid="dso:8mg">
                     The name of the sub-industry (e.g., "Clothing", "Rope",
                     "Insulation")
                   </FormDescription>
-                  <FormMessage data-oid="vf3lhjk" />
+                  <FormMessage data-oid="jppgpp:" />
                 </FormItem>
               )}
-              data-oid="f3lpz8n"
+              data-oid="r-v819n"
             />
 
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
-                <FormItem data-oid="61ggqmh">
-                  <FormLabel data-oid="1us59a8">Description</FormLabel>
-                  <FormControl data-oid="wozuz54">
+                <FormItem data-oid="l5n5_z9">
+                  <FormLabel data-oid="7_2m5wu">Description</FormLabel>
+                  <FormControl data-oid="qfvzhm6">
                     <Textarea
                       placeholder="Enter a detailed description of this sub-industry"
                       className="min-h-32"
                       {...field}
                       value={field.value || ""}
-                      data-oid="d3kukt."
+                      data-oid="s200nro"
                     />
                   </FormControl>
-                  <FormMessage data-oid="s_buezm" />
+                  <FormMessage data-oid="sjcu6hq" />
                 </FormItem>
               )}
-              data-oid="7nn847s"
+              data-oid="f-p44zx"
             />
 
             <FormField
               control={form.control}
               name="industryId"
               render={({ field }) => (
-                <FormItem data-oid="w839ok5">
-                  <FormLabel data-oid="wp06o7j">Parent Industry</FormLabel>
-                  <FormControl data-oid="yrw_diu">
+                <FormItem data-oid="75xmdyb">
+                  <FormLabel data-oid="-i-5047">Parent Industry</FormLabel>
+                  <FormControl data-oid="mginlyu">
                     <Select
                       onValueChange={(value) => field.onChange(parseInt(value))}
                       defaultValue={field.value.toString()}
-                      data-oid="qbchfno"
+                      data-oid="4t7ritu"
                     >
-                      <SelectTrigger data-oid="3qxe-an">
+                      <SelectTrigger data-oid="csq9tw0">
                         <SelectValue
                           placeholder="Select an industry"
-                          data-oid=":pl9b4s"
+                          data-oid="iqgalq9"
                         />
                       </SelectTrigger>
-                      <SelectContent data-oid="ks6fmxr">
+                      <SelectContent data-oid="nyr9.e9">
                         {industries.map((industry) => (
                           <SelectItem
                             key={industry.id}
                             value={industry.id.toString()}
-                            data-oid="8:u-1do"
+                            data-oid="8id:k0q"
                           >
                             {industry.name}
                           </SelectItem>
@@ -213,35 +213,35 @@ export default function AddSubIndustryForm() {
                       </SelectContent>
                     </Select>
                   </FormControl>
-                  <FormDescription data-oid="re--9xv">
+                  <FormDescription data-oid="g2:a.y_">
                     The main industry this sub-industry belongs to
                   </FormDescription>
-                  <FormMessage data-oid="lk4qk_d" />
+                  <FormMessage data-oid="4krh126" />
                 </FormItem>
               )}
-              data-oid="l2_fl.s"
+              data-oid="aefo1v7"
             />
 
             <FormField
               control={form.control}
               name="imageUrl"
               render={({ field }) => (
-                <FormItem data-oid="l1da_ic">
-                  <FormLabel data-oid="pbzgi:2">Image URL</FormLabel>
-                  <FormControl data-oid="cht449z">
+                <FormItem data-oid="mq.aljw">
+                  <FormLabel data-oid="7ons_lg">Image URL</FormLabel>
+                  <FormControl data-oid="k.ffd0v">
                     <Input
                       placeholder="Enter image URL (optional)"
                       {...field}
-                      data-oid="n1k10_."
+                      data-oid="ez09sfo"
                     />
                   </FormControl>
-                  <FormMessage data-oid="j55fvx6" />
+                  <FormMessage data-oid="xdi1az5" />
                 </FormItem>
               )}
-              data-oid="0ap99x6"
+              data-oid="0s6vt43"
             />
 
-            <Button type="submit" disabled={isSubmitting} data-oid="ganu654">
+            <Button type="submit" disabled={isSubmitting} data-oid="xs1r5v7">
               {isSubmitting ? "Adding..." : "Add Sub-Industry"}
             </Button>
           </form>

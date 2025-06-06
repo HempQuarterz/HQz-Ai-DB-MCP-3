@@ -55,29 +55,17 @@ const ProductListingPage = () => {
 
   if (!match) {
     return (
-      <div className="py-12 bg-neutral-lightest" data-oid="pvw57dj">
-        <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          data-oid="iiknmln"
-        >
-          <div
-            className="bg-white rounded-xl shadow-md p-8 text-center"
-            data-oid="os:bbek"
-          >
-            <h1
-              className="text-2xl font-heading font-bold text-neutral-darkest mb-4"
-              data-oid="rkwjeg:"
-            >
+      <div className="py-12 bg-neutral-lightest">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-xl shadow-md p-8 text-center">
+            <h1 className="text-2xl font-heading font-bold text-neutral-darkest mb-4">
               Products Not Found
             </h1>
-            <p className="text-neutral-dark mb-6" data-oid="_-b.gyu">
+            <p className="text-neutral-dark mb-6">
               The requested products could not be found.
             </p>
-            <Link href="/" data-oid="r4iwvl_">
-              <a
-                className="text-primary hover:text-primary-dark font-medium"
-                data-oid="0lvtx_3"
-              >
+            <Link href="/">
+              <a className="text-primary hover:text-primary-dark font-medium">
                 Return to Homepage
               </a>
             </Link>
@@ -102,8 +90,8 @@ const ProductListingPage = () => {
 
   return (
     <>
-      <Helmet data-oid="myezidq">
-        <title data-oid="x2bucli">
+      <Helmet>
+        <title>
           {isLoadingPlantPart
             ? "Loading Products..."
             : `${plantPart?.name || "Hemp"} Products ${selectedIndustry ? `- ${selectedIndustryName}` : ""} - HempDB`}
@@ -115,19 +103,15 @@ const ProductListingPage = () => {
               ? "Loading hemp products..."
               : `Explore hemp ${plantPart?.name.toLowerCase() || "part"} applications and products ${selectedIndustry ? `in the ${selectedIndustryName} industry` : "across various industries"}.`
           }
-          data-oid="l_clylf"
         />
       </Helmet>
 
-      <div className="py-12 bg-white" data-oid="h25w0fl">
-        <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          data-oid="e02krr3"
-        >
+      <div className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {isLoadingPlantPart ? (
-            <div className="mb-6" data-oid="iq9pa95">
-              <Skeleton className="h-6 w-48 mb-2" data-oid="8fovpjb" />
-              <Skeleton className="h-8 w-96" data-oid="-2n0sdd" />
+            <div className="mb-6">
+              <Skeleton className="h-6 w-48 mb-2" />
+              <Skeleton className="h-8 w-96" />
             </div>
           ) : (
             <>
@@ -141,13 +125,9 @@ const ProductListingPage = () => {
                       : "All Industries",
                   },
                 ]}
-                data-oid="zqv._r8"
               />
 
-              <h2
-                className="text-2xl font-heading font-bold text-neutral-darkest mt-2 mb-6"
-                data-oid="jnrefux"
-              >
+              <h2 className="text-2xl font-heading font-bold text-neutral-darkest mt-2 mb-6">
                 {plantPart?.name} Products
                 {selectedIndustry ? ` in ${selectedIndustryName}` : ""}
               </h2>
@@ -156,39 +136,28 @@ const ProductListingPage = () => {
 
           {/* Filter tabs */}
           {isLoadingIndustries ? (
-            <div className="mb-8" data-oid="h8.5cq0">
-              <Skeleton className="h-12 w-full" data-oid="nko.ug9" />
+            <div className="mb-8">
+              <Skeleton className="h-12 w-full" />
             </div>
           ) : (
             <IndustryFilter
               industries={industries || []}
               selectedIndustry={selectedIndustry}
               onSelectIndustry={handleIndustryFilter}
-              data-oid=".mkl7ya"
             />
           )}
 
           {/* Application cards */}
           {isLoadingProducts ? (
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              data-oid="hoe7cl."
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <Skeleton
-                  key={i}
-                  className="h-80 rounded-xl"
-                  data-oid="y9wq1s3"
-                />
+                <Skeleton key={i} className="h-80 rounded-xl" />
               ))}
             </div>
           ) : (
             <>
               {productsData?.products && productsData.products.length > 0 ? (
-                <div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                  data-oid="sp:s-f."
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {productsData.products.map((product) => (
                     <ProductCard
                       key={product.id}
@@ -196,22 +165,15 @@ const ProductListingPage = () => {
                       industryNames={industryNames}
                       subIndustryNames={subIndustryNames}
                       plantPartNames={plantPartNames}
-                      data-oid="seb2ks8"
                     />
                   ))}
                 </div>
               ) : (
-                <div
-                  className="bg-white rounded-xl shadow-sm p-8 text-center border border-neutral-light"
-                  data-oid="wps_5uo"
-                >
-                  <h3
-                    className="text-xl font-heading font-semibold mb-2"
-                    data-oid="-c34q.z"
-                  >
+                <div className="bg-white rounded-xl shadow-sm p-8 text-center border border-neutral-light">
+                  <h3 className="text-xl font-heading font-semibold mb-2">
                     No Products Found
                   </h3>
-                  <p className="text-neutral-dark mb-4" data-oid="u3blh12">
+                  <p className="text-neutral-dark mb-4">
                     No products were found for the selected filters. Try
                     selecting a different industry or plant part.
                   </p>
@@ -219,7 +181,6 @@ const ProductListingPage = () => {
                     <button
                       onClick={() => setSelectedIndustry(null)}
                       className="text-primary hover:text-primary-dark font-medium"
-                      data-oid="m4xj03."
                     >
                       Clear Industry Filter
                     </button>
@@ -239,7 +200,6 @@ const ProductListingPage = () => {
                 totalItems={productsData.pagination.total}
                 itemsPerPage={itemsPerPage}
                 onPageChange={handlePageChange}
-                data-oid="7osjt53"
               />
             )}
         </div>

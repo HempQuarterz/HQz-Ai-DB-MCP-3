@@ -18,29 +18,17 @@ const PlantTypePage = () => {
 
   if (!match) {
     return (
-      <div className="py-12 bg-neutral-lightest" data-oid="wh3e5md">
-        <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          data-oid="6ya97ot"
-        >
-          <div
-            className="bg-white rounded-xl shadow-md p-8 text-center"
-            data-oid="gakj::i"
-          >
-            <h1
-              className="text-2xl font-heading font-bold text-neutral-darkest mb-4"
-              data-oid="uebffdf"
-            >
+      <div className="py-12 bg-neutral-lightest">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-xl shadow-md p-8 text-center">
+            <h1 className="text-2xl font-heading font-bold text-neutral-darkest mb-4">
               Plant Type Not Found
             </h1>
-            <p className="text-neutral-dark mb-6" data-oid="siylx-e">
+            <p className="text-neutral-dark mb-6">
               The requested plant type could not be found.
             </p>
-            <Link href="/" data-oid="zjciuk2">
-              <a
-                className="text-primary hover:text-primary-dark font-medium"
-                data-oid="jlv6ezm"
-              >
+            <Link href="/">
+              <a className="text-primary hover:text-primary-dark font-medium">
                 Return to Homepage
               </a>
             </Link>
@@ -52,8 +40,8 @@ const PlantTypePage = () => {
 
   return (
     <>
-      <Helmet data-oid="_h13j9s">
-        <title data-oid="7mne5im">
+      <Helmet>
+        <title>
           {isLoading
             ? "Loading Plant Type..."
             : `${plantType?.name || "Plant Type"} - HempDB`}
@@ -65,33 +53,26 @@ const PlantTypePage = () => {
               ? "Loading plant type information..."
               : `Explore ${plantType?.name || "hemp plant"} parts and applications. ${plantType?.description || ""}`
           }
-          data-oid="hzbv0aa"
         />
       </Helmet>
 
-      <div className="py-6 bg-white" data-oid="c6kkrf_">
-        <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          data-oid="vj9tjw0"
-        >
+      <div className="py-6 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {isLoading ? (
-            <Skeleton className="h-6 w-48" data-oid="4ro3de_" />
+            <Skeleton className="h-6 w-48" />
           ) : (
             <Breadcrumb
               items={[
                 { label: "Home", href: "/" },
                 { label: plantType?.name || "Plant Type" },
               ]}
-              data-oid="ixrin7i"
             />
           )}
         </div>
       </div>
 
       {/* Plant visualization component with part selection */}
-      {plantTypeId && (
-        <PlantVisualization plantTypeId={plantTypeId} data-oid="ni02mgw" />
-      )}
+      {plantTypeId && <PlantVisualization plantTypeId={plantTypeId} />}
     </>
   );
 };

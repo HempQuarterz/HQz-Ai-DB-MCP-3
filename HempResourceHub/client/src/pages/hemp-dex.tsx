@@ -73,88 +73,51 @@ const HempDex = () => {
   };
 
   return (
-    <div
-      className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800"
-      data-oid="_1-63:c"
-    >
-      <div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
-        data-oid="t:cbpzl"
-      >
-        <div
-          className="bg-gradient-to-r from-green-800 via-green-600 to-green-500 p-1 rounded-lg mb-8"
-          data-oid="g:_okbf"
-        >
-          <h1
-            className="text-3xl sm:text-4xl font-heading font-bold text-white text-center py-3"
-            data-oid="ypvd0fx"
-          >
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-gradient-to-r from-green-800 via-green-600 to-green-500 p-1 rounded-lg mb-8">
+          <h1 className="text-3xl sm:text-4xl font-heading font-bold text-white text-center py-3">
             Industrial HempDex
           </h1>
         </div>
 
-        <div
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"
-          data-oid="2n:p8as"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Search Box */}
-          <div
-            className="lg:col-span-2 bg-gray-800 rounded-lg shadow-lg p-6"
-            data-oid="d-7lwsd"
-          >
-            <h2
-              className="text-xl font-heading font-semibold text-white mb-4"
-              data-oid="7x2tdxj"
-            >
+          <div className="lg:col-span-2 bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 className="text-xl font-heading font-semibold text-white mb-4">
               Name or Number
             </h2>
-            <form
-              onSubmit={handleSearch}
-              className="flex space-x-2 mb-4"
-              data-oid="uagskb2"
-            >
+            <form onSubmit={handleSearch} className="flex space-x-2 mb-4">
               <Input
                 type="text"
                 placeholder="Search by name or ID..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="bg-gray-700 text-white placeholder-gray-400 border-gray-600 focus:border-green-500"
-                data-oid=".ihqf59"
               />
 
-              <Button
-                type="submit"
-                className="bg-green-600 hover:bg-green-700"
-                data-oid="w4r6znw"
-              >
-                <SearchIcon className="h-5 w-5" data-oid="6758jks" />
+              <Button type="submit" className="bg-green-600 hover:bg-green-700">
+                <SearchIcon className="h-5 w-5" />
               </Button>
             </form>
-            <p className="text-sm text-gray-400" data-oid="3_4twjt">
+            <p className="text-sm text-gray-400">
               Use the search to explore industrial hemp by type,
               characteristics, and applications.
             </p>
           </div>
 
           {/* Quick Info Box */}
-          <div
-            className="bg-gray-800 rounded-lg shadow-lg p-6"
-            data-oid="lgcqqrf"
-          >
-            <h2
-              className="text-xl font-heading font-semibold text-white mb-4"
-              data-oid="a.8g9ly"
-            >
+          <div className="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 className="text-xl font-heading font-semibold text-white mb-4">
               Search Tips
             </h2>
-            <p className="text-sm text-gray-400 mb-4" data-oid="wxso-1t">
+            <p className="text-sm text-gray-400 mb-4">
               Search for a hemp type by name or number. You can also use the
               advanced search to filter by specific characteristics.
             </p>
             <Button
               onClick={handleRandomPlant}
               className="w-full bg-blue-500 hover:bg-blue-600 text-white"
-              data-oid="y1f4vjq"
             >
               Surprise Me!
             </Button>
@@ -162,57 +125,29 @@ const HempDex = () => {
         </div>
 
         {/* Advanced Search Toggle */}
-        <div
-          className="bg-gray-800 rounded-lg shadow-lg p-4 mb-8"
-          data-oid="kvv7oka"
-        >
+        <div className="bg-gray-800 rounded-lg shadow-lg p-4 mb-8">
           <button
             onClick={() => setShowAdvanced(!showAdvanced)}
             className="flex items-center justify-between w-full text-white"
-            data-oid="sw-wa91"
           >
-            <span className="font-medium" data-oid="8dzwyr1">
-              Show Advanced Search
-            </span>
-            <SlidersHorizontal className="h-5 w-5" data-oid="mzqke1n" />
+            <span className="font-medium">Show Advanced Search</span>
+            <SlidersHorizontal className="h-5 w-5" />
           </button>
 
           {showAdvanced && (
-            <div
-              className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4"
-              data-oid="8yqraez"
-            >
-              <div data-oid="815kvyg">
-                <label
-                  className="block text-sm font-medium text-gray-400 mb-1"
-                  data-oid="2rmffne"
-                >
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-1">
                   Sort By
                 </label>
-                <Select
-                  value={sortBy}
-                  onValueChange={handleSortChange}
-                  data-oid="zc9el_-"
-                >
-                  <SelectTrigger
-                    className="bg-gray-700 text-white border-gray-600"
-                    data-oid="1k.jnrn"
-                  >
-                    <SelectValue placeholder="Sort order" data-oid="239ghso" />
+                <Select value={sortBy} onValueChange={handleSortChange}>
+                  <SelectTrigger className="bg-gray-700 text-white border-gray-600">
+                    <SelectValue placeholder="Sort order" />
                   </SelectTrigger>
-                  <SelectContent
-                    className="bg-gray-700 text-white border-gray-600"
-                    data-oid=".12u5zh"
-                  >
-                    <SelectItem value="id" data-oid=":p:xdsa">
-                      ID (Lowest First)
-                    </SelectItem>
-                    <SelectItem value="name-asc" data-oid="rnmgofk">
-                      Name (A-Z)
-                    </SelectItem>
-                    <SelectItem value="name-desc" data-oid="vr_3l80">
-                      Name (Z-A)
-                    </SelectItem>
+                  <SelectContent className="bg-gray-700 text-white border-gray-600">
+                    <SelectItem value="id">ID (Lowest First)</SelectItem>
+                    <SelectItem value="name-asc">Name (A-Z)</SelectItem>
+                    <SelectItem value="name-desc">Name (Z-A)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -222,107 +157,57 @@ const HempDex = () => {
         </div>
 
         {/* Results Grid */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8"
-          data-oid="3uwa9q3"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
           {isLoading ? (
             // Loading skeletons
             Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
                 className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
-                data-oid="zyqgo4d"
               >
-                <Skeleton
-                  className="h-48 w-full bg-gray-700"
-                  data-oid="hb6j6x3"
-                />
-                <div className="p-4" data-oid="kayj8-5">
-                  <Skeleton
-                    className="h-6 w-3/4 mb-2 bg-gray-700"
-                    data-oid="fv65098"
-                  />
-                  <Skeleton
-                    className="h-4 w-full mb-1 bg-gray-700"
-                    data-oid="sljcntv"
-                  />
-                  <Skeleton
-                    className="h-4 w-2/3 bg-gray-700"
-                    data-oid="s.08r06"
-                  />
+                <Skeleton className="h-48 w-full bg-gray-700" />
+
+                <div className="p-4">
+                  <Skeleton className="h-6 w-3/4 mb-2 bg-gray-700" />
+
+                  <Skeleton className="h-4 w-full mb-1 bg-gray-700" />
+
+                  <Skeleton className="h-4 w-2/3 bg-gray-700" />
                 </div>
               </div>
             ))
           ) : filteredPlants.length > 0 ? (
             filteredPlants.map((plant) => (
-              <Link
-                key={plant.id}
-                href={`/plant-type/${plant.id}`}
-                data-oid="ceg9bj3"
-              >
-                <a className="block" data-oid="moptn0q">
-                  <div
-                    className="bg-gradient-to-br from-gray-800 to-gray-700 rounded-lg overflow-hidden shadow-lg border-2 border-green-500 hover:shadow-green-500/20 hover:scale-105 transition-all duration-300"
-                    data-oid="9hk2fud"
-                  >
-                    <div
-                      className="p-2 bg-green-600 text-xs font-medium text-white flex justify-between items-center"
-                      data-oid="y986ah5"
-                    >
-                      <span data-oid="cmtsaw6">
-                        #{String(plant.id).padStart(3, "0")}
-                      </span>
-                      <span
-                        className="px-2 py-1 rounded-full bg-green-700"
-                        data-oid="eeq2ehv"
-                      >
+              <Link key={plant.id} href={`/plant-type/${plant.id}`}>
+                <a className="block">
+                  <div className="bg-gradient-to-br from-gray-800 to-gray-700 rounded-lg overflow-hidden shadow-lg border-2 border-green-500 hover:shadow-green-500/20 hover:scale-105 transition-all duration-300">
+                    <div className="p-2 bg-green-600 text-xs font-medium text-white flex justify-between items-center">
+                      <span>#{String(plant.id).padStart(3, "0")}</span>
+                      <span className="px-2 py-1 rounded-full bg-green-700">
                         {plant.plantingDensity || "Hemp"}
                       </span>
                     </div>
-                    <div
-                      className="p-4 flex flex-col items-center"
-                      data-oid="r190nam"
-                    >
-                      <div
-                        className="h-36 w-36 rounded-full bg-gradient-to-br from-green-900/50 to-green-700/30 flex items-center justify-center mb-4"
-                        data-oid="7f6qg3d"
-                      >
+                    <div className="p-4 flex flex-col items-center">
+                      <div className="h-36 w-36 rounded-full bg-gradient-to-br from-green-900/50 to-green-700/30 flex items-center justify-center mb-4">
                         {plant.imageUrl ? (
                           <img
                             src={plant.imageUrl}
                             alt={plant.name}
                             className="h-32 w-32 object-cover rounded-full"
-                            data-oid="splm.bb"
                           />
                         ) : (
-                          <Leaf
-                            className="h-20 w-20 text-green-400"
-                            data-oid="i50vubr"
-                          />
+                          <Leaf className="h-20 w-20 text-green-400" />
                         )}
                       </div>
-                      <h3
-                        className="text-xl font-heading font-semibold text-green-400 text-outline-white text-center"
-                        data-oid="bbf7elf"
-                      >
+                      <h3 className="text-xl font-heading font-semibold text-green-400 text-outline-white text-center">
                         {plant.name}
                       </h3>
-                      <p
-                        className="mt-2 text-xs text-gray-300 text-center line-clamp-2"
-                        data-oid="5pu9.yp"
-                      >
+                      <p className="mt-2 text-xs text-gray-300 text-center line-clamp-2">
                         {plant.description || "No description available"}
                       </p>
                     </div>
-                    <div
-                      className="p-2 bg-gradient-to-r from-green-800 to-green-600 flex justify-center"
-                      data-oid="ueb_nfj"
-                    >
-                      <span
-                        className="text-sm font-medium text-white"
-                        data-oid="8w8ggp-"
-                      >
+                    <div className="p-2 bg-gradient-to-r from-green-800 to-green-600 flex justify-center">
+                      <span className="text-sm font-medium text-white">
                         View Details
                       </span>
                     </div>
@@ -331,23 +216,14 @@ const HempDex = () => {
               </Link>
             ))
           ) : (
-            <div className="col-span-full text-center py-10" data-oid="xegh145">
-              <div
-                className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-700 mb-4"
-                data-oid="bhq.cgl"
-              >
-                <SearchIcon
-                  className="h-8 w-8 text-gray-400"
-                  data-oid="f-g1r.x"
-                />
+            <div className="col-span-full text-center py-10">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-700 mb-4">
+                <SearchIcon className="h-8 w-8 text-gray-400" />
               </div>
-              <h3
-                className="text-xl font-heading font-medium text-white mb-2"
-                data-oid="qh1p5vo"
-              >
+              <h3 className="text-xl font-heading font-medium text-white mb-2">
                 No Results Found
               </h3>
-              <p className="text-gray-400" data-oid="aqx:.m7">
+              <p className="text-gray-400">
                 Try adjusting your search criteria
               </p>
             </div>

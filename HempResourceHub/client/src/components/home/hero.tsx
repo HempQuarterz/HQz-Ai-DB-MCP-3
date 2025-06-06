@@ -9,7 +9,7 @@ const HomepageHero = () => {
     <div
       className="relative py-16 sm:py-24 overflow-hidden"
       style={{ minHeight: "600px" }}
-      data-oid="0z7j8br"
+      data-oid="087:_a0"
     >
       {/* Background image with overlay */}
       <div
@@ -20,25 +20,25 @@ const HomepageHero = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-        data-oid="o1phs_r"
+        data-oid="cpk9qce"
       >
-        <div className="absolute inset-0 bg-black/50" data-oid="q95al_a"></div>
+        <div className="absolute inset-0 bg-black/50" data-oid="lau-fgw"></div>
       </div>
 
       {/* Content */}
       <div
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-        data-oid="5ay_d1."
+        data-oid="ocdaehh"
       >
         <h1
           className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-green-400 text-outline-white drop-shadow-lg"
-          data-oid="69hqanu"
+          data-oid="4xwoy9a"
         >
           Interactive Industrial Hemp Database
         </h1>
         <p
           className="mt-3 max-w-md mx-auto text-lg sm:text-xl md:mt-5 md:max-w-3xl font-medium text-white text-outline-white"
-          data-oid="vwtnwj1"
+          data-oid="wsdi:m5"
         >
           Explore the versatile applications of industrial hemp across
           industries, plant parts, and product categories.
@@ -46,31 +46,31 @@ const HomepageHero = () => {
 
         <div
           className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
-          data-oid=".wv0i_h"
+          data-oid="l-hzf0:"
         >
           <div
             className="rounded-lg bg-black/60 backdrop-blur-sm p-4 text-white border border-green-400/30"
-            data-oid="ge7bf4h"
+            data-oid="d:c_fmx"
           >
             <div
               className="text-2xl font-bold text-green-400 text-outline-white"
-              data-oid="nm5kiu2"
+              data-oid="-q_1xzy"
             >
               {isLoading ? (
-                <span className="opacity-50" data-oid="lbaefye">
+                <span className="opacity-50" data-oid="ty34u0m">
                   Loading...
                 </span>
               ) : (
                 <Counter
                   end={stats?.totalProducts || 0}
                   suffix="+"
-                  data-oid="ikmjncn"
+                  data-oid="rb6q.3d"
                 />
               )}
             </div>
             <div
               className="text-sm font-medium text-white text-outline-white"
-              data-oid="nsn6xav"
+              data-oid="iij9gk7"
             >
               Unique Applications
             </div>
@@ -78,23 +78,23 @@ const HomepageHero = () => {
 
           <div
             className="rounded-lg bg-black/60 backdrop-blur-sm p-4 text-white border border-green-400/30"
-            data-oid="ynd1jbz"
+            data-oid="8tftk48"
           >
             <div
               className="text-2xl font-bold text-green-400 text-outline-white"
-              data-oid="n:-znpv"
+              data-oid="7azg1ol"
             >
               {isLoading ? (
-                <span className="opacity-50" data-oid="4yzr330">
+                <span className="opacity-50" data-oid="2-j.3xv">
                   Loading...
                 </span>
               ) : (
-                <Counter end={stats?.totalIndustries || 0} data-oid="eonhcqm" />
+                <Counter end={stats?.totalIndustries || 0} data-oid="f106kgx" />
               )}
             </div>
             <div
               className="text-sm font-medium text-white text-outline-white"
-              data-oid="4hhl9vc"
+              data-oid="sbg5d8u"
             >
               Industry Categories
             </div>
@@ -102,23 +102,23 @@ const HomepageHero = () => {
 
           <div
             className="rounded-lg bg-black/60 backdrop-blur-sm p-4 text-white border border-green-400/30"
-            data-oid="y9k7xs:"
+            data-oid="fonan9m"
           >
             <div
               className="text-2xl font-bold text-green-400 text-outline-white"
-              data-oid="xd88:7n"
+              data-oid="am:alf:"
             >
               {isLoading ? (
-                <span className="opacity-50" data-oid="sucsr7-">
+                <span className="opacity-50" data-oid="d__g0-2">
                   Loading...
                 </span>
               ) : (
-                <Counter end={stats?.totalPlantParts || 0} data-oid="woq15.0" />
+                <Counter end={stats?.totalPlantParts || 0} data-oid="cn6c-91" />
               )}
             </div>
             <div
               className="text-sm font-medium text-white text-outline-white"
-              data-oid="3gp29d6"
+              data-oid="wkq1o:z"
             >
               Plant Components
             </div>

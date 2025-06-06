@@ -26,54 +26,54 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
 
   if (isLoadingPlantType || isLoadingPlantParts) {
     return (
-      <div className="bg-neutral-lightest py-12" data-oid="8nb0vyw">
+      <div className="bg-neutral-lightest py-12" data-oid="cmfya16">
         <div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          data-oid="vtbvofa"
+          data-oid="u2b_2h_"
         >
           <div
             className="flex flex-col sm:flex-row justify-between items-center mb-8"
-            data-oid="f:ae1yy"
+            data-oid=":k-47kf"
           >
-            <div data-oid="-kgaco3">
-              <Skeleton className="h-6 w-48 mb-2" data-oid="w3z:mm1" />
-              <Skeleton className="h-8 w-96" data-oid="bx1-xjx" />
+            <div data-oid="yhqbt44">
+              <Skeleton className="h-6 w-48 mb-2" data-oid="p3:i71h" />
+              <Skeleton className="h-8 w-96" data-oid="x35c0ed" />
             </div>
           </div>
 
           <div
             className="bg-white rounded-2xl shadow-md overflow-hidden"
-            data-oid="e26:urj"
+            data-oid="iraujgx"
           >
             <div
               className="grid grid-cols-1 lg:grid-cols-5 gap-8 p-8"
-              data-oid="_gn4hr_"
+              data-oid="tz_g-l2"
             >
               <div
                 className="lg:col-span-2 flex items-center justify-center"
-                data-oid="uf.xgm1"
+                data-oid="3wdc8z8"
               >
                 <Skeleton
                   className="w-full h-[400px] rounded-lg"
-                  data-oid="gu008hw"
+                  data-oid="p8m0zld"
                 />
               </div>
-              <div className="lg:col-span-3 space-y-6" data-oid="q7wvg4q">
-                <div data-oid="rjn4g_m">
-                  <Skeleton className="h-7 w-64 mb-4" data-oid="t3v5ovq" />
-                  <Skeleton className="h-4 w-full mb-2" data-oid="n5ka2ep" />
-                  <Skeleton className="h-4 w-full mb-2" data-oid="x6mudq3" />
-                  <Skeleton className="h-4 w-2/3" data-oid="qcipsg0" />
+              <div className="lg:col-span-3 space-y-6" data-oid="ui8a2:s">
+                <div data-oid="rbn2jh6">
+                  <Skeleton className="h-7 w-64 mb-4" data-oid="qjq4jvs" />
+                  <Skeleton className="h-4 w-full mb-2" data-oid="7y_.5bo" />
+                  <Skeleton className="h-4 w-full mb-2" data-oid="p4:f4sc" />
+                  <Skeleton className="h-4 w-2/3" data-oid=".qqf.t4" />
                 </div>
                 <div
                   className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                  data-oid="qga09so"
+                  data-oid="hlfj:r_"
                 >
                   {[1, 2, 3, 4].map((i) => (
                     <Skeleton
                       key={i}
                       className="h-24 rounded-lg"
-                      data-oid="3azac8a"
+                      data-oid="7b:5iny"
                     />
                   ))}
                 </div>
@@ -89,49 +89,49 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
     <div
       id={`${plantType?.name.toLowerCase().replace(/\s+/g, "-")}`}
       className="py-12 bg-neutral-lightest"
-      data-oid="iws7e.w"
+      data-oid="sbjdx0s"
     >
       <div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-        data-oid="rs8qzkb"
+        data-oid="um-gjyk"
       >
         <div
           className="flex flex-col sm:flex-row justify-between items-center mb-8"
-          data-oid="jalgu62"
+          data-oid="n2vb_9w"
         >
-          <div data-oid="7yn-fn7">
-            <nav className="flex" aria-label="Breadcrumb" data-oid="uy-7k:8">
-              <ol className="flex items-center space-x-2" data-oid="jx2rayh">
-                <li data-oid="dkiptfw">
-                  <Link href="/" data-oid="ujlchhp">
+          <div data-oid="ti82d.f">
+            <nav className="flex" aria-label="Breadcrumb" data-oid="9hw26nq">
+              <ol className="flex items-center space-x-2" data-oid="1u_7_95">
+                <li data-oid="zpeh39h">
+                  <Link href="/" data-oid="feh-z48">
                     <div
                       className="text-neutral-medium hover:text-primary cursor-pointer"
-                      data-oid="39h01-0"
+                      data-oid="wyqo_4q"
                     >
                       Home
                     </div>
                   </Link>
                 </li>
-                <li className="flex items-center" data-oid="vtwhxbp">
+                <li className="flex items-center" data-oid="868xe0r">
                   <svg
                     className="h-5 w-5 text-neutral-medium"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    data-oid="gdzyymc"
+                    data-oid="vaid7ta"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="M9 5l7 7-7 7"
-                      data-oid="fl1us20"
+                      data-oid="xaw5v8."
                     />
                   </svg>
                   <span
                     className="text-neutral-dark font-medium ml-2"
-                    data-oid="d3a6b:v"
+                    data-oid="5qu2d3m"
                   >
                     {plantType?.name}
                   </span>
@@ -140,31 +140,31 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
             </nav>
             <h2
               className="text-2xl sm:text-3xl font-heading font-bold text-neutral-darkest mt-2"
-              data-oid=":z9blj4"
+              data-oid="tbczvfu"
             >
               {plantType?.name} Plant Parts
             </h2>
           </div>
-          <Link href="/" data-oid="5m5fc9-">
+          <Link href="/" data-oid="6f:br7g">
             <div
               className="text-primary hover:text-primary-dark font-medium flex items-center cursor-pointer"
-              data-oid="2bv:iff"
+              data-oid="m6-l:rh"
             >
-              <span data-oid="_iq0y66">View Different Plant Type</span>
+              <span data-oid="bna7h-n">View Different Plant Type</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 ml-1"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                data-oid="-q2b-9k"
+                data-oid="5x8m73s"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M19 9l-7 7-7-7"
-                  data-oid="it:08pz"
+                  data-oid=":js3mqs"
                 />
               </svg>
             </div>
@@ -173,15 +173,15 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
 
         <div
           className="bg-white rounded-2xl shadow-md overflow-hidden"
-          data-oid="-8b72ru"
+          data-oid="h8_3civ"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-5" data-oid="5e:tu7d">
+          <div className="grid grid-cols-1 lg:grid-cols-5" data-oid="td2ah8n">
             <div
               className="lg:col-span-2 p-6 flex items-center justify-center"
-              data-oid="8bjwq6-"
+              data-oid="26iyw4e"
             >
               {/* Interactive plant visualization */}
-              <div className="relative w-full max-w-md" data-oid="mcjroxk">
+              <div className="relative w-full max-w-md" data-oid="7:o_m57">
                 <img
                   src={
                     plantType?.id === 1
@@ -191,7 +191,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
                   }
                   alt={`${plantType?.name} diagram`}
                   className="w-full rounded-lg"
-                  data-oid="wfuwb58"
+                  data-oid="jzi_m64"
                 />
 
                 {/* Plant part overlays - this would be more dynamic in a real implementation */}
@@ -223,31 +223,31 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
                         key={part.id}
                         className={`absolute ${positions[index]} w-24 h-24 plant-part cursor-pointer`}
                         onClick={() => setActivePartId(part.id)}
-                        data-oid="rg715rk"
+                        data-oid="u303sdz"
                       >
-                        <div className="relative" data-oid="0njly-q">
+                        <div className="relative" data-oid="kjttds9">
                           <div
                             className={`absolute inset-0 ${colors[index]} rounded-full ${activePartId === part.id ? "animate-pulse" : ""}`}
-                            data-oid=":r8mdm3"
+                            data-oid="5aobifk"
                           ></div>
                           <div
                             className="absolute -right-2 -top-2 bg-white rounded-full shadow-md p-1"
-                            data-oid="4dbfdqi"
+                            data-oid="-zz6r8p"
                           >
                             <InfoIcon
                               className={`h-6 w-6 ${iconColors[index]}`}
-                              data-oid="k62mysm"
+                              data-oid="gd-gfkw"
                             />
                           </div>
                         </div>
-                        <div className="mt-2 text-center" data-oid="km_i2m:">
+                        <div className="mt-2 text-center" data-oid="joqaj8x">
                           <Link
                             href={`/plant-part/${part.id}`}
-                            data-oid="oet02on"
+                            data-oid=":5vzygx"
                           >
                             <div
                               className="text-primary font-medium text-sm cursor-pointer"
-                              data-oid="z3a1h2y"
+                              data-oid="58dovbw"
                             >
                               {part.name}
                             </div>
@@ -261,15 +261,15 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
 
             <div
               className="lg:col-span-3 bg-neutral-lightest p-8"
-              data-oid="x3iv.ov"
+              data-oid="rcup-qk"
             >
               <h3
                 className="text-xl font-heading font-semibold mb-4"
-                data-oid="a535x:s"
+                data-oid="o7bgelh"
               >
                 Select a Plant Part to Explore
               </h3>
-              <p className="text-neutral-dark mb-6" data-oid="f9jh4i3">
+              <p className="text-neutral-dark mb-6" data-oid="_oac1d4">
                 {plantType?.description} Each part of the plant offers unique
                 applications and benefits.
               </p>
@@ -278,24 +278,24 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
                 plantParts={plantParts || []}
                 activePart={activePartId}
                 onSelectPart={setActivePartId}
-                data-oid="ka414:r"
+                data-oid="qc-644k"
               />
 
               <div
                 className="mt-8 p-4 bg-primary/5 rounded-lg border border-primary/20"
-                data-oid="2.hl5vx"
+                data-oid="xl7d9jt"
               >
                 <h4
                   className="font-heading font-medium flex items-center"
-                  data-oid="owymk-7"
+                  data-oid="g7fdlgd"
                 >
                   <InfoIcon
                     className="h-5 w-5 mr-2 text-primary"
-                    data-oid="fscl9yt"
+                    data-oid="si90wc."
                   />
                   Did you know?
                 </h4>
-                <p className="text-sm mt-1" data-oid="far:h_1">
+                <p className="text-sm mt-1" data-oid="k30085x">
                   {plantType?.name} plants{" "}
                   {plantType?.characteristics ||
                     "have unique characteristics that make them valuable for various industrial applications."}

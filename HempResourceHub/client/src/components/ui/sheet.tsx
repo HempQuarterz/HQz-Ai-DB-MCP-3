@@ -26,7 +26,7 @@ const SheetOverlay = React.forwardRef<
     )}
     {...props}
     ref={ref}
-    data-oid="59yuaq:"
+    data-oid="9aig17i"
   />
 ));
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
@@ -58,21 +58,21 @@ const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
 >(({ side = "right", className, children, ...props }, ref) => (
-  <SheetPortal data-oid="c.i3a54">
-    <SheetOverlay data-oid="1bmvpbi" />
+  <SheetPortal data-oid="4mom9nt">
+    <SheetOverlay data-oid="jyuuhhb" />
     <SheetPrimitive.Content
       ref={ref}
       className={cn(sheetVariants({ side }), className)}
       {...props}
-      data-oid="p:bnt7h"
+      data-oid="pc.63qk"
     >
       {children}
       <SheetPrimitive.Close
         className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
-        data-oid="214y1g."
+        data-oid="tt5x68u"
       >
-        <X className="h-4 w-4" data-oid="pvkan-5" />
-        <span className="sr-only" data-oid="1_9a3k:">
+        <X className="h-4 w-4" data-oid="67dj:4s" />
+        <span className="sr-only" data-oid="-x300.7">
           Close
         </span>
       </SheetPrimitive.Close>
@@ -91,7 +91,7 @@ const SheetHeader = ({
       className,
     )}
     {...props}
-    data-oid="45r_p.f"
+    data-oid="vribmgo"
   />
 );
 
@@ -107,7 +107,7 @@ const SheetFooter = ({
       className,
     )}
     {...props}
-    data-oid="9v3vu0j"
+    data-oid="cdc_6qz"
   />
 );
 
@@ -121,7 +121,7 @@ const SheetTitle = React.forwardRef<
     ref={ref}
     className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
-    data-oid="3n9xraf"
+    data-oid="nh3yrj9"
   />
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
@@ -134,7 +134,7 @@ const SheetDescription = React.forwardRef<
     ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
-    data-oid="tkdy3i6"
+    data-oid="_0l6z-7"
   />
 ));
 SheetDescription.displayName = SheetPrimitive.Description.displayName;

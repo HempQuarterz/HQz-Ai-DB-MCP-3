@@ -92,84 +92,84 @@ export default function AddIndustryForm() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto mt-6" data-oid="9l9zojb">
-      <CardHeader data-oid="ez7gm:_">
-        <CardTitle data-oid="vb04bpe">Add New Industry</CardTitle>
-        <CardDescription data-oid="5p_ccc5">
+    <Card className="w-full max-w-2xl mx-auto mt-6" data-oid="5tsw-lo">
+      <CardHeader data-oid="omk7zy-">
+        <CardTitle data-oid="jvhwxv1">Add New Industry</CardTitle>
+        <CardDescription data-oid="i7l0hab">
           Create a new industry category for hemp applications
         </CardDescription>
       </CardHeader>
-      <CardContent data-oid="ovtw2-p">
-        <Form {...form} data-oid="lkejkg4">
+      <CardContent data-oid="e76zj1-">
+        <Form {...form} data-oid="i2rblv9">
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-6"
-            data-oid="h6dtt2p"
+            data-oid="fvdlha9"
           >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem data-oid="lmbi4l3">
-                  <FormLabel data-oid="yi1fmjz">Industry Name</FormLabel>
-                  <FormControl data-oid="-.qutq7">
+                <FormItem data-oid="kd305o0">
+                  <FormLabel data-oid="dzd13hn">Industry Name</FormLabel>
+                  <FormControl data-oid="rfoedo.">
                     <Input
                       placeholder="Enter industry name"
                       {...field}
-                      data-oid="_703wvb"
+                      data-oid="tdx:6_1"
                     />
                   </FormControl>
-                  <FormDescription data-oid="sbrz0c2">
+                  <FormDescription data-oid="g_e-ge2">
                     The name of the industry (e.g., "Textiles", "Construction",
                     "Food")
                   </FormDescription>
-                  <FormMessage data-oid="-oszj9b" />
+                  <FormMessage data-oid="6x0eicq" />
                 </FormItem>
               )}
-              data-oid="k591lh6"
+              data-oid="x4onsnv"
             />
 
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
-                <FormItem data-oid="yvsb7.a">
-                  <FormLabel data-oid="c4nmjjw">Description</FormLabel>
-                  <FormControl data-oid="j2wl1y9">
+                <FormItem data-oid="h0vl75p">
+                  <FormLabel data-oid="62a0lul">Description</FormLabel>
+                  <FormControl data-oid="ctz4xld">
                     <Textarea
                       placeholder="Enter a detailed description of this industry"
                       className="min-h-32"
                       {...field}
                       value={field.value || ""}
-                      data-oid="vmirgvi"
+                      data-oid="3krjgve"
                     />
                   </FormControl>
-                  <FormMessage data-oid="in-f5wt" />
+                  <FormMessage data-oid="_p8v.70" />
                 </FormItem>
               )}
-              data-oid="19mcgm3"
+              data-oid="zb873ae"
             />
 
             <FormField
               control={form.control}
               name="imageUrl"
               render={({ field }) => (
-                <FormItem data-oid="9b5fvo_">
-                  <FormLabel data-oid="nbq9n65">Image URL</FormLabel>
-                  <FormControl data-oid="kkn.och">
+                <FormItem data-oid="eb9oq0d">
+                  <FormLabel data-oid="czlpywy">Image URL</FormLabel>
+                  <FormControl data-oid="-7l7:0n">
                     <Input
                       placeholder="Enter image URL (optional)"
                       {...field}
-                      data-oid=":zkv3lj"
+                      data-oid="9u0udcs"
                     />
                   </FormControl>
-                  <FormMessage data-oid="g.gn_8g" />
+                  <FormMessage data-oid="jg:dycq" />
                 </FormItem>
               )}
-              data-oid="vrko09u"
+              data-oid="_fmc.8e"
             />
 
-            <Button type="submit" disabled={isSubmitting} data-oid="zjehska">
+            <Button type="submit" disabled={isSubmitting} data-oid="1s5b:e5">
               {isSubmitting ? "Adding..." : "Add Industry"}
             </Button>
           </form>

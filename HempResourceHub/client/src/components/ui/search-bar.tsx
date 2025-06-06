@@ -29,7 +29,7 @@ const SearchBar = ({
     <form
       onSubmit={handleSubmit}
       className={`relative ${className}`}
-      data-oid="qngod0:"
+      data-oid="42s.vz3"
     >
       <Input
         type="text"
@@ -37,16 +37,16 @@ const SearchBar = ({
         className={`${large ? "py-4 pl-14 text-lg" : "py-2 pl-10"} rounded-full w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent`}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        data-oid="pyk9dsr"
+        data-oid="kvx6ryy"
       />
 
       <div
         className={`absolute inset-y-0 left-0 ${large ? "pl-5" : "pl-3"} flex items-center`}
-        data-oid="15k.jj-"
+        data-oid="y4-uapu"
       >
         <Search
           className={`${large ? "h-6 w-6" : "h-5 w-5"} text-neutral-medium`}
-          data-oid="fmc:jpm"
+          data-oid="-l.fj8x"
         />
       </div>
       <Button
@@ -54,9 +54,9 @@ const SearchBar = ({
         variant="ghost"
         size="icon"
         className="absolute inset-y-0 right-0 flex items-center pr-3 sr-only"
-        data-oid="d:38n:t"
+        data-oid="bl3a5b0"
       >
-        <span data-oid="ifz3ecu">Search</span>
+        <span data-oid="1i.stk5">Search</span>
       </Button>
     </form>
   );

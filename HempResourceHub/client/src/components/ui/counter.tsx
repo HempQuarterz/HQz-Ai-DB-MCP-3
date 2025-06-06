@@ -61,7 +61,7 @@ const Counter = ({
   };
 
   return (
-    <span className="counting-number" data-oid="bdk3_rb">
+    <span className="counting-number" data-oid="mjwihvc">
       {prefix}
       {formatNumber(count)}
       {suffix}
