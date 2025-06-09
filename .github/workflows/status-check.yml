@@ -37,13 +37,7 @@ jobs:
           echo "OPENAI_API_KEY exists: ${{ secrets.OPENAI_API_KEY != '' }}"
           echo ""
           # Check if variables are being passed to Python
-          python -c "
-import os
-print('Python Environment Check:')
-print(f'SUPABASE_URL: {\"Set\" if os.environ.get(\"SUPABASE_URL\") else \"Not set\"}')
-print(f'SUPABASE_ANON_KEY: {\"Set\" if os.environ.get(\"SUPABASE_ANON_KEY\") else \"Not set\"}')
-print(f'OPENAI_API_KEY: {\"Set\" if os.environ.get(\"OPENAI_API_KEY\") else \"Not set\"}')
-          "
+          python -c "import os; print('Python Environment Check:'); print(f'SUPABASE_URL: {\"Set\" if os.environ.get(\"SUPABASE_URL\") else \"Not set\"}'); print(f'SUPABASE_ANON_KEY: {\"Set\" if os.environ.get(\"SUPABASE_ANON_KEY\") else \"Not set\"}'); print(f'OPENAI_API_KEY: {\"Set\" if os.environ.get(\"OPENAI_API_KEY\") else \"Not set\"}')"
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
