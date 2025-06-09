@@ -130,18 +130,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
-      - name: Run Hemp Agent - ${{ matrix.agent }}
+      - name: Run Enhanced Hemp Agent - ${{ matrix.agent }}
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
-          echo "🌿 Starting Hemp Agent: ${{ matrix.agent }}"
+          echo "🌿 Starting Enhanced Hemp Agent: ${{ matrix.agent }}"
           echo "⏰ Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           
-          # Run the agent with specific type
-          python hemp_agent.py --type "${{ matrix.agent }}" --limit 5
+          # Run the enhanced agent with specific type
+          python hemp_agent_enhanced.py --type "${{ matrix.agent }}" --limit 5
           
           # Check exit code
           if [ $? -eq 0 ]; then
@@ -169,6 +169,16 @@ jobs:
         run: |
           echo "📊 Checking agent results..."
           python monitor_hemp.py --agent "${{ matrix.agent }}" --recent 1
+      
+      - name: Validate data integrity
+        if: success()
+        continue-on-error: true
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          echo "🔍 Validating data integrity..."
+          python validate_hemp_data.py
 
   error-notification:
     needs: run-hemp-automation
