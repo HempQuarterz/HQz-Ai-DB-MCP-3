@@ -57,27 +57,34 @@ class HempImageGenerator:
     def get_queue_stats(self) -> Dict:
         """Get current queue statistics"""
         try:
-            response = self.supabase.rpc('get_queue_stats').execute()
-            return response.data
-        except Exception as e:
-            logger.error(f"Error getting queue stats: {e}")
-            # Fallback to direct query
+            # Direct query instead of RPC
             pending = self.supabase.table('image_generation_queue').select('id').eq('status', 'pending').execute()
             processing = self.supabase.table('image_generation_queue').select('id').eq('status', 'processing').execute()
             completed = self.supabase.table('image_generation_queue').select('id').eq('status', 'completed').execute()
+            failed = self.supabase.table('image_generation_queue').select('id').eq('status', 'failed').execute()
             
             return {
-                'pending': len(pending.data),
-                'processing': len(processing.data),
-                'completed': len(completed.data),
+                'pending': len(pending.data) if pending.data else 0,
+                'processing': len(processing.data) if processing.data else 0,
+                'completed': len(completed.data) if completed.data else 0,
+                'failed': len(failed.data) if failed.data else 0,
                 'total_products': self._get_total_products()
+            }
+        except Exception as e:
+            logger.error(f"Error getting queue stats: {e}")
+            return {
+                'pending': 0,
+                'processing': 0,
+                'completed': 0,
+                'failed': 0,
+                'total_products': 0
             }
     
     def _get_total_products(self) -> int:
         """Get total number of products"""
         try:
             response = self.supabase.table('uses_products').select('id', count='exact').execute()
-            return response.count
+            return response.count if response.count else 0
         except:
             return 0
     
@@ -89,8 +96,10 @@ class HempImageGenerator:
         
         if self.stability_key:
             available_providers.append('stable_diffusion')
+            logger.info("Stability AI API key found")
         if self.openai_key:
             available_providers.append('dall_e')
+            logger.info("OpenAI API key found")
         
         if not available_providers:
             logger.warning("No AI provider API keys found, using placeholder")
@@ -101,24 +110,28 @@ class HempImageGenerator:
             response = self.supabase.table('ai_provider_config').select('*').in_('provider_name', available_providers).eq('is_active', True).order('quality_score', desc=True).limit(1).execute()
             
             if response.data:
-                return response.data[0]['provider_name']
+                selected = response.data[0]['provider_name']
+                logger.info(f"Selected provider from config: {selected}")
+                return selected
         except Exception as e:
             logger.error(f"Error selecting provider: {e}")
         
         # Default to first available
-        return available_providers[0]
+        selected = available_providers[0]
+        logger.info(f"Using default provider: {selected}")
+        return selected
     
     def queue_products_without_images(self, batch_size: int = 100) -> int:
         """Queue all products that don't have images"""
         logger.info("Queuing products without images...")
         
         try:
-            # Get products without images
+            # Get products without images or with placeholder images
             response = self.supabase.table('uses_products').select(
                 'id'
-            ).or_('image_url.is.null,image_url.eq.').limit(batch_size).execute()
+            ).or_('image_url.is.null,image_url.eq.,image_url.like.%placeholder.com%').limit(batch_size).execute()
             
-            products = response.data
+            products = response.data if response.data else []
             queued_count = 0
             
             for product in products:
@@ -128,14 +141,29 @@ class HempImageGenerator:
                 ).eq('product_id', product['id']).in_('status', ['pending', 'processing']).execute()
                 
                 if not existing.data:
-                    # Add to queue
-                    queue_response = self.supabase.rpc(
-                        'queue_image_generation',
-                        {'p_product_id': product['id']}
-                    ).execute()
-                    
-                    if queue_response.data:
-                        queued_count += 1
+                    # Add to queue using direct insert instead of RPC
+                    try:
+                        # Generate prompt
+                        product_details = self.supabase.table('uses_products').select(
+                            'name, plant_parts!inner(name), industry_sub_categories!inner(industries!inner(name))'
+                        ).eq('id', product['id']).single().execute()
+                        
+                        if product_details.data:
+                            prompt = self._generate_prompt(product_details.data)
+                            
+                            queue_entry = {
+                                'product_id': product['id'],
+                                'prompt': prompt,
+                                'negative_prompt': 'low quality, blurry, distorted, amateur, watermark, text, logo',
+                                'priority': 5,
+                                'status': 'pending',
+                                'generation_provider': self.select_best_provider()
+                            }
+                            
+                            self.supabase.table('image_generation_queue').insert(queue_entry).execute()
+                            queued_count += 1
+                    except Exception as e:
+                        logger.error(f"Error queuing product {product['id']}: {e}")
             
             logger.info(f"Queued {queued_count} products for image generation")
             return queued_count
@@ -144,44 +172,88 @@ class HempImageGenerator:
             logger.error(f"Error queuing products: {e}")
             return 0
     
+    def _generate_prompt(self, product_data: Dict) -> str:
+        """Generate image prompt based on product data"""
+        name = product_data.get('name', 'Hemp Product')
+        plant_part = product_data.get('plant_parts', {}).get('name', '')
+        industry = product_data.get('industry_sub_categories', {}).get('industries', {}).get('name', '')
+        
+        prompt = f"Professional product photography of {name}. "
+        
+        # Industry-specific styling
+        if 'Food' in industry:
+            prompt += "Clean, bright, appetizing food photography style. Natural lighting. "
+        elif 'Cosmetics' in industry:
+            prompt += "Elegant beauty product photography. Soft lighting, luxurious presentation. "
+        elif 'Textile' in industry:
+            prompt += "Fashion photography style showing texture and quality. Professional studio lighting. "
+        elif 'Construction' in industry:
+            prompt += "Industrial product photography. Clear, detailed view showing material properties. "
+        else:
+            prompt += "Professional commercial product photography. Studio lighting. "
+        
+        # Plant part specific details
+        if 'Seed' in plant_part:
+            prompt += "Show hemp seeds in an appealing arrangement. "
+        elif 'Fiber' in plant_part:
+            prompt += "Highlight the texture and quality of hemp fibers. "
+        elif 'Oil' in plant_part:
+            prompt += "Show oil in elegant glass containers with hemp plants. "
+        elif 'Hurd' in plant_part:
+            prompt += "Show hemp hurds/shivs material in industrial context. "
+        elif 'Flower' in plant_part:
+            prompt += "Beautiful close-up of hemp flowers with visible trichomes. "
+        
+        prompt += "High resolution, white background, professional product shot, commercial quality, sustainable and eco-friendly aesthetic."
+        
+        return prompt
+    
     def upload_to_supabase_storage(self, image_data: bytes, filename: str) -> str:
         """Upload image to Supabase Storage and return public URL"""
         try:
+            # First check if file already exists and delete it
+            try:
+                self.supabase.storage.from_('hemp-product-images').remove([filename])
+            except:
+                pass  # File might not exist
+            
+            # Upload the new file
             response = self.supabase.storage.from_('hemp-product-images').upload(
                 filename,
                 image_data,
-                {'content-type': 'image/png'}
+                {'content-type': 'image/png', 'upsert': 'true'}
             )
             
-            if response.error:
-                raise Exception(f"Storage upload error: {response.error}")
-            
             # Get public URL
-            public_url = self.supabase.storage.from_('hemp-product-images').get_public_url(filename)
-            return public_url
+            url_data = self.supabase.storage.from_('hemp-product-images').get_public_url(filename)
+            return url_data
             
         except Exception as e:
             logger.error(f"Error uploading to storage: {e}")
             raise
     
     def process_queue(self, batch_size: int = 10) -> Dict:
-        """Process the image generation queue"""
+        """Process the image generation queue using actual AI APIs"""
         logger.info(f"Processing queue with batch size {batch_size}...")
         
+        result = {
+            'processed_count': 0,
+            'success_count': 0,
+            'failed_count': 0,
+            'retry_count': 0
+        }
+        
         try:
-            # Get pending items from queue
+            # Get pending items from queue - fetch with joins properly
             response = self.supabase.table('image_generation_queue').select(
-                'id, product_id, prompt, negative_prompt, uses_products!inner(name, plant_parts!inner(name))'
+                '*, uses_products!inner(name, plant_parts!inner(name))'
             ).in_('status', ['pending', 'retry']).order('priority', desc=True).order('created_at').limit(batch_size).execute()
             
-            queue_items = response.data
+            queue_items = response.data if response.data else []
             
-            result = {
-                'processed_count': 0,
-                'success_count': 0,
-                'failed_count': 0,
-                'retry_count': 0
-            }
+            if not queue_items:
+                logger.info("No pending items in queue")
+                return result
             
             # Select provider for this batch
             provider = self.select_best_provider()
@@ -201,15 +273,20 @@ class HempImageGenerator:
                     image_url = None
                     actual_provider = provider
                     
+                    logger.info(f"Generating image for product {item['product_id']}: {item['uses_products']['name']}")
+                    
                     try:
-                        if provider == 'stable_diffusion':
+                        if provider == 'stable_diffusion' and self.stability_key:
+                            logger.info("Using Stable Diffusion API...")
                             image_url = self.generate_image_stable_diffusion(
                                 item['prompt'],
                                 item.get('negative_prompt')
                             )
-                        elif provider == 'dall_e':
+                        elif provider == 'dall_e' and self.openai_key:
+                            logger.info("Using DALL-E API...")
                             image_url = self.generate_image_dall_e(item['prompt'])
                         else:
+                            logger.info("Using placeholder generator...")
                             image_url = self.generate_placeholder_url(
                                 item['uses_products']['name'],
                                 item['uses_products']['plant_parts']['name']
@@ -225,6 +302,8 @@ class HempImageGenerator:
                         actual_provider = 'placeholder'
                     
                     if image_url:
+                        logger.info(f"Generated image URL: {image_url}")
+                        
                         # Update product with image
                         self.supabase.table('uses_products').update({
                             'image_url': image_url,
@@ -239,6 +318,18 @@ class HempImageGenerator:
                             'completed_at': datetime.now().isoformat(),
                             'updated_at': datetime.now().isoformat()
                         }).eq('id', item['id']).execute()
+                        
+                        # Log to history
+                        self.supabase.table('image_generation_history').insert({
+                            'queue_id': item['id'],
+                            'product_id': item['product_id'],
+                            'action': 'completed',
+                            'details': {
+                                'image_url': image_url,
+                                'provider': actual_provider,
+                                'generation_time_ms': int((time.time() - start_time) * 1000)
+                            }
+                        }).execute()
                         
                         # Log cost if not placeholder
                         if actual_provider != 'placeholder':
@@ -261,8 +352,21 @@ class HempImageGenerator:
                     self.supabase.table('image_generation_queue').update({
                         'status': 'failed',
                         'error_message': str(e),
+                        'attempt_count': item.get('attempt_count', 0) + 1,
                         'updated_at': datetime.now().isoformat()
                     }).eq('id', item['id']).execute()
+                    
+                    # Log to history
+                    self.supabase.table('image_generation_history').insert({
+                        'queue_id': item['id'],
+                        'product_id': item['product_id'],
+                        'action': 'failed',
+                        'details': {
+                            'error': str(e),
+                            'provider': provider,
+                            'attempt': item.get('attempt_count', 0) + 1
+                        }
+                    }).execute()
                     
                     # Log failed cost
                     self._log_generation_cost(
@@ -279,22 +383,16 @@ class HempImageGenerator:
                 result['processed_count'] += 1
             
             logger.info(
-                f"Processed {result.get('processed_count', 0)} items: "
-                f"{result.get('success_count', 0)} success, "
-                f"{result.get('failed_count', 0)} failed, "
-                f"{result.get('retry_count', 0)} retries"
+                f"Processed {result['processed_count']} items: "
+                f"{result['success_count']} success, "
+                f"{result['failed_count']} failed"
             )
             
             return result
             
         except Exception as e:
             logger.error(f"Error processing queue: {e}")
-            return {
-                'processed_count': 0,
-                'success_count': 0,
-                'failed_count': 0,
-                'retry_count': 0
-            }
+            return result
     
     def generate_placeholder_url(self, product_name: str, plant_part: str) -> str:
         """Generate placeholder URL"""
@@ -320,7 +418,9 @@ class HempImageGenerator:
         """Generate image using Stable Diffusion API"""
         if not self.stability_key:
             logger.error("Stability API key not found")
-            return None
+            raise Exception("Stability API key not configured")
+        
+        logger.info("Calling Stable Diffusion API...")
         
         try:
             headers = {
@@ -346,7 +446,8 @@ class HempImageGenerator:
             response = requests.post(
                 "https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image",
                 headers=headers,
-                json=body
+                json=body,
+                timeout=60
             )
             
             if response.status_code == 200:
@@ -358,20 +459,24 @@ class HempImageGenerator:
                 # Upload to Supabase Storage
                 filename = f"hemp-product-sd-{int(time.time())}-{os.urandom(4).hex()}.png"
                 image_url = self.upload_to_supabase_storage(image_bytes, filename)
+                logger.info(f"Successfully generated and uploaded image: {image_url}")
                 return image_url
             else:
-                logger.error(f"Stable Diffusion API error: {response.status_code} - {response.text}")
-                return None
+                error_msg = f"Stable Diffusion API error: {response.status_code} - {response.text}"
+                logger.error(error_msg)
+                raise Exception(error_msg)
                 
         except Exception as e:
             logger.error(f"Error generating with Stable Diffusion: {e}")
-            return None
+            raise
     
     def generate_image_dall_e(self, prompt: str) -> Optional[str]:
         """Generate image using DALL-E API"""
         if not self.openai_key:
             logger.error("OpenAI API key not found")
-            return None
+            raise Exception("OpenAI API key not configured")
+        
+        logger.info("Calling DALL-E API...")
         
         try:
             response = requests.post(
@@ -386,7 +491,8 @@ class HempImageGenerator:
                     "n": 1,
                     "size": "1024x1024",
                     "quality": "standard"
-                }
+                },
+                timeout=60
             )
             
             if response.status_code == 200:
@@ -394,22 +500,23 @@ class HempImageGenerator:
                 remote_url = data['data'][0]['url']
                 
                 # Download the image
-                img_response = requests.get(remote_url)
+                img_response = requests.get(remote_url, timeout=30)
                 if img_response.status_code == 200:
                     # Upload to Supabase Storage
                     filename = f"hemp-product-dalle-{int(time.time())}-{os.urandom(4).hex()}.png"
                     image_url = self.upload_to_supabase_storage(img_response.content, filename)
+                    logger.info(f"Successfully generated and uploaded image: {image_url}")
                     return image_url
                 else:
-                    logger.error(f"Failed to download DALL-E image: {img_response.status_code}")
-                    return None
+                    raise Exception(f"Failed to download DALL-E image: {img_response.status_code}")
             else:
-                logger.error(f"DALL-E API error: {response.status_code} - {response.text}")
-                return None
+                error_msg = f"DALL-E API error: {response.status_code} - {response.text}"
+                logger.error(error_msg)
+                raise Exception(error_msg)
                 
         except Exception as e:
             logger.error(f"Error generating with DALL-E: {e}")
-            return None
+            raise
     
     def _log_generation_cost(self, provider: str, product_id: int, queue_id: str, 
                            generation_time_ms: int, success: bool, error_message: str = None):
@@ -420,7 +527,7 @@ class HempImageGenerator:
                 'cost_per_image'
             ).eq('provider_name', provider).single().execute()
             
-            cost = provider_config.data['cost_per_image'] if success and provider_config.data else 0
+            cost = float(provider_config.data['cost_per_image']) if success and provider_config.data else 0
             
             self.supabase.table('ai_generation_costs').insert({
                 'provider_name': provider,
@@ -467,20 +574,6 @@ class HempImageGenerator:
                 
         except Exception as e:
             logger.error(f"Error monitoring progress: {e}")
-    
-    def run_scheduled_generation(self) -> None:
-        """Run scheduled image generation"""
-        logger.info("Starting scheduled image generation...")
-        
-        # Check if scheduled run is due
-        try:
-            response = self.supabase.rpc('check_and_run_image_generation').execute()
-            
-            if response.data:
-                logger.info(response.data)
-            
-        except Exception as e:
-            logger.error(f"Error running scheduled generation: {e}")
     
     def continuous_run(self, interval_minutes: int = 15, max_runs: int = None) -> None:
         """Run continuously with specified interval"""
