@@ -85,10 +85,13 @@ def test_provider(provider_name: str, test_product_id: int = 1):
             print(f"Response: {response.text}")
             
             if response.status_code == 400:
-                error_data = response.json()
-                if 'API key' in error_data.get('error', ''):
-                    print("\n⚠️  Missing API Key!")
-                    print(f"Please add the API key for {provider_name} to Supabase secrets")
+                try:
+                    error_data = response.json()
+                    if 'API key' in error_data.get('error', ''):
+                        print("\n⚠️  Missing API Key!")
+                        print(f"Please add the API key for {provider_name} to Supabase secrets")
+                except:
+                    pass
                     
             return False
             
@@ -102,15 +105,32 @@ def check_provider_status():
     print("\n📊 Provider Status Check")
     print("=" * 70)
     
-    providers = supabase.table('ai_provider_config').select('*').order('priority').execute()
-    
-    for provider in providers.data:
-        status = "✅ Active" if provider['is_active'] else "❌ Inactive"
-        print(f"\n{provider['provider_name']}:")
-        print(f"  Status: {status}")
-        print(f"  Cost per image: ${provider['cost_per_image']:.3f}")
-        print(f"  Priority: {provider['priority']}")
-        print(f"  Total generated: {provider['total_generated']}")
+    try:
+        # Try without ordering first
+        providers = supabase.table('ai_provider_config').select('*').execute()
+        
+        # Sort by cost_per_image for display
+        providers.data.sort(key=lambda x: x.get('cost_per_image', 0))
+        
+        for provider in providers.data:
+            status = "✅ Active" if provider.get('is_active', False) else "❌ Inactive"
+            print(f"\n{provider['provider_name']}:")
+            print(f"  Status: {status}")
+            print(f"  Cost per image: ${provider.get('cost_per_image', 0):.3f}")
+            if 'total_generated' in provider:
+                print(f"  Total generated: {provider['total_generated']}")
+                
+    except Exception as e:
+        print(f"Error checking provider status: {str(e)}")
+        print("\nTrying alternative query...")
+        
+        # Try a simpler query
+        try:
+            providers = supabase.table('ai_provider_config').select('provider_name,is_active,cost_per_image').execute()
+            for provider in providers.data:
+                print(f"\n{provider['provider_name']}: {'Active' if provider.get('is_active') else 'Inactive'} - ${provider.get('cost_per_image', 0):.3f}/image")
+        except Exception as e2:
+            print(f"Error: {str(e2)}")
 
 def main():
     """Main test menu"""
@@ -151,14 +171,17 @@ def main():
             
         elif choice == '5':
             # Test all active providers
-            active_providers = supabase.table('ai_provider_config')\
-                .select('provider_name')\
-                .eq('is_active', True)\
-                .execute()
-                
-            for provider in active_providers.data:
-                if provider['provider_name'] != 'Placeholder':
-                    test_provider(provider['provider_name'])
+            try:
+                active_providers = supabase.table('ai_provider_config')\
+                    .select('provider_name')\
+                    .eq('is_active', True)\
+                    .execute()
+                    
+                for provider in active_providers.data:
+                    if provider['provider_name'] != 'Placeholder':
+                        test_provider(provider['provider_name'])
+            except Exception as e:
+                print(f"Error getting active providers: {str(e)}")
                     
         elif choice == '6':
             check_provider_status()
