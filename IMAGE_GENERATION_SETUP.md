@@ -1,208 +1,212 @@
-# Image Generation Setup Guide
+# Hemp Database AI Image Generation - Setup & Usage Guide
 
-## Prerequisites
+## 🎨 Overview
 
-1. **Supabase Project** with the hemp database already set up
-2. **Python 3.7+** installed
-3. **API Keys** (optional, for AI providers):
-   - Stability AI API key (for Stable Diffusion)
-   - OpenAI API key (for DALL-E)
+The Hemp Database now supports real AI image generation using multiple providers:
+- **Stable Diffusion** (Stability AI) - High quality, cost-effective
+- **DALL-E 3** (OpenAI) - Premium quality, higher cost
+- **Placeholder** - Free fallback option
 
-## Quick Setup
+## 🚀 Quick Start
 
-### 1. Environment Configuration
+### 1. Set Up API Keys
 
-Add the following to your `.env` file:
-
-```bash
-# Required
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# Optional (for AI image generation)
-IMAGE_GENERATION_PROVIDER=placeholder  # Options: placeholder, stable_diffusion, dall_e
-STABILITY_API_KEY=your_stability_api_key
-OPENAI_API_KEY=your_openai_api_key
-```
-
-### 2. Database Setup
-
-Run the migration SQL in your Supabase SQL editor:
-
-```sql
--- Copy the contents of image_generation/schema_image_generation.sql
--- Paste and run in Supabase SQL editor
-```
-
-### 3. Initial Setup
-
-Run the setup script to queue all products:
+Copy the environment template and add your API keys:
 
 ```bash
-python image_generation/setup_image_generation.py
+cp .env.image-generation .env
+# Edit .env and add your API keys
 ```
 
-This will:
-- Verify all tables are created
-- Queue all products without images
-- Set up the default schedule
-- Display initial statistics
+Required API keys:
+- `STABILITY_API_KEY` - Get from [Stability AI Platform](https://platform.stability.ai/account/keys)
+- `OPENAI_API_KEY` - Get from [OpenAI Platform](https://platform.openai.com/api-keys)
 
-### 4. Start Image Generation
-
-#### Option A: Run Once
-```bash
-python image_generation/hemp_image_generator.py
-```
-
-#### Option B: Run Continuously
-```bash
-python image_generation/hemp_image_generator.py --mode continuous --interval 15
-```
-
-#### Option C: Monitor Progress
-```bash
-python image_generation/hemp_image_generator.py --mode monitor
-```
-
-## Edge Function Deployment
-
-### 1. Install Supabase CLI
+### 2. Deploy the Updated Edge Function
 
 ```bash
-npm install -g supabase
-```
-
-### 2. Login to Supabase
-
-```bash
-supabase login
-```
-
-### 3. Link Your Project
-
-```bash
-supabase link --project-ref your-project-ref
-```
-
-### 4. Deploy the Function
-
-```bash
+# Deploy to Supabase
 supabase functions deploy hemp-image-generator
 ```
 
-### 5. Set Environment Variables
+### 3. Reset Images for AI Generation
 
-```bash
-supabase secrets set STABILITY_API_KEY=your_key
-supabase secrets set OPENAI_API_KEY=your_key
-```
-
-## Using the System
-
-### Command Line Options
-
-```bash
-# Process a specific batch size
-python image_generation/hemp_image_generator.py --batch-size 20
-
-# Use a specific provider
-python image_generation/hemp_image_generator.py --provider stable_diffusion
-
-# Continuous mode with custom interval
-python image_generation/hemp_image_generator.py --mode continuous --interval 30 --max-runs 10
-```
-
-### Monitoring via SQL
+To regenerate existing placeholder images with AI:
 
 ```sql
--- Check overall progress
-SELECT * FROM image_generation_dashboard;
+-- Reset first 10 products as a test
+SELECT * FROM reset_placeholder_images_for_ai_generation(10, 'stable_diffusion');
 
--- View recent activity
-SELECT * FROM image_generation_history 
-ORDER BY created_at DESC 
-LIMIT 20;
+-- Reset all placeholder images
+SELECT * FROM reset_placeholder_images_for_ai_generation(NULL, 'stable_diffusion');
 
--- Check failed generations
-SELECT 
-    igq.*,
-    up.name as product_name
-FROM image_generation_queue igq
-JOIN uses_products up ON igq.product_id = up.id
-WHERE igq.status = 'failed';
+-- Use DALL-E instead
+SELECT * FROM reset_placeholder_images_for_ai_generation(NULL, 'dall_e');
 ```
 
-### Using the Edge Function
+### 4. Run Image Generation
 
+#### Using Python Script:
+```bash
+# Test with a small batch
+python image_generation/hemp_image_generator.py --batch-size 5
+
+# Run continuous generation
+python image_generation/hemp_image_generator.py --mode continuous --interval 5
+
+# Monitor progress
+python image_generation/hemp_image_generator.py --mode monitor
+```
+
+#### Using Edge Function:
 ```bash
 # Call the edge function
-curl -X POST https://your-project.supabase.co/functions/v1/hemp-image-generator \
-  -H "Authorization: Bearer YOUR_ANON_KEY" \
+curl -X POST https://[YOUR_PROJECT_ID].supabase.co/functions/v1/hemp-image-generator \
+  -H "Authorization: Bearer [YOUR_ANON_KEY]" \
   -H "Content-Type: application/json" \
-  -d '{"batchSize": 20, "provider": "placeholder"}'
+  -d '{"batchSize": 10, "provider": "stable_diffusion"}'
 ```
 
-## GitHub Actions Setup
+## 📊 Cost Management
 
-The system includes a GitHub Actions workflow for automated generation:
+### Check Current Costs
+```sql
+-- View cost summary by provider
+SELECT * FROM get_ai_generation_cost_summary();
 
-1. Add secrets to your repository:
-   - `SUPABASE_URL`
-   - `SUPABASE_ANON_KEY`
-   - `STABILITY_API_KEY` (optional)
-   - `OPENAI_API_KEY` (optional)
+-- Estimate cost for remaining images
+SELECT * FROM estimate_ai_generation_cost('stable_diffusion');
+SELECT * FROM estimate_ai_generation_cost('dall_e');
+```
 
-2. The workflow runs:
-   - Every 6 hours automatically
-   - On manual trigger with custom parameters
+### Cost Comparison
+| Provider | Cost per Image | Quality | Speed |
+|----------|---------------|---------|-------|
+| Placeholder | $0.00 | Low | Instant |
+| Stable Diffusion | $0.002 | High | Fast |
+| DALL-E 3 | $0.04 | Premium | Medium |
 
-## Troubleshooting
+## 🔧 Configuration
+
+### Provider Settings
+
+Update provider configuration:
+```sql
+-- Enable/disable providers
+UPDATE ai_provider_config 
+SET is_active = true 
+WHERE provider_name = 'stable_diffusion';
+
+-- Update rate limits
+UPDATE ai_provider_config 
+SET rate_limit_per_minute = 10,
+    rate_limit_per_hour = 100
+WHERE provider_name = 'stable_diffusion';
+```
+
+### Image Generation Settings
+
+Customize prompts in `schema_image_generation.sql`:
+- Industry-specific styling
+- Plant part details
+- Quality preferences
+
+## 📈 Monitoring
+
+### Dashboard View
+```sql
+SELECT * FROM image_generation_dashboard;
+```
+
+### Queue Status
+```sql
+SELECT 
+    status,
+    generation_provider,
+    COUNT(*) as count
+FROM image_generation_queue
+GROUP BY status, generation_provider
+ORDER BY status;
+```
+
+### Recent Activity
+```sql
+SELECT 
+    igh.*,
+    up.name as product_name
+FROM image_generation_history igh
+JOIN uses_products up ON igh.product_id = up.id
+ORDER BY igh.created_at DESC
+LIMIT 20;
+```
+
+## 🚨 Troubleshooting
 
 ### Common Issues
 
-1. **"Missing Supabase credentials"**
-   - Ensure `.env` file exists and contains correct credentials
-   - Run `source .env` or restart your terminal
+1. **"No API key found" errors**
+   - Ensure API keys are set in environment variables
+   - For Edge Functions, set them in Supabase Dashboard > Edge Functions > Secrets
 
-2. **"Table does not exist"**
-   - Run the SQL migration in Supabase
-   - Verify you're connected to the correct project
+2. **Storage bucket errors**
+   - Make sure the bucket exists and is public
+   - Check bucket policies allow uploads
 
-3. **"No products queued"**
-   - Check if products already have images
-   - Verify products exist in the database
+3. **Rate limit errors**
+   - Reduce batch size
+   - Increase interval between runs
+   - Check provider rate limits in config
 
-4. **Edge Function Not Working**
-   - Check function logs: `supabase functions logs hemp-image-generator`
-   - Verify environment variables are set
-   - Check CORS settings if calling from browser
+### Debug Mode
 
-### Performance Tips
+Enable detailed logging:
+```python
+# In Python script
+export LOG_LEVEL=DEBUG
+python image_generation/hemp_image_generator.py
+```
 
-1. **Start with smaller batches** to test the system
-2. **Use placeholder provider** for initial testing
-3. **Monitor API costs** when using paid providers
-4. **Adjust batch sizes** based on API rate limits
+## 🎯 Best Practices
 
-## API Provider Configuration
+1. **Start Small**: Test with 5-10 products first
+2. **Monitor Costs**: Check `ai_generation_costs` table regularly
+3. **Use Appropriate Providers**: 
+   - Stable Diffusion for bulk generation
+   - DALL-E for hero/featured products
+4. **Batch Processing**: Process in batches to avoid timeouts
+5. **Error Handling**: Failed images automatically retry
 
-### Stable Diffusion (Stability AI)
+## 📝 Example Workflow
 
-1. Get API key from: https://platform.stability.ai/
-2. Add to environment: `STABILITY_API_KEY=your_key`
-3. Set provider: `IMAGE_GENERATION_PROVIDER=stable_diffusion`
+```bash
+# 1. Set up environment
+cp .env.image-generation .env
+# Add your API keys to .env
 
-### DALL-E (OpenAI)
+# 2. Reset 5 products for testing
+psql -c "SELECT * FROM reset_placeholder_images_for_ai_generation(5, 'stable_diffusion');"
 
-1. Get API key from: https://platform.openai.com/
-2. Add to environment: `OPENAI_API_KEY=your_key`
-3. Set provider: `IMAGE_GENERATION_PROVIDER=dall_e`
+# 3. Generate images
+python image_generation/hemp_image_generator.py --batch-size 5
 
-## Next Steps
+# 4. Check results
+python image_generation/hemp_image_generator.py --mode monitor
 
-1. **Customize Prompts**: Edit `generate_image_prompt` function in the schema
-2. **Add CDN Upload**: Integrate with Cloudinary or similar
-3. **Implement Caching**: Store generated images in cloud storage
-4. **Add Image Variations**: Generate multiple options per product
-5. **User Feedback**: Allow voting on best images
+# 5. If successful, process all remaining
+psql -c "SELECT * FROM reset_placeholder_images_for_ai_generation(NULL, 'stable_diffusion');"
+python image_generation/hemp_image_generator.py --mode continuous
+```
+
+## 🔗 Resources
+
+- [Stability AI Docs](https://platform.stability.ai/docs/api-reference)
+- [OpenAI Image Generation](https://platform.openai.com/docs/guides/images)
+- [Supabase Storage](https://supabase.com/docs/guides/storage)
+
+## 💡 Tips
+
+- Images are stored permanently in Supabase Storage
+- Generated URLs are public and CDN-cached
+- Prompts are customized per product category
+- Failed generations fall back to placeholder
+- All costs are tracked for budgeting
