@@ -31,7 +31,7 @@ serve(async (req) => {
       return new Response('Method not allowed', { status: 405 });
     }
 
-    const { batchSize = 10, provider = IMAGE_PROVIDERS.PLACEHOLDER } = await req.json();
+    const { batchSize = 10, provider = await selectBestProvider() } = await req.json();
 
     // Fetch pending image generation tasks
     const { data: queue, error: queueError } = await supabase
@@ -69,6 +69,8 @@ serve(async (req) => {
 
     // Process each queued item
     for (const item of queue) {
+      const startTime = Date.now();
+      
       try {
         // Update status to processing
         await supabase
@@ -78,26 +80,32 @@ serve(async (req) => {
 
         // Generate image based on provider
         let imageUrl = '';
+        let actualProvider = provider;
         
-        switch (provider) {
-          case IMAGE_PROVIDERS.PLACEHOLDER:
-            imageUrl = generatePlaceholderUrl(item);
-            break;
-          
-          case IMAGE_PROVIDERS.STABLE_DIFFUSION:
-            // Integration with Stable Diffusion API
-            // imageUrl = await generateStableDiffusion(item.prompt);
-            imageUrl = generatePlaceholderUrl(item); // Fallback for now
-            break;
-          
-          case IMAGE_PROVIDERS.DALL_E:
-            // Integration with OpenAI DALL-E API
-            // imageUrl = await generateDallE(item.prompt);
-            imageUrl = generatePlaceholderUrl(item); // Fallback for now
-            break;
-          
-          default:
-            imageUrl = generatePlaceholderUrl(item);
+        try {
+          switch (provider) {
+            case IMAGE_PROVIDERS.PLACEHOLDER:
+              imageUrl = generatePlaceholderUrl(item);
+              break;
+            
+            case IMAGE_PROVIDERS.STABLE_DIFFUSION:
+              imageUrl = await generateStableDiffusion(item.prompt, item.negative_prompt);
+              break;
+            
+            case IMAGE_PROVIDERS.DALL_E:
+              imageUrl = await generateDallE(item.prompt);
+              break;
+            
+            default:
+              // Fallback to placeholder if provider is unknown
+              imageUrl = generatePlaceholderUrl(item);
+              actualProvider = IMAGE_PROVIDERS.PLACEHOLDER;
+          }
+        } catch (apiError) {
+          console.error(`API error for provider ${provider}:`, apiError);
+          // Fallback to placeholder on API error
+          imageUrl = generatePlaceholderUrl(item);
+          actualProvider = IMAGE_PROVIDERS.PLACEHOLDER;
         }
 
         // Update product with generated image
@@ -115,6 +123,7 @@ serve(async (req) => {
           .update({ 
             status: 'completed',
             generated_image_url: imageUrl,
+            generation_provider: actualProvider,
             completed_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           })
@@ -129,9 +138,15 @@ serve(async (req) => {
             action: 'completed',
             details: {
               image_url: imageUrl,
-              provider: provider
+              provider: actualProvider,
+              generation_time_ms: Date.now() - startTime
             }
           });
+
+        // Log cost if not placeholder
+        if (actualProvider !== IMAGE_PROVIDERS.PLACEHOLDER) {
+          await logGenerationCost(actualProvider, item.product_id, item.id, Date.now() - startTime, true);
+        }
 
         results.success++;
       } catch (error) {
@@ -144,6 +159,9 @@ serve(async (req) => {
             updated_at: new Date().toISOString()
           })
           .eq('id', item.id);
+
+        // Log failed cost
+        await logGenerationCost(provider, item.product_id, item.id, Date.now() - startTime, false, error.message);
 
         results.failed++;
         results.errors.push({ itemId: item.id, error: error.message });
@@ -189,10 +207,186 @@ serve(async (req) => {
   }
 });
 
+async function selectBestProvider(): Promise<string> {
+  // Check which providers have API keys configured
+  const hasStabilityKey = !!Deno.env.get('STABILITY_API_KEY');
+  const hasOpenAIKey = !!Deno.env.get('OPENAI_API_KEY');
+  
+  const availableProviders = [];
+  if (hasStabilityKey) availableProviders.push(IMAGE_PROVIDERS.STABLE_DIFFUSION);
+  if (hasOpenAIKey) availableProviders.push(IMAGE_PROVIDERS.DALL_E);
+  
+  if (availableProviders.length === 0) {
+    console.warn('No AI provider API keys found, using placeholder');
+    return IMAGE_PROVIDERS.PLACEHOLDER;
+  }
+  
+  // Get provider configs from database
+  const { data: configs } = await supabase
+    .from('ai_provider_config')
+    .select('*')
+    .in('provider_name', availableProviders)
+    .eq('is_active', true)
+    .order('quality_score', { ascending: false })
+    .limit(1);
+  
+  if (configs && configs.length > 0) {
+    return configs[0].provider_name;
+  }
+  
+  // Default fallback
+  return availableProviders[0];
+}
+
+async function generateStableDiffusion(prompt: string, negativePrompt?: string): Promise<string> {
+  const apiKey = Deno.env.get('STABILITY_API_KEY');
+  if (!apiKey) {
+    throw new Error('Stability API key not configured');
+  }
+
+  const response = await fetch('https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      text_prompts: [
+        { text: prompt, weight: 1 },
+        ...(negativePrompt ? [{ text: negativePrompt, weight: -1 }] : [])
+      ],
+      cfg_scale: 7,
+      height: 1024,
+      width: 1024,
+      samples: 1,
+      steps: 30
+    })
+  });
+  
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Stable Diffusion API error: ${response.status} - ${error}`);
+  }
+  
+  const data = await response.json();
+  
+  // Upload base64 image to Supabase Storage
+  const imageBase64 = data.artifacts[0].base64;
+  const imageBuffer = Uint8Array.from(atob(imageBase64), c => c.charCodeAt(0));
+  
+  const fileName = `hemp-product-${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
+  const { data: uploadData, error: uploadError } = await supabase.storage
+    .from('hemp-product-images')
+    .upload(fileName, imageBuffer, {
+      contentType: 'image/png',
+      cacheControl: '3600',
+      upsert: false
+    });
+  
+  if (uploadError) {
+    throw uploadError;
+  }
+  
+  const { data: { publicUrl } } = supabase.storage
+    .from('hemp-product-images')
+    .getPublicUrl(fileName);
+  
+  return publicUrl;
+}
+
+async function generateDallE(prompt: string): Promise<string> {
+  const apiKey = Deno.env.get('OPENAI_API_KEY');
+  if (!apiKey) {
+    throw new Error('OpenAI API key not configured');
+  }
+
+  const response = await fetch('https://api.openai.com/v1/images/generations', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: "dall-e-3",
+      prompt: prompt,
+      n: 1,
+      size: "1024x1024",
+      quality: "standard"
+    })
+  });
+  
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`DALL-E API error: ${response.status} - ${error}`);
+  }
+  
+  const data = await response.json();
+  const imageUrl = data.data[0].url;
+  
+  // Download and re-upload to Supabase Storage for persistence
+  const imageResponse = await fetch(imageUrl);
+  const imageBlob = await imageResponse.blob();
+  const imageBuffer = await imageBlob.arrayBuffer();
+  
+  const fileName = `hemp-product-${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
+  const { data: uploadData, error: uploadError } = await supabase.storage
+    .from('hemp-product-images')
+    .upload(fileName, new Uint8Array(imageBuffer), {
+      contentType: 'image/png',
+      cacheControl: '3600',
+      upsert: false
+    });
+  
+  if (uploadError) {
+    throw uploadError;
+  }
+  
+  const { data: { publicUrl } } = supabase.storage
+    .from('hemp-product-images')
+    .getPublicUrl(fileName);
+  
+  return publicUrl;
+}
+
+async function logGenerationCost(
+  provider: string, 
+  productId: number, 
+  queueId: string, 
+  generationTimeMs: number, 
+  success: boolean,
+  errorMessage?: string
+): Promise<void> {
+  // Get provider config for cost
+  const { data: providerConfig } = await supabase
+    .from('ai_provider_config')
+    .select('cost_per_image')
+    .eq('provider_name', provider)
+    .single();
+  
+  const cost = success ? (providerConfig?.cost_per_image || 0) : 0;
+  
+  await supabase
+    .from('ai_generation_costs')
+    .insert({
+      provider_name: provider,
+      product_id: productId,
+      queue_id: queueId,
+      cost: cost,
+      generation_time_ms: generationTimeMs,
+      image_size: '1024x1024',
+      success: success,
+      error_message: errorMessage,
+      metadata: {
+        edge_function: true,
+        timestamp: new Date().toISOString()
+      }
+    });
+}
+
 function generatePlaceholderUrl(item: any): string {
   const productName = item.uses_products?.name || 'Hemp Product';
   const plantPart = item.uses_products?.plant_parts?.name || '';
-  const industry = item.uses_products?.industry_sub_categories?.industries?.name || '';
   
   // Color mapping based on plant part
   const colorMap: { [key: string]: string } = {
@@ -214,45 +408,5 @@ function generatePlaceholderUrl(item: any): string {
   
   // Generate URL with better formatting
   const formattedName = encodeURIComponent(productName.replace(/[^a-zA-Z0-9 ]/g, ''));
-  return `https://via.placeholder.com/800x600/${color}/FFFFFF?text=${formattedName}`;
+  return `https://via.placeholder.com/1024x1024/${color}/FFFFFF?text=${formattedName}`;
 }
-
-// Placeholder functions for real image generation APIs
-// These would be implemented with actual API integrations
-
-// async function generateStableDiffusion(prompt: string): Promise<string> {
-//   // Integration with Stable Diffusion API
-//   const response = await fetch('https://api.stability.ai/v1/generation', {
-//     method: 'POST',
-//     headers: {
-//       'Authorization': `Bearer ${Deno.env.get('STABILITY_API_KEY')}`,
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       text_prompts: [{ text: prompt }],
-//       cfg_scale: 7,
-//       height: 512,
-//       width: 512,
-//       samples: 1,
-//       steps: 30
-//     })
-//   });
-//   // Process response and return image URL
-// }
-
-// async function generateDallE(prompt: string): Promise<string> {
-//   // Integration with OpenAI DALL-E API
-//   const response = await fetch('https://api.openai.com/v1/images/generations', {
-//     method: 'POST',
-//     headers: {
-//       'Authorization': `Bearer ${Deno.env.get('OPENAI_API_KEY')}`,
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       prompt: prompt,
-//       n: 1,
-//       size: '512x512'
-//     })
-//   });
-//   // Process response and return image URL
-// }
