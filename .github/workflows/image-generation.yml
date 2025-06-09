@@ -1,0 +1,58 @@
+name: Hemp Image Generation
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Number of images to generate'
+        required: false
+        default: '50'
+      provider:
+        description: 'Image generation provider'
+        required: false
+        default: 'placeholder'
+        type: choice
+        options:
+          - placeholder
+          - stable_diffusion
+          - dall_e
+
+jobs:
+  generate-images:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run Image Generation
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        IMAGE_GENERATION_PROVIDER: ${{ github.event.inputs.provider || 'placeholder' }}
+        STABILITY_API_KEY: ${{ secrets.STABILITY_API_KEY }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        python image_generation/hemp_image_generator.py \
+          --batch-size ${{ github.event.inputs.batch_size || '50' }} \
+          --provider ${{ github.event.inputs.provider || 'placeholder' }}
+    
+    - name: Upload Logs
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: generation-logs
+        path: logs/
+        retention-days: 7
