@@ -33,35 +33,69 @@ def test_provider(provider_name: str, test_product_id: int = 1):
     print(f"{'='*50}")
     
     # Get product details
-    product = supabase.table('uses_products').select('*').eq('id', test_product_id).single().execute()
-    
-    if not product.data:
-        print(f"Error: Product {test_product_id} not found")
-        return False
-    
-    product_data = product.data
-    print(f"\nTest Product: {product_data['product_name']}")
-    print(f"Description: {product_data['description'][:100]}...")
-    
-    # Prepare test request
-    edge_function_url = f"{url}/functions/v1/hemp-image-generator"
-    
-    payload = {
-        "productId": test_product_id,
-        "productName": product_data['product_name'],
-        "productDescription": product_data['description'],
-        "forceProvider": provider_name.lower().replace(' ', '_')
-    }
-    
-    headers = {
-        "Authorization": f"Bearer {service_key}",
-        "Content-Type": "application/json"
-    }
-    
-    print(f"\nSending request to Edge Function...")
-    print(f"Payload: {json.dumps(payload, indent=2)}")
-    
     try:
+        product = supabase.table('uses_products').select('*').eq('id', test_product_id).single().execute()
+        
+        if not product.data:
+            print(f"Error: Product {test_product_id} not found")
+            # Try to get first product
+            first_product = supabase.table('uses_products').select('*').limit(1).execute()
+            if first_product.data:
+                print(f"Using first available product instead (ID: {first_product.data[0]['id']})")
+                product = first_product
+                product_data = product.data[0]
+            else:
+                print("No products found in database!")
+                return False
+        else:
+            product_data = product.data
+        
+        # Debug: Show available fields
+        print(f"\nAvailable fields: {list(product_data.keys())}")
+        
+        # Handle different possible field names
+        name_field = None
+        for field in ['product_name', 'name', 'title', 'product']:
+            if field in product_data:
+                name_field = field
+                break
+        
+        if not name_field:
+            print(f"Warning: No name field found. Using ID {product_data.get('id', 'Unknown')}")
+            product_name = f"Product {product_data.get('id', 'Unknown')}"
+        else:
+            product_name = product_data[name_field]
+            
+        # Handle description field
+        desc_field = None
+        for field in ['description', 'desc', 'details', 'product_description']:
+            if field in product_data:
+                desc_field = field
+                break
+                
+        product_description = product_data.get(desc_field, "No description available") if desc_field else "No description available"
+        
+        print(f"\nTest Product: {product_name}")
+        print(f"Description: {product_description[:100]}...")
+        
+        # Prepare test request
+        edge_function_url = f"{url}/functions/v1/hemp-image-generator"
+        
+        payload = {
+            "productId": product_data.get('id', test_product_id),
+            "productName": product_name,
+            "productDescription": product_description,
+            "forceProvider": provider_name.lower().replace(' ', '_')
+        }
+        
+        headers = {
+            "Authorization": f"Bearer {service_key}",
+            "Content-Type": "application/json"
+        }
+        
+        print(f"\nSending request to Edge Function...")
+        print(f"Payload: {json.dumps(payload, indent=2)}")
+        
         # Make request to Edge Function
         response = requests.post(edge_function_url, json=payload, headers=headers)
         
@@ -97,6 +131,14 @@ def test_provider(provider_name: str, test_product_id: int = 1):
             
     except Exception as e:
         print(f"\n❌ Exception: {str(e)}")
+        # Try to show table structure
+        print("\nAttempting to show table structure...")
+        try:
+            sample = supabase.table('uses_products').select('*').limit(1).execute()
+            if sample.data:
+                print(f"Table columns: {list(sample.data[0].keys())}")
+        except:
+            pass
         return False
 
 def check_provider_status():
@@ -132,6 +174,41 @@ def check_provider_status():
         except Exception as e2:
             print(f"Error: {str(e2)}")
 
+def activate_provider_menu():
+    """Menu to activate providers"""
+    print("\n🔧 Provider Activation")
+    print("=" * 50)
+    
+    providers = supabase.table('ai_provider_config').select('*').execute()
+    
+    print("\nSelect provider to activate:")
+    for i, provider in enumerate(providers.data):
+        if provider['provider_name'] != 'placeholder':
+            status = "✅" if provider.get('is_active') else "❌"
+            print(f"{i+1}. {status} {provider['provider_name']} (${provider.get('cost_per_image', 0):.3f}/image)")
+    
+    choice = input("\nEnter number (or 0 to cancel): ").strip()
+    
+    try:
+        idx = int(choice) - 1
+        if 0 <= idx < len(providers.data):
+            provider = providers.data[idx]
+            # Toggle activation
+            new_status = not provider.get('is_active', False)
+            
+            result = supabase.table('ai_provider_config')\
+                .update({'is_active': new_status})\
+                .eq('id', provider['id'])\
+                .execute()
+                
+            print(f"\n{'✅ Activated' if new_status else '❌ Deactivated'} {provider['provider_name']}")
+            
+            if new_status and provider['provider_name'] != 'placeholder':
+                print(f"\n⚠️  Remember to add the API key to Supabase secrets!")
+                print(f"Go to: https://supabase.com/dashboard/project/ktoqznqmlnxrtvubewyz/functions/hemp-image-generator")
+    except:
+        print("Invalid choice")
+
 def main():
     """Main test menu"""
     
@@ -142,16 +219,17 @@ def main():
     check_provider_status()
     
     while True:
-        print("\n\nSelect a provider to test:")
-        print("1. Stable Diffusion ($0.002/image)")
-        print("2. DALL-E 3 ($0.040/image)")
-        print("3. Imagen 3 ($0.020/image)")
-        print("4. Midjourney ($0.015/image)")
+        print("\n\nSelect an option:")
+        print("1. Test Stable Diffusion ($0.002/image)")
+        print("2. Test DALL-E 3 ($0.040/image)")
+        print("3. Test Imagen 3 ($0.020/image)")
+        print("4. Test Midjourney ($0.015/image)")
         print("5. Test All Active Providers")
         print("6. Check Provider Status")
+        print("7. Activate/Deactivate Providers")
         print("0. Exit")
         
-        choice = input("\nEnter choice (0-6): ").strip()
+        choice = input("\nEnter choice (0-7): ").strip()
         
         if choice == '0':
             print("\nGoodbye!")
@@ -178,13 +256,16 @@ def main():
                     .execute()
                     
                 for provider in active_providers.data:
-                    if provider['provider_name'] != 'Placeholder':
+                    if provider['provider_name'] != 'placeholder':
                         test_provider(provider['provider_name'])
             except Exception as e:
                 print(f"Error getting active providers: {str(e)}")
                     
         elif choice == '6':
             check_provider_status()
+            
+        elif choice == '7':
+            activate_provider_menu()
             
         else:
             print("Invalid choice. Please try again.")
