@@ -1,3 +1,18 @@
-supabase==2.5.0
-python-dotenv==1.0.0
-psycopg2-binary==2.9.9
+# Core dependencies for Hemp Automation
+supabase>=2.0.0
+openai>=1.0.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+pandas>=2.0.0
+
+# Additional utilities
+python-dateutil>=2.8.0
+pytz>=2023.3
+
+# Image generation dependencies
+Pillow>=10.0.0  # For image processing
+aiohttp>=3.8.0  # For async HTTP requests
+
+# Optional dependencies for AI providers
+# stability-sdk>=0.8.0  # For Stable Diffusion (uncomment if using)
+# replicate>=0.15.0     # For Replicate API (uncomment if using)

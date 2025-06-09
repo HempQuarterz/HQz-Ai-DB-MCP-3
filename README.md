@@ -12,6 +12,7 @@ This project implements a comprehensive database system for tracking and managin
 - Market data and analysis
 - Regulatory information
 - Historical context
+- **🎨 Automated Image Generation** (NEW!)
 
 ## 📁 Project Structure
 
@@ -21,6 +22,13 @@ HQz-Ai-DB-MCP-3/
 ├── populate_supabase_db.py            # Comprehensive database population script
 ├── populate_hemp_products_advanced.py  # Advanced products population script
 ├── Project_Plan_Hemp_App.md          # Detailed project plan and specifications
+├── image_generation/                   # Image generation automation system (NEW!)
+│   ├── README.md                      # Image generation documentation
+│   ├── schema_image_generation.sql    # Database schema for image system
+│   ├── hemp_image_generator.py        # Main image generation script
+│   └── setup_image_generation.py      # Setup script
+├── supabase/functions/                # Edge Functions
+│   └── hemp-image-generator/          # Serverless image generation
 ├── HempResourceHub/                   # Frontend application resources
 │   ├── scripts/                       # TypeScript population scripts
 │   ├── client/                        # Frontend client code
@@ -59,6 +67,7 @@ HQz-Ai-DB-MCP-3/
 
 4. **Create database schema:**
    - Run `schema.sql` in your Supabase SQL editor
+   - Run `image_generation/schema_image_generation.sql` for image system
 
 5. **Populate the database:**
    ```bash
@@ -69,6 +78,40 @@ HQz-Ai-DB-MCP-3/
    python populate_hemp_products_advanced.py
    ```
 
+6. **Setup image generation (NEW!):**
+   ```bash
+   # Initialize image generation system
+   python image_generation/setup_image_generation.py
+   
+   # Start generating images
+   python image_generation/hemp_image_generator.py
+   ```
+
+## 🎨 Image Generation System (NEW!)
+
+Automated image generation for all hemp products:
+
+### Features
+- **Smart Prompt Generation**: Context-aware prompts based on product attributes
+- **Multi-Provider Support**: Placeholder, Stable Diffusion, DALL-E
+- **Queue Management**: Automatic retry and priority handling
+- **Progress Tracking**: Real-time monitoring dashboard
+- **Edge Function**: Scalable serverless processing
+
+### Quick Start
+```bash
+# Setup the system
+python image_generation/setup_image_generation.py
+
+# Generate images
+python image_generation/hemp_image_generator.py --mode continuous
+
+# Monitor progress
+python image_generation/hemp_image_generator.py --mode monitor
+```
+
+For detailed setup, see [Image Generation Setup Guide](IMAGE_GENERATION_SETUP.md)
+
 ## 📊 Database Schema
 
 The database includes the following main tables:
@@ -78,7 +121,7 @@ The database includes the following main tables:
 - `plant_parts` - Usable parts of hemp plants
 - `industries` - Industries utilizing hemp
 - `industry_sub_categories` - Detailed industry segments
-- `uses_products` - Comprehensive product catalog
+- `uses_products` - Comprehensive product catalog (149+ products)
 
 ### Supporting Tables
 - `companies` - Hemp industry companies
@@ -88,6 +131,11 @@ The database includes the following main tables:
 - `regulatory_jurisdictions` - Legal jurisdictions
 - `regulations` - Specific regulations
 - `historical_events` - Hemp history timeline
+
+### Image Generation Tables (NEW!)
+- `image_generation_queue` - Queue management
+- `image_generation_history` - Generation history
+- `image_generation_schedule` - Automated scheduling
 
 ### Relationship Tables
 - `product_companies`
@@ -101,12 +149,16 @@ The database includes the following main tables:
 ### Python Scripts
 - `populate_supabase_db.py` - Populates all tables with realistic data
 - `populate_hemp_products_advanced.py` - Adds detailed product information
+- `hemp_image_generator.py` - Automated image generation (NEW!)
 - `HempResourceHub/db_manager.py` - Database management utilities
 
 ### TypeScript Scripts (in HempResourceHub/scripts/)
 - `populate-hemp-products.ts` - Product population
 - `populate-from-pubmed.ts` - Research data import
 - `data-automation.ts` - Automated data collection
+
+### Edge Functions
+- `hemp-image-generator` - Serverless image generation
 
 ### Running TypeScript Tests
 
@@ -123,6 +175,8 @@ npm run test
 - [Project Plan](Project_Plan_Hemp_App.md) - Comprehensive project specifications
 - [Population Guide](README_POPULATE.md) - Detailed guide for database population
 - [Database Schema](HempResourceHub/DATABASE_SCHEMA.md) - Schema documentation
+- [Image Generation Setup](IMAGE_GENERATION_SETUP.md) - Image system setup guide (NEW!)
+- [Image Generation README](image_generation/README.md) - Detailed image system docs (NEW!)
 
 ## 🌐 Frontend Application
 
@@ -145,12 +199,14 @@ The database includes data from:
 - Historical records
 - Company directories
 - Product specifications
+- AI-generated product images (NEW!)
 
 ## 🔒 Security
 
 - Uses Supabase Row Level Security (RLS)
 - Environment variables for sensitive data
 - Secure API connections
+- API key management for image providers
 
 ## 📞 Contact
 
@@ -163,3 +219,4 @@ Project Link: [https://github.com/HempQuarterz/HQz-Ai-DB-MCP-3](https://github.c
 - Supabase for database hosting
 - Industrial hemp research community
 - Open source contributors
+- Image generation providers (Stability AI, OpenAI)
