@@ -15,15 +15,45 @@ on:
         type: string
 
 jobs:
-  generate-summary:
+  validate-environment:
     runs-on: ubuntu-latest
+    outputs:
+      is_valid: ${{ steps.check-env.outputs.is_valid }}
+    steps:
+      - name: Check required secrets
+        id: check-env
+        run: |
+          MISSING_SECRETS=""
+          
+          if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
+            MISSING_SECRETS="${MISSING_SECRETS}SUPABASE_URL "
+          fi
+          
+          if [ -z "${{ secrets.SUPABASE_ANON_KEY }}" ]; then
+            MISSING_SECRETS="${MISSING_SECRETS}SUPABASE_ANON_KEY "
+          fi
+          
+          if [ -n "$MISSING_SECRETS" ]; then
+            echo "❌ Missing required secrets: $MISSING_SECRETS"
+            echo "is_valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "✅ All required secrets are configured"
+            echo "is_valid=true" >> $GITHUB_OUTPUT
+          fi
+
+  generate-summary:
+    needs: validate-environment
+    if: needs.validate-environment.outputs.is_valid == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -32,6 +62,154 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      
+      - name: Create or verify weekly summary script
+        run: |
+          if [ ! -f "scripts/weekly_summary.py" ]; then
+            echo "⚠️ Weekly summary script not found. Creating it..."
+            mkdir -p scripts
+            cat > scripts/weekly_summary.py << 'EOF'
+#!/usr/bin/env python3
+"""Weekly Hemp Automation Summary Report Generator"""
+import os
+import sys
+from datetime import datetime, timedelta
+from supabase import create_client, Client
+
+def generate_summary(days=7):
+    """Generate weekly summary of hemp automation activities"""
+    
+    # Get environment variables
+    SUPABASE_URL = os.getenv('SUPABASE_URL')
+    SUPABASE_ANON_KEY = os.getenv('SUPABASE_ANON_KEY')
+    
+    if not SUPABASE_URL or not SUPABASE_ANON_KEY:
+        print("❌ Error: Missing Supabase credentials")
+        return 1
+    
+    try:
+        # Initialize Supabase client
+        supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+        
+        # Calculate date range
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=days)
+        
+        print(f"📊 WEEKLY HEMP AUTOMATION SUMMARY")
+        print(f"Report Period: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
+        print("=" * 60)
+        
+        # Get agent runs
+        runs = supabase.table('hemp_agent_runs') \
+            .select('*') \
+            .gte('created_at', start_date.isoformat()) \
+            .lte('created_at', end_date.isoformat()) \
+            .execute()
+        
+        # Get products discovered
+        products = supabase.table('hemp_automation_products') \
+            .select('*') \
+            .gte('created_at', start_date.isoformat()) \
+            .lte('created_at', end_date.isoformat()) \
+            .execute()
+        
+        # Get companies added
+        companies = supabase.table('hemp_automation_companies') \
+            .select('*') \
+            .gte('created_at', start_date.isoformat()) \
+            .lte('created_at', end_date.isoformat()) \
+            .execute()
+        
+        # Generate statistics
+        agent_stats = {}
+        for run in runs.data:
+            agent = run.get('agent_type', 'unknown')
+            if agent not in agent_stats:
+                agent_stats[agent] = {
+                    'runs': 0,
+                    'products': 0,
+                    'errors': 0,
+                    'total_time': 0
+                }
+            
+            agent_stats[agent]['runs'] += 1
+            agent_stats[agent]['products'] += run.get('products_found', 0)
+            if run.get('error'):
+                agent_stats[agent]['errors'] += 1
+            if run.get('duration_seconds'):
+                agent_stats[agent]['total_time'] += run['duration_seconds']
+        
+        # Print summary
+        print(f"\n📈 SUMMARY STATISTICS")
+        print(f"Total Agent Runs: {len(runs.data)}")
+        print(f"Total Products Discovered: {len(products.data)}")
+        print(f"Total Companies Added: {len(companies.data)}")
+        
+        print(f"\n🤖 AGENT PERFORMANCE:")
+        for agent, stats in sorted(agent_stats.items()):
+            if stats['runs'] > 0:
+                avg_time = stats['total_time'] / stats['runs']
+                error_rate = (stats['errors'] / stats['runs'] * 100)
+                
+                print(f"\n{agent.upper()}:")
+                print(f"  - Runs: {stats['runs']}")
+                print(f"  - Products Found: {stats['products']}")
+                print(f"  - Error Rate: {error_rate:.1f}%")
+                print(f"  - Avg Runtime: {avg_time:.1f}s")
+        
+        # Product categories breakdown
+        print(f"\n📦 PRODUCTS BY CATEGORY:")
+        category_counts = {}
+        for product in products.data:
+            category = product.get('product_type', 'Unknown')
+            category_counts[category] = category_counts.get(category, 0) + 1
+        
+        for category, count in sorted(category_counts.items(), key=lambda x: x[1], reverse=True):
+            print(f"  - {category}: {count}")
+        
+        # Top companies
+        print(f"\n🏢 TOP COMPANIES BY PRODUCTS:")
+        company_products = {}
+        for product in products.data:
+            company_id = product.get('company_id')
+            if company_id:
+                company_products[company_id] = company_products.get(company_id, 0) + 1
+        
+        # Get company names for top companies
+        top_companies = sorted(company_products.items(), key=lambda x: x[1], reverse=True)[:10]
+        for company_id, product_count in top_companies:
+            company = next((c for c in companies.data if c['id'] == company_id), None)
+            if company:
+                print(f"  - {company['name']}: {product_count} products")
+        
+        print("\n" + "=" * 60)
+        print("✅ Report generated successfully!")
+        
+        # Save report to file
+        os.makedirs('reports', exist_ok=True)
+        report_file = f"reports/weekly_summary_{datetime.now().strftime('%Y%m%d')}.txt"
+        with open(report_file, 'w') as f:
+            f.write(f"Weekly Hemp Automation Summary\n")
+            f.write(f"Generated: {datetime.now().isoformat()}\n")
+            f.write(f"Period: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}\n")
+            f.write(f"Total Runs: {len(runs.data)}\n")
+            f.write(f"Total Products: {len(products.data)}\n")
+            f.write(f"Total Companies: {len(companies.data)}\n")
+        
+        return 0
+        
+    except Exception as e:
+        print(f"❌ Error generating summary: {str(e)}")
+        return 1
+
+if __name__ == "__main__":
+    days = int(sys.argv[1]) if len(sys.argv) > 1 else 7
+    sys.exit(generate_summary(days))
+EOF
+            chmod +x scripts/weekly_summary.py
+          else
+            echo "✅ Weekly summary script exists"
+          fi
       
       - name: Generate weekly summary
         env:
@@ -44,126 +222,20 @@ jobs:
           # Set days from input or default to 7
           DAYS="${{ github.event.inputs.days || '7' }}"
           
-          # Create summary report script
-          cat > weekly_summary.py << 'EOF'
-          import os
-          import sys
-          from datetime import datetime, timedelta
-          from supabase import create_client, Client
-          
-          # Get environment variables
-          SUPABASE_URL = os.getenv('SUPABASE_URL')
-          SUPABASE_ANON_KEY = os.getenv('SUPABASE_ANON_KEY')
-          DAYS = int(sys.argv[1] if len(sys.argv) > 1 else 7)
-          
-          # Initialize Supabase client
-          supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
-          
-          # Calculate date range
-          end_date = datetime.now()
-          start_date = end_date - timedelta(days=DAYS)
-          
-          print(f"Report Period: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
-          print("=" * 60)
-          
-          # Get agent runs
-          runs = supabase.table('hemp_agent_runs') \
-              .select('*') \
-              .gte('created_at', start_date.isoformat()) \
-              .lte('created_at', end_date.isoformat()) \
-              .execute()
-          
-          # Get products discovered
-          products = supabase.table('hemp_automation_products') \
-              .select('*') \
-              .gte('created_at', start_date.isoformat()) \
-              .lte('created_at', end_date.isoformat()) \
-              .execute()
-          
-          # Get companies added
-          companies = supabase.table('hemp_automation_companies') \
-              .select('*') \
-              .gte('created_at', start_date.isoformat()) \
-              .lte('created_at', end_date.isoformat()) \
-              .execute()
-          
-          # Generate statistics
-          agent_stats = {}
-          for run in runs.data:
-              agent = run['agent_type']
-              if agent not in agent_stats:
-                  agent_stats[agent] = {
-                      'runs': 0,
-                      'products': 0,
-                      'errors': 0,
-                      'total_time': 0
-                  }
-              
-              agent_stats[agent]['runs'] += 1
-              agent_stats[agent]['products'] += run.get('products_found', 0)
-              if run.get('error'):
-                  agent_stats[agent]['errors'] += 1
-              if run.get('duration_seconds'):
-                  agent_stats[agent]['total_time'] += run['duration_seconds']
-          
-          # Print summary
-          print(f"\n📈 WEEKLY SUMMARY STATISTICS")
-          print(f"Total Agent Runs: {len(runs.data)}")
-          print(f"Total Products Discovered: {len(products.data)}")
-          print(f"Total Companies Added: {len(companies.data)}")
-          
-          print(f"\n🤖 AGENT PERFORMANCE:")
-          for agent, stats in sorted(agent_stats.items()):
-              avg_time = stats['total_time'] / stats['runs'] if stats['runs'] > 0 else 0
-              error_rate = (stats['errors'] / stats['runs'] * 100) if stats['runs'] > 0 else 0
-              
-              print(f"\n{agent.upper()}:")
-              print(f"  - Runs: {stats['runs']}")
-              print(f"  - Products Found: {stats['products']}")
-              print(f"  - Error Rate: {error_rate:.1f}%")
-              print(f"  - Avg Runtime: {avg_time:.1f}s")
-          
-          # Product categories breakdown
-          print(f"\n📦 PRODUCTS BY CATEGORY:")
-          category_counts = {}
-          for product in products.data:
-              category = product.get('product_type', 'Unknown')
-              category_counts[category] = category_counts.get(category, 0) + 1
-          
-          for category, count in sorted(category_counts.items(), key=lambda x: x[1], reverse=True):
-              print(f"  - {category}: {count}")
-          
-          # Top companies
-          print(f"\n🏢 TOP COMPANIES BY PRODUCTS:")
-          company_products = {}
-          for product in products.data:
-              company_id = product.get('company_id')
-              if company_id:
-                  company_products[company_id] = company_products.get(company_id, 0) + 1
-          
-          # Get company names for top companies
-          top_companies = sorted(company_products.items(), key=lambda x: x[1], reverse=True)[:10]
-          for company_id, product_count in top_companies:
-              company = next((c for c in companies.data if c['id'] == company_id), None)
-              if company:
-                  print(f"  - {company['name']}: {product_count} products")
-          
-          print("\n" + "=" * 60)
-          print("Report generated successfully!")
-          
-          EOF
+          # Create reports directory
+          mkdir -p reports
           
           # Run the summary script
-          python weekly_summary.py "$DAYS"
+          python scripts/weekly_summary.py "$DAYS" | tee reports/console_output.txt
       
       - name: Create summary artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: weekly-summary-${{ github.run_id }}
           path: |
-            *.log
-            *.txt
+            reports/*.txt
+            reports/*.log
           retention-days: 30
       
       - name: Post summary to step summary
@@ -173,5 +245,14 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Report Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
           echo "**Period**: Last ${{ github.event.inputs.days || '7' }} days" >> $GITHUB_STEP_SUMMARY
+          echo "**Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "View the full report in the job logs above." >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "reports/console_output.txt" ]; then
+            echo "## Summary Output" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat reports/console_output.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "View the full report in the job logs above." >> $GITHUB_STEP_SUMMARY
+          fi
