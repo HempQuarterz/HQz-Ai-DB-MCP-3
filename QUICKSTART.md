@@ -1,4 +1,112 @@
-# HempQuarterz AI Image Generation - Quick Start Guide
+# Quick Start Guide - Hemp Resource Hub
+
+## 🚀 Immediate Actions Required
+
+### 1. Push Your Changes to GitHub
+```bash
+git push origin main
+```
+*Note: You'll need to authenticate with GitHub*
+
+### 2. Handle Pull Requests on GitHub
+
+**Close these PRs** (no longer needed):
+- PR #1 - Already implemented in codebase
+- PR #2 - Outdated approach 
+- PR #4 - Files don't exist
+
+**Merge these PRs**:
+- PR #6 - Simple README improvement
+- PR #3 - Adds search functionality
+
+**Update then merge**:
+- PR #5 - Apply fixes from `pr-5-fix` branch first
+
+### 3. Populate Your Database
+```bash
+# From project root directory
+python populate_supabase_db.py
+python populate_hemp_products_advanced.py
+```
+
+### 4. Start Development Server
+```bash
+cd HempResourceHub
+npm install  # If not done already
+npm run dev
+```
+
+## 📋 Current Status
+
+### ✅ What's Working
+- Supabase connection (frontend)
+- Basic UI components
+- Plant type cards display
+- Stats counter
+- Image generation infrastructure
+
+### ❌ What Needs Fixing
+- Empty product database
+- Table name mismatches in code
+- Server database connection
+- Search functionality (after PR #3)
+
+### 🔧 Quick Fixes You Can Do Now
+
+1. **Check your environment variables**:
+   ```bash
+   # .env should have:
+   VITE_SUPABASE_URL=https://ktoqznqmlnxrtvubewyz.supabase.co
+   VITE_SUPABASE_ANON_KEY=[your-key]
+   DATABASE_URL=postgresql://postgres:[password]@db.ktoqznqmlnxrtvubewyz.supabase.co:5432/postgres
+   ```
+
+2. **Verify Supabase connection**:
+   - Visit http://localhost:5173/debug-supabase
+   - Should show "Connected" status
+
+3. **Test the app**:
+   - Home page: http://localhost:5173
+   - Products: http://localhost:5173/hemp-dex
+   - Admin: http://localhost:5173/admin
+
+## 🎯 Next Development Tasks
+
+1. **Fix table references** - Update code to use correct table names
+2. **Add product data** - Run population scripts
+3. **Implement search** - Merge PR #3 and create UI
+4. **Fix routing** - Update routes to match expected patterns
+
+## 📚 Key Documentation
+
+- **Full Status**: See `PROJECT_STATUS_SUMMARY.md`
+- **Improvement Plan**: See `COMPREHENSIVE_IMPROVEMENT_PLAN.md`
+- **Database Schema**: See `schema.sql`
+- **PR Fixes**: See `PR5_FIX_SUMMARY.md`
+
+## 🆘 Troubleshooting
+
+**If products don't show:**
+- Database is empty - run population scripts
+- Check console for errors about table names
+
+**If server won't start:**
+- Check DATABASE_URL encoding
+- Verify all npm packages installed
+- Check port 5173 isn't in use
+
+**If Supabase errors:**
+- Verify your project URL is `ktoqznqmlnxrtvubewyz`
+- Check anon key is correct
+- Ensure tables exist in Supabase
+
+---
+
+*Start with pushing to GitHub and handling PRs - this will sync your repository and enable collaboration!*
+
+---
+
+# AI Image Generation - Quick Start Guide
 
 ## 🚀 Step-by-Step Provider Activation
 
