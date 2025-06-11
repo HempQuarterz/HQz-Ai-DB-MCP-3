@@ -249,26 +249,26 @@ export class DatabaseStorage implements IStorage {
         
         // Sample plant types
         const fiberHempResult = await db.execute(sql`
-          INSERT INTO plant_types (name, description, image_url, planting_density, characteristics)
+          INSERT INTO hemp_plant_archetypes (name, description, image_url, cultivation_focus_notes)
           VALUES ('Fiber Hemp', 'Cultivated for long, strong fibers with high plant density', 
                  'https://images.unsplash.com/photo-1535704882196-765e5fc62a53',
-                 '800,000+ plants/acre', 'Tall stalks with minimal branching, optimized for fiber production')
+                 'Tall stalks with minimal branching, optimized for fiber production - 800,000+ plants/acre')
           RETURNING id;
         `);
         
         const grainHempResult = await db.execute(sql`
-          INSERT INTO plant_types (name, description, image_url, planting_density, characteristics)
+          INSERT INTO hemp_plant_archetypes (name, description, image_url, cultivation_focus_notes)
           VALUES ('Grain/Seed Hemp', 'Grown for nutritious seeds with moderate plant density', 
                  'https://images.unsplash.com/photo-1589187307467-03d53e90eebf',
-                 'Moderate density', 'Plants with good seed head development, higher branching')
+                 'Plants with good seed head development, higher branching - Moderate density')
           RETURNING id;
         `);
         
         const cbdHempResult = await db.execute(sql`
-          INSERT INTO plant_types (name, description, image_url, planting_density, characteristics)
+          INSERT INTO hemp_plant_archetypes (name, description, image_url, cultivation_focus_notes)
           VALUES ('Cannabinoid Hemp', 'Cultivated for CBD-rich flowers with low plant density', 
                  'https://images.unsplash.com/photo-1603909223429-69858a6513bb',
-                 '1,600 plants/acre', 'Widely spaced plants with extensive flower development')
+                 'Widely spaced plants with extensive flower development - 1,600 plants/acre')
           RETURNING id;
         `);
         
@@ -281,7 +281,7 @@ export class DatabaseStorage implements IStorage {
             console.log("Initializing plant parts data...");
             
             await db.execute(sql`
-              INSERT INTO plant_parts (name, description, image_url, archetype_id)
+              INSERT INTO plant_parts (name, description, image_url, plant_type_id)
               VALUES ('Stalk', 'The main stem of the hemp plant, consisting of bast fiber and hurd', 
                     'https://images.unsplash.com/photo-1535704882196-765e5fc62a53', 
                     ${fiberHempId})
@@ -289,7 +289,7 @@ export class DatabaseStorage implements IStorage {
             `);
             
             await db.execute(sql`
-              INSERT INTO plant_parts (name, description, image_url, archetype_id)
+              INSERT INTO plant_parts (name, description, image_url, plant_type_id)
               VALUES ('Leaves', 'Fan and sugar leaves from the hemp plant', 
                     'https://images.unsplash.com/photo-1500382017468-9049fed747ef', 
                     ${fiberHempId})
@@ -297,7 +297,7 @@ export class DatabaseStorage implements IStorage {
             `);
             
             await db.execute(sql`
-              INSERT INTO plant_parts (name, description, image_url, archetype_id)
+              INSERT INTO plant_parts (name, description, image_url, plant_type_id)
               VALUES ('Seeds', 'Whole and dehulled seeds from the hemp plant', 
                     'https://images.unsplash.com/photo-1531684051069-6431885272eb', 
                     ${fiberHempId})

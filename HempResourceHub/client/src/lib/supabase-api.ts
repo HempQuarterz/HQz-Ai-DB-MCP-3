@@ -52,7 +52,7 @@ export async function getPlantPartsByType(plantTypeId: number): Promise<PlantPar
   const { data, error } = await supabase
     .from('plant_parts')
     .select('*')
-    .eq('archetype_id', plantTypeId)
+    .eq('plant_type_id', plantTypeId)
     .order('name');
   
   if (error) throw error;
@@ -169,7 +169,7 @@ export async function getHempProductsByPart(
     .eq('plant_part_id', plantPartId);
   
   if (industryId) {
-    query = query.eq('industry_id', industryId);
+    query = query.eq('industry_sub_category_id', industryId);
   }
   
   const { data, error, count } = await query
@@ -188,7 +188,7 @@ export async function getHempProductsByIndustry(industryId: number): Promise<Hem
   const { data, error } = await supabase
     .from('uses_products')
     .select('*')
-    .eq('industry_id', industryId)
+    .eq('industry_sub_category_id', industryId)
     .order('name');
   
   if (error) throw error;
@@ -235,7 +235,7 @@ export async function createHempProduct(product: Omit<HempProduct, 'id' | 'creat
 // Research Papers API
 export async function getAllResearchPapers(): Promise<ResearchPaper[]> {
   const { data, error } = await supabase
-    .from('research_papers')
+    .from('research_entries')
     .select('*')
     .order('title');
   
@@ -245,7 +245,7 @@ export async function getAllResearchPapers(): Promise<ResearchPaper[]> {
 
 export async function getResearchPaper(id: number): Promise<ResearchPaper | null> {
   const { data, error } = await supabase
-    .from('research_papers')
+    .from('research_entries')
     .select('*')
     .eq('id', id)
     .single();
@@ -259,9 +259,9 @@ export async function getResearchPaper(id: number): Promise<ResearchPaper | null
 
 export async function getResearchPapersByPlantType(plantTypeId: number): Promise<ResearchPaper[]> {
   const { data, error } = await supabase
-    .from('research_papers')
+    .from('research_entries')
     .select('*')
-    .eq('archetype_id', plantTypeId)
+    .eq('plant_type_id', plantTypeId)
     .order('title');
   
   if (error) throw error;
@@ -270,7 +270,7 @@ export async function getResearchPapersByPlantType(plantTypeId: number): Promise
 
 export async function getResearchPapersByPlantPart(plantPartId: number): Promise<ResearchPaper[]> {
   const { data, error } = await supabase
-    .from('research_papers')
+    .from('research_entries')
     .select('*')
     .eq('plant_part_id', plantPartId)
     .order('title');
@@ -281,7 +281,7 @@ export async function getResearchPapersByPlantPart(plantPartId: number): Promise
 
 export async function getResearchPapersByIndustry(industryId: number): Promise<ResearchPaper[]> {
   const { data, error } = await supabase
-    .from('research_papers')
+    .from('research_entries')
     .select('*')
     .eq('industry_id', industryId)
     .order('title');
@@ -295,7 +295,7 @@ export async function searchResearchPapers(query: string): Promise<ResearchPaper
   // Use full-text search if search_vector column exists
   try {
     const { data, error } = await supabase
-      .from('research_papers')
+      .from('research_entries')
       .select('*')
       .textSearch('search_vector', query)
       .order('title');
@@ -306,9 +306,9 @@ export async function searchResearchPapers(query: string): Promise<ResearchPaper
     // Fallback to ilike search if full-text search fails
     console.warn('Falling back to ILIKE search for research papers', e);
     const { data, error } = await supabase
-      .from('research_papers')
+      .from('research_entries')
       .select('*')
-      .or(`title.ilike.%${query}%,abstract.ilike.%${query}%,authors.ilike.%${query}%`)
+      .or(`title.ilike.%${query}%,abstract_summary.ilike.%${query}%`)
       .order('title');
     
     if (error) throw error;
@@ -318,7 +318,7 @@ export async function searchResearchPapers(query: string): Promise<ResearchPaper
 
 export async function createResearchPaper(paper: Omit<ResearchPaper, 'id' | 'created_at' | 'updated_at'>): Promise<ResearchPaper> {
   const { data, error } = await supabase
-    .from('research_papers')
+    .from('research_entries')
     .insert(paper)
     .select()
     .single();
@@ -346,7 +346,7 @@ export async function getStats() {
     .select('*', { count: 'exact', head: true });
 
   const researchPromise = supabase
-    .from('research_papers')
+    .from('research_entries')
     .select('*', { count: 'exact', head: true });
 
   const [

@@ -39,7 +39,7 @@ export const plantParts = pgTable("plant_parts", {
   name: text("name").notNull(),
   description: text("description").notNull(),
   imageUrl: text("image_url"),
-  archetypeId: integer("archetype_id").notNull().references(() => hempPlantArchetypes.id), 
+  plantTypeId: integer("plant_type_id").notNull().references(() => hempPlantArchetypes.id), 
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow().$onUpdate(() => new Date()), 
 });
@@ -48,7 +48,7 @@ export const insertPlantPartSchema = createInsertSchema(plantParts).pick({
   name: true,
   description: true,
   imageUrl: true,
-  archetypeId: true,
+  plantTypeId: true,
 });
 
 // Industries table
@@ -189,7 +189,7 @@ export const researchEntries = pgTable("research_entries", {
   fullTextUrl: text("full_text_url"), 
   pdfUrl: text("pdf_url"),
   imageUrl: text("image_url"),
-  archetypeId: integer("archetype_id").references(() => hempPlantArchetypes.id), 
+  plantTypeId: integer("plant_type_id").references(() => hempPlantArchetypes.id), 
   plantPartId: integer("plant_part_id").references(() => plantParts.id),
   industryId: integer("industry_id").references(() => industries.id),
   researchInstitutionId: integer("research_institution_id").references(() => researchInstitutions.id), 
@@ -210,7 +210,7 @@ export const insertResearchEntrySchema = createInsertSchema(researchEntries).pic
   fullTextUrl: true, 
   pdfUrl: true,
   imageUrl: true,
-  archetypeId: true,
+  plantTypeId: true,
   plantPartId: true,
   industryId: true,
   researchInstitutionId: true, 
@@ -368,7 +368,7 @@ export const hempPlantArchetypesRelations = relations(hempPlantArchetypes, ({ ma
 
 export const plantPartsRelations = relations(plantParts, ({ one, many }) => ({
   plantType: one(hempPlantArchetypes, {
-    fields: [plantParts.archetypeId],
+    fields: [plantParts.plantTypeId],
     references: [hempPlantArchetypes.id],
   }),
   usesProducts: many(usesProducts),
@@ -424,7 +424,7 @@ export const researchInstitutionsRelations = relations(researchInstitutions, ({ 
 
 export const researchEntryRelations = relations(researchEntries, ({ one, many }) => ({ 
   plantType: one(hempPlantArchetypes, { 
-    fields: [researchEntries.archetypeId], 
+    fields: [researchEntries.plantTypeId], 
     references: [hempPlantArchetypes.id],
   }),
   plantPart: one(plantParts, {
