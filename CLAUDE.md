@@ -2,9 +2,16 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Latest Update (Jan 11, 2025 - 11:30 PM)
+## Latest Update (Jan 12, 2025 - 2:15 AM)
 
-### Session Progress
+### Evening Session Progress (Jan 11-12)
+1. ✅ **Fixed Puppeteer MCP Tool** - Installed Chrome dependencies for WSL
+2. ✅ **Fixed Content Security Policy** - Google Fonts now load properly
+3. ✅ **Fixed Missing Routes** - `/hemp-dex` and `/debug-supabase` now work
+4. ✅ **Verified Table Name Fixes** - Frontend successfully fetches data (6 plant types, stats working)
+5. ✅ **Created Documentation** - SESSION_SUMMARY_JAN11_NIGHT.md with detailed fixes
+
+### Morning Session Progress (Jan 11)
 1. **Created Comprehensive Improvement Plan** - Documented all known issues with prioritized solutions
 2. **Reviewed GitHub PRs** - Analyzed 6 open PRs, fixed PR #5 table name issues
 3. **Committed Local Changes** - All changes committed, ready for push
@@ -17,9 +24,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Immediate Priorities
 1. Push to GitHub: `git push origin main`
-2. Merge fixed PRs (#3, #5 after update, #6)
+2. Fix server database connection (IPv6 error)
 3. Populate database with Python scripts
-4. ✅ ~~Fix remaining table name inconsistencies~~ (COMPLETED)
+4. Implement search functionality
 
 See PROJECT_STATUS_SUMMARY.md for detailed status and next steps.
 
@@ -42,6 +49,9 @@ See PROJECT_STATUS_SUMMARY.md for detailed status and next steps.
    - Changed background images from `cover` to `contain` to prevent stretching
    - Fixed plant parts page to fetch from `plant_parts` table instead of plant types
    - Added `useAllPlantParts()` hook for fetching all plant parts
+   - Fixed Content Security Policy to allow Google Fonts
+   - Removed unnecessary Replit development banner script
+   - Added missing routes for `/hemp-dex` and `/debug-supabase`
 
 4. **Cleanup**
    - Removed outdated schema files (supabase-schema.sql, supabase-schema-modified.sql)
@@ -58,10 +68,10 @@ The actual Supabase database uses these table names:
 ### Known Issues to Fix Next
 1. ✅ ~~**Table Name Inconsistencies**: Many files still reference old table names~~ (FIXED)
 2. ✅ ~~**Foreign Key Mismatches**: Code uses `plant_type_id` but schema has `archetype_id`~~ (FIXED - DB actually uses `plant_type_id`)
-3. **Missing Routes**: `/archetypes/[id]` should be `/plant-type/[id]`
+3. ✅ ~~**Missing Routes**: `/hemp-dex` and `/debug-supabase` returned 404~~ (FIXED)
 4. **No Product Data**: Database has structure but `uses_products` is empty
 5. **Search Not Implemented**: Search bar exists but doesn't function
-6. **Server DB Connection**: Still fails due to missing correct password
+6. **Server DB Connection**: IPv6 connection error (ENETUNREACH)
 
 ### Environment Variables Required
 ```
@@ -151,6 +161,7 @@ DATABASE_URL=postgresql://user:password@host:port/database?sslmode=require
 ### Testing Strategy
 - Backend API tests: `/server/tests/` (using Node.js test runner)
 - Run with: `npm run test`
+- Visual testing with Puppeteer MCP (requires Chrome dependencies in WSL)
 
 ### Data Population Scripts
 Two approaches for populating the database:
@@ -180,3 +191,19 @@ Two approaches for populating the database:
 - Server bundle in `/dist/index.js`
 - Ensure all environment variables are set in production
 - Database migrations tracked in `/supabase/migrations/`
+
+### Troubleshooting
+
+#### Puppeteer in WSL
+If Puppeteer fails with Chrome launch errors:
+```bash
+sudo apt-get update
+sudo apt-get install -y chromium-browser
+sudo apt-get install -y libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2
+```
+
+#### Content Security Policy
+If external resources are blocked, check CSP configuration in `/server/index.ts`:
+- Google Fonts: Add to `styleSrc` and `fontSrc`
+- External scripts: Add to `scriptSrc`
+- External images: Add to `imgSrc`
