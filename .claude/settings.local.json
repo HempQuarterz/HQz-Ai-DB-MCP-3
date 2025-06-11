@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__supabase-mcp-server__get_project",
+      "mcp__supabase-mcp-server__list_tables",
+      "mcp__supabase-mcp-server__execute_sql",
+      "mcp__Context7__get-library-docs",
+      "mcp__github__search_issues",
+      "Bash(gh workflow list:*)",
+      "mcp__desktop-commander__list_directory",
+      "mcp__desktop-commander__search_files",
+      "mcp__desktop-commander__read_file",
+      "mcp__desktop-commander__read_multiple_files",
+      "mcp__supabase-mcp-server__list_projects",
+      "Bash(find:*)",
+      "Bash(rm:*)",
+      "Bash(grep:*)",
+      "Bash(git add:*)",
+      "Bash(npm run dev:*)",
+      "Bash(touch:*)",
+      "mcp__github__list_pull_requests",
+      "mcp__github__get_pull_request_files",
+      "Bash(git fetch:*)",
+      "Bash(ls:*)",
+      "Bash(git commit:*)",
+      "Bash(curl:*)",
+      "mcp__puppeteer__puppeteer_navigate",
+      "mcp__puppeteer__puppeteer_screenshot"
+    ],
+    "deny": []
+  }
+}
