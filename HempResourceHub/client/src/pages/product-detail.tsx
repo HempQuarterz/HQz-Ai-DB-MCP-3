@@ -5,6 +5,7 @@ import { useHempProduct } from "@/hooks/use-product-data";
 import { useIndustries } from "@/hooks/use-plant-data";
 import Breadcrumb from "@/components/ui/breadcrumb";
 import ProductDetailView from "@/components/product/product-detail-view";
+import ProductImageManagement from "@/components/product/product-image-management";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const ProductDetailPage = () => {
@@ -12,6 +13,7 @@ const ProductDetailPage = () => {
   const productId = match ? parseInt(params.id) : null;
   const { data: product, isLoading: isLoadingProduct } = useHempProduct(productId);
   const { data: industries, isLoading: isLoadingIndustries } = useIndustries();
+  const [showImageManagement, setShowImageManagement] = useState(false);
 
   // Create lookup objects for industry and subindustry names
   const industryNames: Record<number, string> = {};
@@ -27,6 +29,13 @@ const ProductDetailPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [productId]);
+
+  // Check if user is admin (you may want to implement proper auth check)
+  useEffect(() => {
+    const isAdmin = localStorage.getItem('isAdmin') === 'true' || 
+                    window.location.search.includes('admin=true');
+    setShowImageManagement(isAdmin);
+  }, []);
 
   if (!match) {
     return (
@@ -80,14 +89,25 @@ const ProductDetailPage = () => {
             />
           )}
 
-          {/* Product detail view */}
-          {productId && (
-            <ProductDetailView 
-              productId={productId} 
-              industryNames={industryNames}
-              subIndustryNames={subIndustryNames}
-            />
-          )}
+          <div className="space-y-6">
+            {/* Product detail view */}
+            {productId && (
+              <ProductDetailView 
+                productId={productId} 
+                industryNames={industryNames}
+                subIndustryNames={subIndustryNames}
+              />
+            )}
+            
+            {/* Image Management Section (Admin Only) */}
+            {showImageManagement && productId && product && (
+              <ProductImageManagement
+                productId={productId}
+                productName={product.name}
+                currentImageUrl={product.image_url}
+              />
+            )}
+          </div>
         </div>
       </div>
     </>
