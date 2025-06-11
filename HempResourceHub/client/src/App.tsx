@@ -18,6 +18,7 @@ import ProductDetailPage from "@/pages/product-detail";
 import IndustriesPage from "@/pages/industries";
 import ResearchPage from "./pages/research";
 import ResearchDetailPage from "./pages/research-detail";
+import HempDex from "./pages/hemp-dex";
 import SupabaseTest from "./components/supabase-test";
 import SupabaseIndustries from "./components/supabase-industries";
 import SupabaseTestConnection from "./components/supabase-test-connection";
@@ -65,6 +66,7 @@ function Router() {
       />
 
       <Route path="/industries" component={IndustriesPage} data-oid="i4mqmig" />
+      <Route path="/hemp-dex" component={HempDex} data-oid="hemp-dex" />
       <Route path="/research" component={ResearchPage} data-oid="r71_flj" />
       <Route
         path="/research/:paperId"
@@ -91,6 +93,7 @@ function Router() {
       />
 
       <Route path="/debug" component={DebugSupabase} data-oid="1-dlpt_" />
+      <Route path="/debug-supabase" component={DebugSupabase} data-oid="debug-sup" />
       <Route component={NotFound} data-oid="94.5p89" />
     </Switch>
   );

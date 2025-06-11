@@ -1,0 +1,380 @@
+# HempQuarterz AI Agent Configuration
+# Global and agent-specific settings
+
+# Global Settings
+global:
+  # API Keys (loaded from environment)
+  api_keys:
+    openai: ${OPENAI_API_KEY}
+    anthropic: ${ANTHROPIC_API_KEY}
+    supabase_url: ${SUPABASE_URL}
+    supabase_key: ${SUPABASE_SERVICE_KEY}
+    sendgrid: ${SENDGRID_API_KEY}
+    slack_webhook: ${SLACK_WEBHOOK_URL}
+    stripe: ${STRIPE_API_KEY}
+    google_search_console: ${GOOGLE_SEARCH_CONSOLE_KEY}
+  
+  # Rate Limiting
+  rate_limits:
+    default_calls_per_minute: 20
+    openai_calls_per_minute: 50
+    anthropic_calls_per_minute: 30
+    web_scraping_calls_per_minute: 10
+    email_sends_per_hour: 100
+  
+  # Timeouts (in seconds)
+  timeouts:
+    default_timeout: 30
+    ai_generation_timeout: 60
+    web_scraping_timeout: 20
+    database_timeout: 10
+  
+  # Cost Optimization
+  cost_optimization:
+    max_cost_per_task_usd: 0.50
+    daily_budget_usd: 100.00
+    alert_threshold_usd: 80.00
+    preferred_model: "gpt-4o-mini"  # Use for simple tasks
+    premium_model: "claude-opus-4"  # Use for complex tasks
+  
+  # Error Handling
+  error_handling:
+    max_retries: 3
+    retry_delay_seconds: 60
+    exponential_backoff: true
+    alert_on_critical_errors: true
+    log_level: "INFO"
+  
+  # Performance
+  performance:
+    max_concurrent_tasks: 10
+    task_queue_check_interval: 30
+    health_check_interval: 300
+    metrics_aggregation_interval: 3600
+
+# Agent-Specific Configurations
+
+# Core Agent (Orchestrator)
+core_agent:
+  enabled: true
+  priority_weights:
+    compliance: 10  # Highest priority
+    monetization: 8
+    outreach: 7
+    content: 6
+    seo: 5
+    research: 4
+  
+  workflow_schedules:
+    daily_automation:
+      time: "09:00"
+      timezone: "America/Los_Angeles"
+      agents: ["compliance", "research", "content"]
+    
+    weekly_research:
+      day: "monday"
+      time: "10:00"
+      timezone: "America/Los_Angeles"
+      agents: ["research", "monetization", "seo"]
+    
+    monthly_analysis:
+      day: 1
+      time: "14:00"
+      timezone: "America/Los_Angeles"
+      agents: ["monetization", "compliance", "outreach"]
+
+# Research Agent
+research_agent:
+  enabled: true
+  sources:
+    - name: "hemp_industry_news"
+      url: "https://hempindustrydaily.com/feed/"
+      type: "rss"
+      check_frequency: "daily"
+    
+    - name: "google_trends"
+      topics: ["hemp products", "CBD oil", "hemp clothing", "hemp food"]
+      geo: "US"
+    
+    - name: "reddit"
+      subreddits: ["hemp", "CBD", "hempflowers"]
+      min_upvotes: 50
+    
+    - name: "product_hunt"
+      categories: ["health", "wellness", "sustainability"]
+  
+  limits:
+    max_sources_per_scan: 20
+    max_products_per_source: 50
+    min_relevance_score: 0.7
+    exclude_competitors: ["competitor1.com", "competitor2.com"]
+  
+  ai_analysis:
+    model: "gpt-4o-mini"
+    temperature: 0.3
+    max_tokens: 1000
+
+# Content Agent
+content_agent:
+  enabled: true
+  content_types:
+    blog_post:
+      min_words: 800
+      max_words: 2000
+      tone: ["informative", "engaging", "professional"]
+      include_images: true
+      seo_optimization: true
+    
+    product_description:
+      min_words: 150
+      max_words: 500
+      tone: ["persuasive", "informative", "friendly"]
+      include_benefits: true
+      include_usage: true
+    
+    email:
+      min_words: 100
+      max_words: 300
+      personalization: true
+      cta_required: true
+    
+    social_media:
+      platforms:
+        twitter:
+          max_chars: 280
+          include_hashtags: true
+          max_hashtags: 3
+        
+        instagram:
+          max_chars: 2200
+          include_hashtags: true
+          max_hashtags: 10
+        
+        linkedin:
+          max_chars: 3000
+          professional_tone: true
+  
+  templates:
+    blog_post_structure:
+      - introduction
+      - main_points
+      - benefits
+      - usage_instructions
+      - conclusion
+      - cta
+    
+    email_structure:
+      - greeting
+      - hook
+      - value_proposition
+      - social_proof
+      - cta
+      - signature
+  
+  seo_requirements:
+    keyword_density: 0.02
+    meta_description_length: 160
+    title_length: 60
+    readability_target: 8  # Grade level
+
+# SEO Agent
+seo_agent:
+  enabled: true
+  analysis_frequency:
+    site_audit: "weekly"
+    keyword_tracking: "daily"
+    competitor_analysis: "weekly"
+    backlink_check: "monthly"
+  
+  thresholds:
+    page_load_time: 3.0  # seconds
+    mobile_score: 80
+    accessibility_score: 85
+    seo_score: 75
+  
+  keyword_research:
+    min_search_volume: 100
+    max_difficulty: 70
+    include_long_tail: true
+    competitor_gap_analysis: true
+  
+  monitoring:
+    track_serp_positions: true
+    alert_on_drops: 5  # positions
+    competitor_alerts: true
+
+# Outreach Agent
+outreach_agent:
+  enabled: true
+  email_settings:
+    provider: "sendgrid"
+    from_name: "HempQuarterz Team"
+    from_email: "outreach@hempquarterz.com"
+    reply_to: "hello@hempquarterz.com"
+    
+  campaign_types:
+    partnership:
+      follow_up_sequence: [3, 7, 14]  # days
+      max_follow_ups: 3
+      personalization_level: "high"
+      
+    influencer:
+      min_followers: 10000
+      engagement_rate: 0.02
+      niches: ["wellness", "sustainability", "health"]
+      
+    investor:
+      accredited_only: true
+      min_investment: 50000
+      materials: ["pitch_deck", "financials", "market_analysis"]
+      
+    press:
+      targets: ["tech", "business", "hemp_industry"]
+      newsworthy_threshold: 0.8
+  
+  response_handling:
+    sentiment_analysis: true
+    auto_categorize: true
+    priority_responses:
+      - positive_partnership_interest
+      - investor_inquiry
+      - press_opportunity
+  
+  limits:
+    daily_sends: 500
+    hourly_sends: 50
+    per_recipient_per_month: 4
+
+# Monetization Agent
+monetization_agent:
+  enabled: true
+  analysis_parameters:
+    min_market_size_usd: 1000000
+    min_roi_percentage: 20
+    max_time_to_market_days: 180
+    confidence_threshold: 0.7
+  
+  opportunity_types:
+    market_gap:
+      data_sources: ["google_trends", "reddit", "competitor_analysis"]
+      validation_required: true
+      
+    product_expansion:
+      categories: ["accessories", "bundles", "subscriptions"]
+      margin_threshold: 0.3
+      
+    partnership:
+      types: ["wholesale", "affiliate", "white_label", "distribution"]
+      min_partner_size: "medium"
+  
+  pricing_strategies:
+    methods: ["cost_plus", "competitive", "value_based", "penetration"]
+    include_psychological_pricing: true
+    dynamic_pricing: false
+  
+  forecasting:
+    models: ["linear", "exponential", "s_curve"]
+    confidence_intervals: [0.8, 0.9, 0.95]
+    scenario_analysis: ["conservative", "moderate", "aggressive"]
+
+# Compliance Agent
+compliance_agent:
+  enabled: true
+  monitoring:
+    regulatory_check_frequency: "daily"
+    platform_check_frequency: "weekly"
+    product_check_frequency: "daily"
+    
+  jurisdictions:
+    priority:
+      - "US_FEDERAL"
+      - "US_CA"
+      - "US_NY"
+      - "US_TX"
+      - "EU"
+      - "UK"
+      - "CANADA"
+    
+    thc_limits:
+      US_FEDERAL: 0.003  # 0.3%
+      EU: 0.002  # 0.2%
+      SWITZERLAND: 0.01  # 1%
+  
+  platform_monitoring:
+    stripe:
+      check_tos_updates: true
+      monitor_restricted_terms: true
+      
+    shopify:
+      check_policy_updates: true
+      verify_age_gate: true
+      
+    amazon:
+      monitor_category_changes: true
+      check_banned_ingredients: true
+  
+  alerts:
+    channels: ["email", "slack", "dashboard"]
+    severity_thresholds:
+      critical: "immediate"
+      high: "1_hour"
+      medium: "24_hours"
+      low: "weekly_digest"
+    
+    escalation:
+      critical:
+        - notify_admin
+        - pause_affected_products
+        - create_incident
+      
+      high:
+        - notify_team
+        - flag_for_review
+
+# Monitoring and Logging
+monitoring:
+  metrics:
+    - agent_success_rate
+    - average_task_duration
+    - cost_per_task
+    - tokens_used
+    - error_rate
+    
+  dashboards:
+    real_time:
+      refresh_interval: 30
+      show_active_tasks: true
+      show_queue_depth: true
+      
+    daily_summary:
+      send_time: "18:00"
+      recipients: ["admin@hempquarterz.com"]
+      include_costs: true
+      include_opportunities: true
+      
+  alerts:
+    high_cost_task:
+      threshold: 1.00  # USD
+      action: "notify_and_pause"
+      
+    high_error_rate:
+      threshold: 0.2  # 20%
+      window: 3600  # 1 hour
+      action: "notify_admin"
+      
+    queue_backup:
+      threshold: 100  # tasks
+      action: "scale_workers"
+
+# Development and Testing
+development:
+  debug_mode: false
+  test_mode: false
+  dry_run: false
+  mock_external_apis: false
+  verbose_logging: false
+  
+  test_data:
+    sample_products: 10
+    sample_competitors: 5
+    sample_jurisdictions: ["US_CA", "EU"]

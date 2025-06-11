@@ -1,0 +1,1 @@
+"""Research agent module - Market research and product discovery"""
