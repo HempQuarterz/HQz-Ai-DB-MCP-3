@@ -2,19 +2,24 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Latest Update (Jan 11, 2025)
+## Latest Update (Jan 11, 2025 - 11:30 PM)
 
 ### Session Progress
 1. **Created Comprehensive Improvement Plan** - Documented all known issues with prioritized solutions
 2. **Reviewed GitHub PRs** - Analyzed 6 open PRs, fixed PR #5 table name issues
 3. **Committed Local Changes** - All changes committed, ready for push
 4. **Updated Documentation** - Created PROJECT_STATUS_SUMMARY.md with current state
+5. ✅ **COMPLETED Table Name Fixes** - Fixed ALL table name inconsistencies:
+   - Updated `supabase-api.ts` to use `research_entries` instead of `research_papers`
+   - Fixed `storage-db.ts` SQL INSERT statements to use correct table names
+   - Updated `schema.ts` foreign key from `archetypeId` to `plantTypeId`
+   - Discovered actual DB uses `plant_type_id` NOT `archetype_id`
 
 ### Immediate Priorities
 1. Push to GitHub: `git push origin main`
 2. Merge fixed PRs (#3, #5 after update, #6)
 3. Populate database with Python scripts
-4. Fix remaining table name inconsistencies
+4. ✅ ~~Fix remaining table name inconsistencies~~ (COMPLETED)
 
 See PROJECT_STATUS_SUMMARY.md for detailed status and next steps.
 
@@ -47,11 +52,12 @@ The actual Supabase database uses these table names:
 - `hemp_plant_archetypes` (NOT plant_types)
 - `uses_products` (NOT hemp_products)
 - `industry_sub_categories` (NOT sub_industries)
-- `plant_parts` with `archetype_id` foreign key (NOT plant_type_id)
+- `research_entries` (NOT research_papers)
+- `plant_parts` with `plant_type_id` foreign key (NOT archetype_id - confirmed via MCP)
 
 ### Known Issues to Fix Next
-1. **Table Name Inconsistencies**: Many files still reference old table names
-2. **Foreign Key Mismatches**: Code uses `plant_type_id` but schema has `archetype_id`
+1. ✅ ~~**Table Name Inconsistencies**: Many files still reference old table names~~ (FIXED)
+2. ✅ ~~**Foreign Key Mismatches**: Code uses `plant_type_id` but schema has `archetype_id`~~ (FIXED - DB actually uses `plant_type_id`)
 3. **Missing Routes**: `/archetypes/[id]` should be `/plant-type/[id]`
 4. **No Product Data**: Database has structure but `uses_products` is empty
 5. **Search Not Implemented**: Search bar exists but doesn't function

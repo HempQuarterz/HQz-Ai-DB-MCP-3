@@ -1,6 +1,6 @@
 # Hemp Resource Hub - Project Status Summary
 
-*Last Updated: January 11, 2025*
+*Last Updated: January 11, 2025 - 11:30 PM*
 
 ## 🎯 Executive Summary
 
@@ -30,17 +30,19 @@ The Hemp Resource Hub project is making steady progress toward becoming a fully 
   - `hemp_plant_archetypes` (not `plant_types`)
   - `uses_products` (not `hemp_products`)
   - `industry_sub_categories` (not `sub_industries`)
-  - `archetype_id` foreign key (not `plant_type_id`)
+  - `plant_type_id` foreign key (NOT `archetype_id` as previously thought)
+
+### 5. **Table Name Fixes** (COMPLETED)
+- ✅ Fixed all table name references in:
+  - `supabase-api.ts`: Updated to use `research_entries` instead of `research_papers`
+  - `storage-db.ts`: Fixed SQL INSERT statements to use correct table names
+  - `schema.ts`: Updated foreign key from `archetypeId` to `plantTypeId`
+- ✅ Aligned all code with actual Supabase database structure
 
 ## 🚧 In Progress
 
-### 1. **Table Name Inconsistencies** (Priority: HIGH)
-- Multiple files still reference old table names
-- Need systematic update across all TypeScript files
-- Affects: hooks, components, API routes, schemas
-
-### 2. **GitHub Synchronization**
-- Local repository is 11 commits ahead of origin
+### 1. **GitHub Synchronization**
+- Local repository is 12 commits ahead of origin
 - Awaiting manual push due to authentication requirements
 - PR #5 fix ready to be applied
 
@@ -56,10 +58,10 @@ The Hemp Resource Hub project is making steady progress toward becoming a fully 
 - Using old Supabase project URL in some files
 - **Solution**: Update all connection strings and encode password properly
 
-### 3. **Foreign Key Mismatches** (Priority: HIGH)
-- Code uses `plant_type_id` but schema has `archetype_id`
-- Affects plant parts relationships
-- **Solution**: Update all foreign key references
+### 3. ✅ **Foreign Key Mismatches** (RESOLVED)
+- Discovered actual database uses `plant_type_id` NOT `archetype_id`
+- Updated schema.ts to use `plantTypeId` throughout
+- Fixed all relation definitions to match actual database
 
 ## 📋 Recommended Next Steps (In Order)
 
@@ -83,15 +85,15 @@ The Hemp Resource Hub project is making steady progress toward becoming a fully 
    ```
 
 ### Week 1 Tasks
-1. **Fix Table Name Inconsistencies**
-   - Update all references to old table names
-   - Test each component after updates
-   - Ensure consistency across frontend and backend
+1. ✅ **Fix Table Name Inconsistencies** (COMPLETED)
+   - Updated all references to correct table names
+   - Fixed imports that aliased correct tables to old names
+   - Ensured consistency across frontend and backend
 
-2. **Fix Foreign Key References**
-   - Change all `plant_type_id` to `archetype_id`
-   - Update TypeScript interfaces
-   - Test relationships
+2. ✅ **Fix Foreign Key References** (COMPLETED)
+   - Kept `plant_type_id` as that's what the database actually uses
+   - Updated TypeScript interfaces to use `plantTypeId`
+   - Fixed all relation definitions
 
 3. **Fix Server Connection**
    - Update DATABASE_URL with proper encoding
@@ -171,6 +173,8 @@ npm run check
 2. Fixed critical PR #5 that will enable real data fetching
 3. Added comprehensive error handling and performance optimizations
 4. Created clear roadmap for remaining work
+5. **COMPLETED all table name fixes** - Major milestone achieved!
+6. **Discovered and fixed foreign key mismatch** - Database uses `plant_type_id`
 
 ## 📞 Support & Resources
 
