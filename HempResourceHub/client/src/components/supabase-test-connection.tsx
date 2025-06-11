@@ -67,7 +67,7 @@ export default function SupabaseTestConnection() {
 
       // Test the connection
       const { data, error } = await supabase
-        .from("plant_types")
+        .from("hemp_plant_archetypes")
         .select("count")
         .limit(1);
 
@@ -81,7 +81,7 @@ export default function SupabaseTestConnection() {
 
         // Try to get a sample of data
         const { data: sampleData, error: sampleError } = await supabase
-          .from("plant_types")
+          .from("hemp_plant_archetypes")
           .select("*")
           .limit(1);
 

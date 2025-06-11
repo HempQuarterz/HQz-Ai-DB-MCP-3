@@ -22,7 +22,7 @@ export type PlantPart = {
   name: string;
   description: string;
   image_url?: string | null;
-  plant_type_id: number;
+  archetype_id: number;
   created_at: string;
 };
 

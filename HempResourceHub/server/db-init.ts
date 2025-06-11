@@ -8,6 +8,11 @@ import * as schema from '@shared/schema';
  */
 export async function initializeDatabase() {
   try {
+    // Skip initialization if no database URL
+    if (!process.env.DATABASE_URL) {
+      console.log('No DATABASE_URL found, skipping database initialization');
+      return false;
+    }
     console.log('Initializing database tables...');
 
     // Create each table defined in the schema
@@ -36,7 +41,7 @@ export async function initializeDatabase() {
         name TEXT NOT NULL,
         description TEXT NOT NULL,
         image_url TEXT,
-        plant_type_id INTEGER NOT NULL,
+        archetype_id INTEGER NOT NULL,
         created_at TIMESTAMP DEFAULT NOW()
       )
       `,
@@ -50,7 +55,7 @@ export async function initializeDatabase() {
       )
       `,
       `
-      CREATE TABLE IF NOT EXISTS sub_industries (
+      CREATE TABLE IF NOT EXISTS industry_sub_categories (
         id SERIAL PRIMARY KEY,
         name TEXT NOT NULL,
         description TEXT,
@@ -59,7 +64,7 @@ export async function initializeDatabase() {
       )
       `,
       `
-      CREATE TABLE IF NOT EXISTS hemp_products (
+      CREATE TABLE IF NOT EXISTS uses_products (
         id SERIAL PRIMARY KEY,
         name TEXT NOT NULL,
         description TEXT NOT NULL,
@@ -87,7 +92,7 @@ export async function initializeDatabase() {
         url TEXT,
         pdf_url TEXT,
         image_url TEXT,
-        plant_type_id INTEGER REFERENCES plant_types(id),
+        archetype_id INTEGER REFERENCES plant_types(id),
         plant_part_id INTEGER REFERENCES plant_parts(id),
         industry_id INTEGER REFERENCES industries(id),
         keywords TEXT[],

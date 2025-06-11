@@ -1,6 +1,6 @@
 import { 
   users, type User, type InsertUser,
-  plantTypes, type PlantType, type InsertPlantType,
+  hempPlantArchetypes as plantTypes, type PlantType, type InsertPlantType,
   plantParts, type PlantPart, type InsertPlantPart,
   industries, type Industry, type InsertIndustry,
   subIndustries, type SubIndustry, type InsertSubIndustry,

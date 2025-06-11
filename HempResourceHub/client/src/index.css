@@ -47,24 +47,24 @@
 
 :root {
       --background: 0 0% 100%;
---foreground: 20 14.3% 4.1%;
---muted: 60 4.8% 95.9%;
---muted-foreground: 25 5.3% 44.7%;
+--foreground: 240 10% 3.9%;
+--muted: 240 4.8% 95.9%;
+--muted-foreground: 240 3.8% 46.1%;
 --popover: 0 0% 100%;
---popover-foreground: 20 14.3% 4.1%;
+--popover-foreground: 240 10% 3.9%;
 --card: 0 0% 100%;
---card-foreground: 20 14.3% 4.1%;
---border: 20 5.9% 90%;
---input: 20 5.9% 90%;
---primary: 270 90% 40%;
---primary-foreground: 270 100% 99%;
---secondary: 60 4.8% 95.9%;
---secondary-foreground: 24 9.8% 10%;
---accent: 60 4.8% 95.9%;
---accent-foreground: 24 9.8% 10%;
+--card-foreground: 240 10% 3.9%;
+--border: 240 5.9% 90%;
+--input: 240 5.9% 90%;
+--primary: 142 76% 36%;
+--primary-foreground: 355 100% 100%;
+--secondary: 240 4.8% 95.9%;
+--secondary-foreground: 240 5.9% 10%;
+--accent: 240 4.8% 95.9%;
+--accent-foreground: 240 5.9% 10%;
 --destructive: 0 84.2% 60.2%;
---destructive-foreground: 60 9.1% 97.8%;
---ring: 20 14.3% 4.1%;
+--destructive-foreground: 0 0% 98%;
+--ring: 142 76% 36%;
 --radius: 0.5rem;
   }
   .dark {
@@ -93,11 +93,87 @@
 @layer base {
   * {
     @apply border-border;
-    color: green !important;
   }
 
   body {
-    @apply font-sans antialiased bg-background;
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  
+  /* Ensure text is readable */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground font-semibold;
+  }
+  
+  p, span, div {
+    @apply text-foreground;
+  }
+  
+  a {
+    @apply text-primary hover:text-primary/80 transition-colors;
+  }
+  
+  /* Form elements */
+  input, textarea, select {
+    @apply text-foreground bg-background;
+  }
+  
+  /* Buttons text */
+  button {
+    @apply text-foreground;
+  }
+  
+  /* Fix for components with dark backgrounds */
+  .bg-black, .bg-gray-900, .bg-slate-900 {
+    @apply text-white;
+  }
+  
+  .bg-black *, .bg-gray-900 *, .bg-slate-900 * {
+    @apply text-white;
+  }
+  
+  /* Ensure cards and modals have proper text color */
+  .bg-card, [class*="bg-white"], [class*="bg-gray-50"] {
+    @apply text-foreground;
+  }
+  
+  /* Fix for primary color text to ensure it's visible */
+  .text-primary {
+    @apply text-green-600 dark:text-green-400;
+  }
+  
+  /* Ensure muted text is readable */
+  .text-muted-foreground {
+    @apply text-gray-600 dark:text-gray-400;
+  }
+  
+  /* Fix for overlays and hero sections */
+  .bg-black\/50 *, .bg-black\/60 *, .bg-black\/70 * {
+    @apply text-white;
+  }
+  
+  /* Ensure forms and inputs are readable */
+  .bg-input {
+    @apply bg-gray-50 dark:bg-gray-900;
+  }
+  
+  /* Fix card text */
+  [data-radix-collection-item] {
+    @apply text-foreground;
+  }
+  
+  /* Navbar links on dark background */
+  nav.bg-black a {
+    @apply text-white hover:text-gray-200;
+  }
+  
+  /* Footer text on dark background */
+  footer.bg-gray-900 *, footer.bg-black * {
+    @apply text-gray-300;
+  }
+  
+  /* Ensure dropdown menus are readable */
+  [role="menu"], [role="listbox"] {
+    @apply bg-background text-foreground;
   }
 }
 

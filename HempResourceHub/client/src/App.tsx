@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ErrorBoundary } from "@/components/error-boundary";
 import NotFound from "@/pages/not-found";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
@@ -97,18 +98,20 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient} data-oid="u-8-pob">
-      <TooltipProvider data-oid="0n1weth">
-        <div className="flex flex-col min-h-screen" data-oid="9aq6v3f">
-          <Navbar data-oid="1wj7t:9" />
-          <main className="flex-grow" data-oid="obhqq-s">
-            <Router data-oid="geelxlm" />
-          </main>
-          <Footer data-oid="lyq7x7v" />
-        </div>
-        <Toaster data-oid="yh70n6c" />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient} data-oid="u-8-pob">
+        <TooltipProvider data-oid="0n1weth">
+          <div className="flex flex-col min-h-screen" data-oid="9aq6v3f">
+            <Navbar data-oid="1wj7t:9" />
+            <main className="flex-grow" data-oid="obhqq-s">
+              <Router data-oid="geelxlm" />
+            </main>
+            <Footer data-oid="lyq7x7v" />
+          </div>
+          <Toaster data-oid="yh70n6c" />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

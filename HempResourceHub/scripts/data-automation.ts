@@ -1,5 +1,5 @@
 import { db } from '../server/db';
-import { plantTypes, plantParts, industries, subIndustries, hempProducts, researchPapers } from '../shared/schema';
+import { hempPlantArchetypes as plantTypes, plantParts, industries, subIndustries, hempProducts, researchPapers } from '../shared/schema';
 
 /**
  * Automated Data Population Scripts for Hemp Database

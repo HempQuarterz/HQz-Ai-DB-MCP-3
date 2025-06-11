@@ -17,15 +17,15 @@ const DebugSupabase = () => {
         allKeys: Object.keys(import.meta.env),
       };
 
-      // Test 2: Try plant_types table
+      // Test 2: Try plant_types table (old name - should fail)
       try {
         const { data, error } = await supabase
           .from("plant_types")
           .select("*")
           .limit(5);
-        testResults.plant_types = { data, error };
+        testResults.plant_types_old = { data, error };
       } catch (e) {
-        testResults.plant_types = { error: e };
+        testResults.plant_types_old = { error: e };
       }
 
       // Test 3: Try hemp_plant_archetypes table
@@ -39,14 +39,14 @@ const DebugSupabase = () => {
         testResults.hemp_plant_archetypes = { error: e };
       }
 
-      // Test 4: Try hemp_products count
+      // Test 4: Try uses_products count
       try {
         const { count, error } = await supabase
-          .from("hemp_products")
+          .from("uses_products")
           .select("*", { count: "exact", head: true });
-        testResults.hemp_products_count = { count, error };
+        testResults.uses_products_count = { count, error };
       } catch (e) {
-        testResults.hemp_products_count = { error: e };
+        testResults.uses_products_count = { error: e };
       }
 
       // Test 5: Try uses_products count
@@ -120,11 +120,11 @@ const DebugSupabase = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>hemp_products Count</CardTitle>
+              <CardTitle>uses_products Count</CardTitle>
             </CardHeader>
             <CardContent>
               <pre className="text-xs overflow-auto">
-                {JSON.stringify(results.hemp_products_count, null, 2)}
+                {JSON.stringify(results.uses_products_count, null, 2)}
               </pre>
             </CardContent>
           </Card>

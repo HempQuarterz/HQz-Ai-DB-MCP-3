@@ -9,16 +9,58 @@ on:
     - cron: '0 6,18 * * *'
 
 jobs:
+  validate-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      is_valid: ${{ steps.check-env.outputs.is_valid }}
+    steps:
+      - name: Check required secrets
+        id: check-env
+        run: |
+          echo "🔍 Checking environment configuration..."
+          echo "======================================="
+          
+          MISSING_SECRETS=""
+          WARNINGS=""
+          
+          # Check required secrets
+          if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
+            MISSING_SECRETS="${MISSING_SECRETS}SUPABASE_URL "
+          fi
+          
+          if [ -z "${{ secrets.SUPABASE_ANON_KEY }}" ]; then
+            MISSING_SECRETS="${MISSING_SECRETS}SUPABASE_ANON_KEY "
+          fi
+          
+          if [ -z "${{ secrets.OPENAI_API_KEY }}" ]; then
+            WARNINGS="${WARNINGS}OPENAI_API_KEY (optional for status check) "
+          fi
+          
+          # Report findings
+          if [ -n "$MISSING_SECRETS" ]; then
+            echo "❌ Missing required secrets: $MISSING_SECRETS"
+            echo "is_valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "✅ All required secrets are configured"
+            if [ -n "$WARNINGS" ]; then
+              echo "⚠️  Optional secrets not configured: $WARNINGS"
+            fi
+            echo "is_valid=true" >> $GITHUB_OUTPUT
+          fi
+
   status-check:
+    needs: validate-environment
+    if: needs.validate-environment.outputs.is_valid == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -36,8 +78,15 @@ jobs:
           echo "SUPABASE_ANON_KEY exists: ${{ secrets.SUPABASE_ANON_KEY != '' }}"
           echo "OPENAI_API_KEY exists: ${{ secrets.OPENAI_API_KEY != '' }}"
           echo ""
+          
           # Check if variables are being passed to Python
-          python -c "import os; print('Python Environment Check:'); print(f'SUPABASE_URL: {\"Set\" if os.environ.get(\"SUPABASE_URL\") else \"Not set\"}'); print(f'SUPABASE_ANON_KEY: {\"Set\" if os.environ.get(\"SUPABASE_ANON_KEY\") else \"Not set\"}'); print(f'OPENAI_API_KEY: {\"Set\" if os.environ.get(\"OPENAI_API_KEY\") else \"Not set\"}')"
+          python -c "
+import os
+print('Python Environment Check:')
+print(f'SUPABASE_URL: {\"Set\" if os.environ.get(\"SUPABASE_URL\") else \"Not set\"}')
+print(f'SUPABASE_ANON_KEY: {\"Set\" if os.environ.get(\"SUPABASE_ANON_KEY\") else \"Not set\"}')
+print(f'OPENAI_API_KEY: {\"Set\" if os.environ.get(\"OPENAI_API_KEY\") else \"Not set\"}')
+"
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
@@ -54,10 +103,53 @@ jobs:
           echo "Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           echo ""
           
+          # Create reports directory
+          mkdir -p reports
+          
           # Run the monitoring script
-          python monitor_hemp.py --recent 24
+          if [ -f "monitor_hemp.py" ]; then
+            echo "📊 Running monitoring script..."
+            python monitor_hemp.py --recent 24 | tee reports/status_check.txt
+          else
+            echo "⚠️ monitor_hemp.py not found"
+          fi
           
           # Check database connectivity
           echo ""
           echo "🔌 Database Connectivity:"
-          python verify_setup.py
+          if [ -f "verify_setup.py" ]; then
+            python verify_setup.py | tee -a reports/status_check.txt
+          else
+            echo "⚠️ verify_setup.py not found"
+          fi
+      
+      - name: Generate status summary
+        if: always()
+        run: |
+          echo "## 🔍 Hemp Automation Status Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Check Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "reports/status_check.txt" ]; then
+            echo "### Status Output" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -n 50 reports/status_check.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Add workflow health metrics
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Workflow Health Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment Check**: ${{ needs.validate-environment.outputs.is_valid }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Python Version**: 3.11" >> $GITHUB_STEP_SUMMARY
+          echo "- **Run ID**: ${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Upload status report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: status-report-${{ github.run_id }}
+          path: reports/
+          retention-days: 7

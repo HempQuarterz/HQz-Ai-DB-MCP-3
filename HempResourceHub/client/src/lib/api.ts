@@ -10,19 +10,19 @@ import type {
 
 // Plant Types
 export const getPlantTypes = async (): Promise<PlantType[]> => {
-  const { data, error } = await supabase.from('plant_types').select('*');
+  const { data, error } = await supabase.from('hemp_plant_archetypes').select('*');
   if (error) throw error;
   return data || [];
 };
 
 export const getPlantType = async (id: number): Promise<PlantType | null> => {
-  const { data, error } = await supabase.from('plant_types').select('*').eq('id', id).single();
+  const { data, error } = await supabase.from('hemp_plant_archetypes').select('*').eq('id', id).single();
   if (error) throw error;
   return data;
 };
 
 export const createPlantType = async (plantType: Omit<PlantType, 'id' | 'createdAt'>): Promise<PlantType> => {
-  const { data, error } = await supabase.from('plant_types').insert([plantType]).select().single();
+  const { data, error } = await supabase.from('hemp_plant_archetypes').insert([plantType]).select().single();
   if (error) throw error;
   return data;
 };
@@ -35,7 +35,7 @@ export const getPlantParts = async (): Promise<PlantPart[]> => {
 };
 
 export const getPlantPartsByType = async (plantTypeId: number): Promise<PlantPart[]> => {
-  const { data, error } = await supabase.from('plant_parts').select('*').eq('plant_type_id', plantTypeId);
+  const { data, error } = await supabase.from('plant_parts').select('*').eq('archetype_id', plantTypeId);
   if (error) throw error;
   return data || [];
 };
@@ -73,63 +73,63 @@ export const createIndustry = async (industry: Omit<Industry, 'id' | 'createdAt'
 
 // Sub Industries
 export const getSubIndustries = async (): Promise<SubIndustry[]> => {
-  const { data, error } = await supabase.from('sub_industries').select('*');
+  const { data, error } = await supabase.from('industry_sub_categories').select('*');
   if (error) throw error;
   return data || [];
 };
 
 export const getSubIndustriesByIndustry = async (industryId: number): Promise<SubIndustry[]> => {
-  const { data, error } = await supabase.from('sub_industries').select('*').eq('industry_id', industryId);
+  const { data, error } = await supabase.from('industry_sub_categories').select('*').eq('industry_id', industryId);
   if (error) throw error;
   return data || [];
 };
 
 export const getSubIndustry = async (id: number): Promise<SubIndustry | null> => {
-  const { data, error } = await supabase.from('sub_industries').select('*').eq('id', id).single();
+  const { data, error } = await supabase.from('industry_sub_categories').select('*').eq('id', id).single();
   if (error) throw error;
   return data;
 };
 
 export const createSubIndustry = async (subIndustry: Omit<SubIndustry, 'id' | 'createdAt'>): Promise<SubIndustry> => {
-  const { data, error } = await supabase.from('sub_industries').insert([subIndustry]).select().single();
+  const { data, error } = await supabase.from('industry_sub_categories').insert([subIndustry]).select().single();
   if (error) throw error;
   return data;
 };
 
 // Hemp Products
 export const getHempProducts = async (): Promise<HempProduct[]> => {
-  const { data, error } = await supabase.from('hemp_products').select('*');
+  const { data, error } = await supabase.from('uses_products').select('*');
   if (error) throw error;
   return data || [];
 };
 
 export const getHempProductsByPart = async (plantPartId: number): Promise<HempProduct[]> => {
-  const { data, error } = await supabase.from('hemp_products').select('*').eq('plant_part_id', plantPartId);
+  const { data, error } = await supabase.from('uses_products').select('*').eq('plant_part_id', plantPartId);
   if (error) throw error;
   return data || [];
 };
 
 export const getHempProductsByIndustry = async (industryId: number): Promise<HempProduct[]> => {
-  const { data, error } = await supabase.from('hemp_products').select('*').eq('industry_id', industryId);
+  const { data, error } = await supabase.from('uses_products').select('*').eq('industry_id', industryId);
   if (error) throw error;
   return data || [];
 };
 
 export const getHempProduct = async (id: number): Promise<HempProduct | null> => {
-  const { data, error } = await supabase.from('hemp_products').select('*').eq('id', id).single();
+  const { data, error } = await supabase.from('uses_products').select('*').eq('id', id).single();
   if (error) throw error;
   return data;
 };
 
 export const createHempProduct = async (product: Omit<HempProduct, 'id' | 'createdAt'>): Promise<HempProduct> => {
-  const { data, error } = await supabase.from('hemp_products').insert([product]).select().single();
+  const { data, error } = await supabase.from('uses_products').insert([product]).select().single();
   if (error) throw error;
   return data;
 };
 
 export const searchHempProducts = async (query: string): Promise<HempProduct[]> => {
   const { data, error } = await supabase
-    .from('hemp_products')
+    .from('uses_products')
     .select('*')
     .or(`name.ilike.%${query}%,description.ilike.%${query}%`);
   if (error) throw error;
@@ -150,7 +150,7 @@ export const getResearchPaper = async (id: number): Promise<ResearchPaper | null
 };
 
 export const getResearchPapersByPlantType = async (plantTypeId: number): Promise<ResearchPaper[]> => {
-  const { data, error } = await supabase.from('research_papers').select('*').eq('plant_type_id', plantTypeId);
+  const { data, error } = await supabase.from('research_papers').select('*').eq('archetype_id', plantTypeId);
   if (error) throw error;
   return data || [];
 };
@@ -184,9 +184,9 @@ export const searchResearchPapers = async (query: string): Promise<ResearchPaper
 
 // Statistics
 export const getStats = async () => {
-  const productsCount = await supabase.from('hemp_products').select('*', { count: 'exact', head: true });
+  const productsCount = await supabase.from('uses_products').select('*', { count: 'exact', head: true });
   const industriesCount = await supabase.from('industries').select('*', { count: 'exact', head: true });
-  const plantTypesCount = await supabase.from('plant_types').select('*', { count: 'exact', head: true });
+  const plantTypesCount = await supabase.from('hemp_plant_archetypes').select('*', { count: 'exact', head: true });
   
   return {
     totalProducts: productsCount.count || 0,

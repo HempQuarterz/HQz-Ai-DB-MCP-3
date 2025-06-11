@@ -6,7 +6,7 @@ async function fetchPlantTypes() {
   console.log('Fetching plant types from Supabase...');
   
   const { data, error } = await supabase
-    .from('plant_types')
+    .from('hemp_plant_archetypes')
     .select('*');
 
   console.log('Plant types response:', { data, error });
@@ -48,7 +48,7 @@ export function usePlantType(id: number | null) {
     queryFn: async () => {
       if (!id) return null;
       const { data, error } = await supabase
-        .from('plant_types')
+        .from('hemp_plant_archetypes')
         .select('*')
         .eq('id', id)
         .single();
@@ -71,7 +71,7 @@ export function usePlantParts(plantTypeId: number | null) {
       const { data, error } = await supabase
         .from('plant_parts')
         .select('*')
-        .eq('plant_type_id', plantTypeId);
+        .eq('archetype_id', plantTypeId);
       if (error) {
         console.error('Error fetching plant parts:', error);
         throw new Error(error.message);

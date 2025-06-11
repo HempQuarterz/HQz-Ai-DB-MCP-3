@@ -32,7 +32,7 @@ export async function testSupabaseConnection() {
   try {
     // Attempt to get data from a table
     const { data, error } = await supabase
-      .from('plant_types')
+      .from('hemp_plant_archetypes')
       .select('count')
       .limit(1);
       

@@ -4,7 +4,7 @@ import type { PlantType, PlantPart, Industry, SubIndustry, HempProduct, Research
 // Plant Types API
 export async function getAllPlantTypes(): Promise<PlantType[]> {
   const { data, error } = await supabase
-    .from('plant_types')
+    .from('hemp_plant_archetypes')
     .select('*')
     .order('name');
   
@@ -14,7 +14,7 @@ export async function getAllPlantTypes(): Promise<PlantType[]> {
 
 export async function getPlantType(id: number): Promise<PlantType | null> {
   const { data, error } = await supabase
-    .from('plant_types')
+    .from('hemp_plant_archetypes')
     .select('*')
     .eq('id', id)
     .single();
@@ -28,7 +28,7 @@ export async function getPlantType(id: number): Promise<PlantType | null> {
 
 export async function createPlantType(plantType: Omit<PlantType, 'id' | 'created_at'>): Promise<PlantType> {
   const { data, error } = await supabase
-    .from('plant_types')
+    .from('hemp_plant_archetypes')
     .insert(plantType)
     .select()
     .single();
@@ -52,7 +52,7 @@ export async function getPlantPartsByType(plantTypeId: number): Promise<PlantPar
   const { data, error } = await supabase
     .from('plant_parts')
     .select('*')
-    .eq('plant_type_id', plantTypeId)
+    .eq('archetype_id', plantTypeId)
     .order('name');
   
   if (error) throw error;
@@ -123,7 +123,7 @@ export async function createIndustry(industry: Omit<Industry, 'id' | 'created_at
 // Sub Industries API
 export async function getSubIndustriesByIndustry(industryId: number): Promise<SubIndustry[]> {
   const { data, error } = await supabase
-    .from('sub_industries')
+    .from('industry_sub_categories')
     .select('*')
     .eq('industry_id', industryId)
     .order('name');
@@ -135,7 +135,7 @@ export async function getSubIndustriesByIndustry(industryId: number): Promise<Su
 // Hemp Products API
 export async function getAllHempProducts(): Promise<HempProduct[]> {
   const { data, error } = await supabase
-    .from('hemp_products')
+    .from('uses_products')
     .select('*')
     .order('name');
   
@@ -145,7 +145,7 @@ export async function getAllHempProducts(): Promise<HempProduct[]> {
 
 export async function getHempProduct(id: number): Promise<HempProduct | null> {
   const { data, error } = await supabase
-    .from('hemp_products')
+    .from('uses_products')
     .select('*')
     .eq('id', id)
     .single();
@@ -164,7 +164,7 @@ export async function getHempProductsByPart(
   limit: number = 10
 ): Promise<PaginatedResponse<HempProduct>> {
   let query = supabase
-    .from('hemp_products')
+    .from('uses_products')
     .select('*', { count: 'exact' })
     .eq('plant_part_id', plantPartId);
   
@@ -186,7 +186,7 @@ export async function getHempProductsByPart(
 
 export async function getHempProductsByIndustry(industryId: number): Promise<HempProduct[]> {
   const { data, error } = await supabase
-    .from('hemp_products')
+    .from('uses_products')
     .select('*')
     .eq('industry_id', industryId)
     .order('name');
@@ -200,7 +200,7 @@ export async function searchHempProducts(query: string): Promise<HempProduct[]> 
   // Use the full-text search if the search_vector column exists
   try {
     const { data, error } = await supabase
-      .from('hemp_products')
+      .from('uses_products')
       .select('*')
       .textSearch('search_vector', query)
       .order('name');
@@ -211,7 +211,7 @@ export async function searchHempProducts(query: string): Promise<HempProduct[]> 
     // Fallback to ilike search if full-text search fails
     console.warn('Falling back to ILIKE search for hemp products', e);
     const { data, error } = await supabase
-      .from('hemp_products')
+      .from('uses_products')
       .select('*')
       .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
       .order('name');
@@ -223,7 +223,7 @@ export async function searchHempProducts(query: string): Promise<HempProduct[]> 
 
 export async function createHempProduct(product: Omit<HempProduct, 'id' | 'created_at'>): Promise<HempProduct> {
   const { data, error } = await supabase
-    .from('hemp_products')
+    .from('uses_products')
     .insert(product)
     .select()
     .single();
@@ -261,7 +261,7 @@ export async function getResearchPapersByPlantType(plantTypeId: number): Promise
   const { data, error } = await supabase
     .from('research_papers')
     .select('*')
-    .eq('plant_type_id', plantTypeId)
+    .eq('archetype_id', plantTypeId)
     .order('title');
   
   if (error) throw error;
@@ -330,7 +330,7 @@ export async function createResearchPaper(paper: Omit<ResearchPaper, 'id' | 'cre
 // Statistics API
 export async function getStats() {
   const plantTypesPromise = supabase
-    .from('plant_types')
+    .from('hemp_plant_archetypes')
     .select('*', { count: 'exact', head: true });
 
   const plantPartsPromise = supabase
@@ -342,7 +342,7 @@ export async function getStats() {
     .select('*', { count: 'exact', head: true });
 
   const productsPromise = supabase
-    .from('hemp_products')
+    .from('uses_products')
     .select('*', { count: 'exact', head: true });
 
   const researchPromise = supabase

@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { DatabaseStorage } from "./storage-db";
 import { z } from "zod";
-import { insertPlantTypeSchema, insertPlantPartSchema, insertIndustrySchema, insertIndustrySubCategorySchema, insertUsesProductsSchema, insertResearchEntrySchema, plantTypes } from "@shared/schema";
+import { insertPlantTypeSchema, insertPlantPartSchema, insertIndustrySchema, insertIndustrySubCategorySchema, insertUsesProductsSchema, insertResearchEntrySchema, hempPlantArchetypes as plantTypes } from "@shared/schema";
 import { log } from "./vite";
 import { db } from "./db";
 import { dbAlt } from "./db-alt";  // Import alternative connection
@@ -20,28 +20,32 @@ function asyncHandler(
 export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize the database if needed
   try {
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.NODE_ENV !== 'test' && process.env.DATABASE_URL) {
       log("Initializing database schema...");
-      await initializeDatabase();
-
-      // Check if we have data already
-      const existingData = await db.select().from(plantTypes);
-
-      // Only initialize if we only have the test data or no data
-      if (existingData.length <= 1) {
-        log("Adding sample data to database...");
-
-        // Check if initializeData method exists on the storage object
-        if (typeof storage.initializeData === 'function') {
-          await storage.initializeData();
-          log("Database initialization completed.");
-        } else {
-          log(
-            "Storage implementation doesn't have an initializeData method, skipping initialization."
-          );
-        }
+      const initialized = await initializeDatabase();
+      
+      if (!initialized) {
+        log("Database initialization skipped");
       } else {
-        log("Database already contains data, skipping initialization.");
+        // Check if we have data already
+        const existingData = await db.select().from(plantTypes);
+
+        // Only initialize if we only have the test data or no data
+        if (existingData.length <= 1) {
+          log("Adding sample data to database...");
+
+          // Check if initializeData method exists on the storage object
+          if (typeof storage.initializeData === 'function') {
+            await storage.initializeData();
+            log("Database initialization completed.");
+          } else {
+            log(
+              "Storage implementation doesn't have an initializeData method, skipping initialization."
+            );
+          }
+        } else {
+          log("Database already contains data, skipping initialization.");
+        }
       }
     }
   } catch (error) {

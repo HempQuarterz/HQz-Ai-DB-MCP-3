@@ -16,7 +16,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
 });
 
 // Hemp plant archetypes table (aligned with SQL schema)
-export const plantTypes = pgTable("hemp_plant_archetypes", { 
+export const hempPlantArchetypes = pgTable("hemp_plant_archetypes", { 
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   description: text("description"), 
@@ -26,7 +26,7 @@ export const plantTypes = pgTable("hemp_plant_archetypes", {
   updatedAt: timestamp("updated_at").defaultNow().$onUpdate(() => new Date()), 
 });
 
-export const insertPlantTypeSchema = createInsertSchema(plantTypes).pick({
+export const insertPlantTypeSchema = createInsertSchema(hempPlantArchetypes).pick({
   name: true,
   description: true,
   imageUrl: true,
@@ -39,7 +39,7 @@ export const plantParts = pgTable("plant_parts", {
   name: text("name").notNull(),
   description: text("description").notNull(),
   imageUrl: text("image_url"),
-  plantTypeId: integer("plant_type_id").notNull().references(() => plantTypes.id), 
+  archetypeId: integer("archetype_id").notNull().references(() => hempPlantArchetypes.id), 
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow().$onUpdate(() => new Date()), 
 });
@@ -48,7 +48,7 @@ export const insertPlantPartSchema = createInsertSchema(plantParts).pick({
   name: true,
   description: true,
   imageUrl: true,
-  plantTypeId: true,
+  archetypeId: true,
 });
 
 // Industries table
@@ -189,7 +189,7 @@ export const researchEntries = pgTable("research_entries", {
   fullTextUrl: text("full_text_url"), 
   pdfUrl: text("pdf_url"),
   imageUrl: text("image_url"),
-  plantTypeId: integer("plant_type_id").references(() => plantTypes.id), 
+  archetypeId: integer("archetype_id").references(() => hempPlantArchetypes.id), 
   plantPartId: integer("plant_part_id").references(() => plantParts.id),
   industryId: integer("industry_id").references(() => industries.id),
   researchInstitutionId: integer("research_institution_id").references(() => researchInstitutions.id), 
@@ -210,7 +210,7 @@ export const insertResearchEntrySchema = createInsertSchema(researchEntries).pic
   fullTextUrl: true, 
   pdfUrl: true,
   imageUrl: true,
-  plantTypeId: true,
+  archetypeId: true,
   plantPartId: true,
   industryId: true,
   researchInstitutionId: true, 
@@ -361,15 +361,15 @@ export const insertMarketDataReportSchema = createInsertSchema(marketDataReports
 
 
 // RELATIONS
-export const plantTypesRelations = relations(plantTypes, ({ many }) => ({
+export const hempPlantArchetypesRelations = relations(hempPlantArchetypes, ({ many }) => ({
   plantParts: many(plantParts),
   researchEntries: many(researchEntries), 
 }));
 
 export const plantPartsRelations = relations(plantParts, ({ one, many }) => ({
-  plantType: one(plantTypes, {
-    fields: [plantParts.plantTypeId],
-    references: [plantTypes.id],
+  plantType: one(hempPlantArchetypes, {
+    fields: [plantParts.archetypeId],
+    references: [hempPlantArchetypes.id],
   }),
   usesProducts: many(usesProducts),
   researchEntries: many(researchEntries), 
@@ -423,9 +423,9 @@ export const researchInstitutionsRelations = relations(researchInstitutions, ({ 
 }));
 
 export const researchEntryRelations = relations(researchEntries, ({ one, many }) => ({ 
-  plantType: one(plantTypes, { 
-    fields: [researchEntries.plantTypeId], 
-    references: [plantTypes.id],
+  plantType: one(hempPlantArchetypes, { 
+    fields: [researchEntries.archetypeId], 
+    references: [hempPlantArchetypes.id],
   }),
   plantPart: one(plantParts, {
     fields: [researchEntries.plantPartId], 
@@ -503,7 +503,7 @@ export const productRegulationsRelations = relations(productRegulations, ({ one 
 
 
 // Types (Consolidated)
-export type PlantType = typeof plantTypes.$inferSelect;
+export type PlantType = typeof hempPlantArchetypes.$inferSelect;
 export type InsertPlantType = z.infer<typeof insertPlantTypeSchema>;
 
 export type PlantPart = typeof plantParts.$inferSelect;

@@ -1,4 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
+import cors from "cors";
+import helmet from "helmet";
+import compression from "compression";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import validateEnv from "./env";
@@ -8,6 +11,33 @@ import './supabase-db'; // Connect to your Supabase database
 validateEnv();
 
 const app = express();
+
+// Security middleware
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      imgSrc: ["'self'", "data:", "https:", "blob:"],
+      connectSrc: ["'self'", "https://*.supabase.co", "wss://*.supabase.co"],
+      fontSrc: ["'self'", "data:"],
+    },
+  },
+}));
+
+// CORS configuration
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+// Compression middleware
+app.use(compression());
+
+// Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -46,10 +76,19 @@ app.use((req, res, next) => {
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    throw err;
+    const message = process.env.NODE_ENV === 'production' 
+      ? 'Internal Server Error' 
+      : err.message || "Internal Server Error";
+    
+    console.error('Error:', err);
+    
+    res.status(status).json({ 
+      error: { 
+        message, 
+        status,
+        ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+      }
+    });
   });
 
   // importantly only setup vite in development and after

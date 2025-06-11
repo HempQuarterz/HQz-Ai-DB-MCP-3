@@ -1,6 +1,6 @@
 import {
   users, type User, type InsertUser,
-  plantTypes, type PlantType, type InsertPlantType,
+  hempPlantArchetypes as plantTypes, type PlantType, type InsertPlantType,
   plantParts, type PlantPart, type InsertPlantPart,
   industries, type Industry, type InsertIndustry,
   industrySubCategories as subIndustries, type IndustrySubCategory as SubIndustry, type InsertIndustrySubCategory as InsertSubIndustry,
@@ -281,7 +281,7 @@ export class DatabaseStorage implements IStorage {
             console.log("Initializing plant parts data...");
             
             await db.execute(sql`
-              INSERT INTO plant_parts (name, description, image_url, plant_type_id)
+              INSERT INTO plant_parts (name, description, image_url, archetype_id)
               VALUES ('Stalk', 'The main stem of the hemp plant, consisting of bast fiber and hurd', 
                     'https://images.unsplash.com/photo-1535704882196-765e5fc62a53', 
                     ${fiberHempId})
@@ -289,7 +289,7 @@ export class DatabaseStorage implements IStorage {
             `);
             
             await db.execute(sql`
-              INSERT INTO plant_parts (name, description, image_url, plant_type_id)
+              INSERT INTO plant_parts (name, description, image_url, archetype_id)
               VALUES ('Leaves', 'Fan and sugar leaves from the hemp plant', 
                     'https://images.unsplash.com/photo-1500382017468-9049fed747ef', 
                     ${fiberHempId})
@@ -297,7 +297,7 @@ export class DatabaseStorage implements IStorage {
             `);
             
             await db.execute(sql`
-              INSERT INTO plant_parts (name, description, image_url, plant_type_id)
+              INSERT INTO plant_parts (name, description, image_url, archetype_id)
               VALUES ('Seeds', 'Whole and dehulled seeds from the hemp plant', 
                     'https://images.unsplash.com/photo-1531684051069-6431885272eb', 
                     ${fiberHempId})

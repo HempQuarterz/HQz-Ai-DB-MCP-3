@@ -57,7 +57,7 @@ export function useCreatePlantPart() {
     mutationFn: api.createPlantPart,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['plantParts'] });
-      queryClient.invalidateQueries({ queryKey: ['plantParts', 'byType', variables.plant_type_id] });
+      queryClient.invalidateQueries({ queryKey: ['plantParts', 'byType', variables.archetype_id] });
     }
   });
 }
@@ -210,8 +210,8 @@ export function useCreateResearchPaper() {
     mutationFn: api.createResearchPaper,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['researchPapers'] });
-      if (variables.plant_type_id) {
-        queryClient.invalidateQueries({ queryKey: ['researchPapers', 'byPlantType', variables.plant_type_id] });
+      if (variables.archetype_id) {
+        queryClient.invalidateQueries({ queryKey: ['researchPapers', 'byPlantType', variables.archetype_id] });
       }
       if (variables.plant_part_id) {
         queryClient.invalidateQueries({ queryKey: ['researchPapers', 'byPlantPart', variables.plant_part_id] });
