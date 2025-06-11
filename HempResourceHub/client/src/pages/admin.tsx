@@ -4,6 +4,7 @@ import AddPlantTypeForm from '@/components/admin/add-plant-type';
 import AddPlantPartForm from '@/components/admin/add-plant-part';
 import AddIndustryForm from '@/components/admin/add-industry';
 import AddSubIndustryForm from '@/components/admin/add-sub-industry';
+import ImageGenerationDashboard from '@/components/admin/image-generation-dashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const AdminPage = () => {
@@ -28,12 +29,13 @@ const AdminPage = () => {
         </div>
         
         <Tabs defaultValue="plant-types" className="w-full">
-          <TabsList className="grid grid-cols-5 w-full max-w-4xl mx-auto">
+          <TabsList className="grid grid-cols-6 w-full max-w-5xl mx-auto">
             <TabsTrigger value="plant-types">Plant Types</TabsTrigger>
             <TabsTrigger value="plant-parts">Plant Parts</TabsTrigger>
             <TabsTrigger value="industries">Industries</TabsTrigger>
             <TabsTrigger value="sub-industries">Sub-Industries</TabsTrigger>
             <TabsTrigger value="products">Products</TabsTrigger>
+            <TabsTrigger value="image-generation">Image Generation</TabsTrigger>
           </TabsList>
           
           <TabsContent value="plant-types">
@@ -59,6 +61,10 @@ const AdminPage = () => {
                 This form requires more complex fields for multiple relationships. It's being developed.
               </p>
             </div>
+          </TabsContent>
+          
+          <TabsContent value="image-generation">
+            <ImageGenerationDashboard />
           </TabsContent>
         </Tabs>
       </div>
