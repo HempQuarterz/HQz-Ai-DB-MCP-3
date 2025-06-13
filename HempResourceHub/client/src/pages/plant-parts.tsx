@@ -20,7 +20,7 @@ const PlantPartsPage = () => {
       </Helmet>
 
       {/* Breadcrumb */}
-      <div className="bg-white py-6">
+      <div className="bg-gray-900 py-6 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[{ label: "Home", href: "/" }, { label: "Parts of Plant" }]}
@@ -29,12 +29,12 @@ const PlantPartsPage = () => {
       </div>
 
       {/* Hero section */}
-      <div className="bg-green-50 py-12">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-950 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-green-700 text-outline-black">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-green-400">
             Hemp Plant Parts
           </h1>
-          <p className="mt-4 text-lg text-neutral-dark max-w-3xl mx-auto">
+          <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
             Explore the various parts of the hemp plant and their industrial
             applications, from stalks used in textiles to seeds used in food
             products.
@@ -43,9 +43,9 @@ const PlantPartsPage = () => {
       </div>
 
       {/* Plant parts grid */}
-      <div className="bg-white py-16">
+      <div className="bg-gray-950 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-12 text-center">
             Select a Plant Part
           </h2>
 
@@ -69,7 +69,7 @@ const PlantPartsPage = () => {
               {plantParts &&
                 plantParts.map((plantPart: any) => (
                   <div key={plantPart.id} className="relative group">
-                    <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 ease-in-out group-hover:shadow-lg">
+                    <div className="relative h-80 w-full overflow-hidden rounded-lg bg-gray-900 shadow-lg shadow-black/50 transition-all duration-300 ease-in-out group-hover:shadow-green-500/20 border border-green-500/30 group-hover:border-green-400/50">
                       <img
                         src={plantPart.image_url || "/placeholder-hemp.jpg"}
                         alt={`${plantPart.name}`}
@@ -78,7 +78,7 @@ const PlantPartsPage = () => {
 
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                       <div className="absolute bottom-0 left-0 p-6">
-                        <h3 className="text-xl font-heading font-semibold text-white text-outline-white">
+                        <h3 className="text-xl font-heading font-semibold text-white">
                           {plantPart.name}
                         </h3>
                         <p className="mt-2 text-sm text-white/80 line-clamp-3">
@@ -100,19 +100,19 @@ const PlantPartsPage = () => {
       </div>
 
       {/* Plant parts comparison */}
-      <div className="bg-neutral-lightest py-16">
+      <div className="bg-gray-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-12 text-center">
             Hemp Plant Parts Comparison
           </h2>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-neutral-light">
-              <thead className="bg-neutral-lightest">
+            <table className="min-w-full divide-y divide-gray-700">
+              <thead className="bg-gray-800">
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-sm font-semibold text-neutral-darkest uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-sm font-semibold text-gray-200 uppercase tracking-wider"
                   >
                     Plant Part
                   </th>
@@ -136,91 +136,91 @@ const PlantPartsPage = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-neutral-light">
+              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-neutral-darkest">
+                    <div className="font-medium text-gray-200">
                       Stalks/Stems
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Textiles, Paper, Building Materials
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Fibrous, durable, high tensile strength
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Retting, decortication, pulping
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-neutral-darkest">
+                    <div className="font-medium text-gray-200">
                       Seeds
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Food, Nutritional Supplements, Oil
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       High protein, rich in omega fatty acids
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Hulling, cold pressing, roasting
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-neutral-darkest">
+                    <div className="font-medium text-gray-200">
                       Leaves
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Tea, Animal Feed, Compost
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Rich in chlorophyll and nutrients
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Drying, grinding, extraction
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-neutral-darkest">
+                    <div className="font-medium text-gray-200">
                       Flowers
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Wellness Products, Extracts
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Contains cannabinoids and terpenes
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Curing, extraction, distillation
                     </div>
                   </td>
@@ -232,12 +232,12 @@ const PlantPartsPage = () => {
       </div>
 
       {/* CTA section */}
-      <div className="bg-green-50 py-16">
+      <div className="bg-gradient-to-b from-gray-950 to-black py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-neutral-darkest mb-4">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-4">
             Explore Hemp Industry Applications
           </h2>
-          <p className="text-lg text-neutral-dark max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
             Discover how different parts of the hemp plant are utilized across
             various industries for sustainable solutions.
           </p>

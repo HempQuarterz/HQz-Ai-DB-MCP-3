@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS agent_generated_content (
     status VARCHAR(50) DEFAULT 'draft' CHECK (status IN ('draft', 'review', 'approved', 'published', 'archived')),
     published_at TIMESTAMPTZ,
     published_url TEXT,
-    product_id UUID REFERENCES products(id),
+    product_id BIGINT REFERENCES uses_products(id),
     agent_task_id UUID REFERENCES agent_orchestration_logs(id),
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW(),

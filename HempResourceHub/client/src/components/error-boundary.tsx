@@ -52,29 +52,29 @@ export class ErrorBoundary extends Component<Props, State> {
 
       // Default error UI
       return (
-        <div className="min-h-screen flex items-center justify-center p-4">
-          <Card className="max-w-lg w-full">
+        <div className="min-h-screen flex items-center justify-center p-4 bg-gray-950">
+          <Card className="max-w-lg w-full bg-gray-900 border border-green-500/30">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <AlertCircle className="h-6 w-6 text-red-600" />
-                <CardTitle>Something went wrong</CardTitle>
+                <AlertCircle className="h-6 w-6 text-red-400" />
+                <CardTitle className="text-gray-100">Something went wrong</CardTitle>
               </div>
-              <CardDescription>
+              <CardDescription className="text-gray-400">
                 An unexpected error occurred. Please try refreshing the page.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {process.env.NODE_ENV === "development" && this.state.error && (
-                <div className="bg-gray-100 p-4 rounded-lg">
-                  <p className="font-mono text-sm text-red-600 mb-2">
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                  <p className="font-mono text-sm text-red-400 mb-2">
                     {this.state.error.toString()}
                   </p>
                   {this.state.errorInfo && (
                     <details className="cursor-pointer">
-                      <summary className="text-sm text-gray-600 hover:text-gray-800">
+                      <summary className="text-sm text-gray-500 hover:text-gray-300">
                         View stack trace
                       </summary>
-                      <pre className="mt-2 text-xs text-gray-600 overflow-auto max-h-64">
+                      <pre className="mt-2 text-xs text-gray-500 overflow-auto max-h-64">
                         {this.state.errorInfo.componentStack}
                       </pre>
                     </details>
@@ -82,11 +82,11 @@ export class ErrorBoundary extends Component<Props, State> {
                 </div>
               )}
               <div className="flex gap-2">
-                <Button onClick={this.handleReset} variant="outline">
+                <Button onClick={this.handleReset} variant="outline" className="border-green-500/50 text-green-400 hover:bg-green-500/10 hover:border-green-400">
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Try again
                 </Button>
-                <Button onClick={() => window.location.href = "/"}>
+                <Button onClick={() => window.location.href = "/"} className="bg-green-600 hover:bg-green-700 text-white">
                   Go to homepage
                 </Button>
               </div>

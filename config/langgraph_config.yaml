@@ -1,0 +1,113 @@
+graphs:
+  daily_automation:
+    name: "Daily Hemp Automation Workflow"
+    schedule: "0 9 * * *"  # 9 AM daily
+    timeout: 3600
+    retry_policy:
+      max_attempts: 3
+      backoff_factor: 2
+    nodes:
+      - id: "research"
+        agent: "research_agent"
+        action: "discover_new_products"
+        params:
+          limit: 20
+          categories: ["all"]
+      
+      - id: "content"
+        agent: "content_agent"
+        action: "generate_content"
+        depends_on: ["research"]
+        params:
+          types: ["blog", "social"]
+          
+      - id: "seo"
+        agent: "seo_agent"
+        action: "optimize_content"
+        depends_on: ["content"]
+        
+      - id: "outreach"
+        agent: "outreach_agent"
+        action: "send_campaigns"
+        params:
+          daily_limit: 50
+          
+    edges:
+      - from: "research"
+        to: "content"
+        condition: "has_new_products"
+      - from: "content"
+        to: "seo"
+      - from: "seo"
+        to: "outreach"
+        condition: "content_published"
+
+  compliance_monitoring:
+    name: "Compliance Monitoring"
+    schedule: "0 */6 * * *"  # Every 6 hours
+    timeout: 1800
+    nodes:
+      - id: "check_regulations"
+        agent: "compliance_agent"
+        action: "monitor_changes"
+      
+      - id: "check_platforms"
+        agent: "compliance_agent"
+        action: "verify_platform_compliance"
+        
+      - id: "generate_report"
+        agent: "content_agent"
+        action: "create_compliance_report"
+        depends_on: ["check_regulations", "check_platforms"]
+        
+    edges:
+      - from: "check_regulations"
+        to: "generate_report"
+      - from: "check_platforms"
+        to: "generate_report"
+
+  weekly_seo_audit:
+    name: "Weekly SEO Audit"
+    schedule: "0 10 * * 1"  # 10 AM every Monday
+    timeout: 7200
+    nodes:
+      - id: "crawl_site"
+        agent: "seo_agent"
+        action: "crawl_website"
+        
+      - id: "analyze_keywords"
+        agent: "seo_agent"
+        action: "analyze_keyword_performance"
+        
+      - id: "competitor_analysis"
+        agent: "seo_agent"
+        action: "analyze_competitors"
+        
+      - id: "generate_recommendations"
+        agent: "seo_agent"
+        action: "generate_seo_recommendations"
+        depends_on: ["crawl_site", "analyze_keywords", "competitor_analysis"]
+        
+checkpointing:
+  enabled: true
+  cleanup_after_days: 30
+  storage_backend: "sqlite"
+  
+monitoring:
+  log_level: "INFO"
+  metrics_enabled: true
+  dashboard_refresh_interval: 60
+  
+performance:
+  max_concurrent_agents: 5
+  task_timeout_default: 300
+  memory_limit_mb: 2048
+  
+cost_controls:
+  daily_token_limit: 1000000
+  daily_cost_limit: 50.00
+  hourly_cost_limit: 5.00
+  alert_threshold: 0.8
+  fallback_models:
+    high_cost: "gpt-4o-mini"
+    medium_cost: "claude-3-haiku"

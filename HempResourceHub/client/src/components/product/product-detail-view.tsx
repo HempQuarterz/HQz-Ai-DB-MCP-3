@@ -38,18 +38,18 @@ const ProductDetailView = ({
   const getIconForIndustry = (industryName: string = "") => {
     const name = industryName.toLowerCase();
     if (name.includes("textile"))
-      return <Shirt className="h-6 w-6 text-primary" data-oid="42h3r17" />;
+      return <Shirt className="h-6 w-6 text-green-400" data-oid="42h3r17" />;
     if (name.includes("construction"))
-      return <Building2 className="h-6 w-6 text-primary" data-oid="gbxknls" />;
+      return <Building2 className="h-6 w-6 text-green-400" data-oid="gbxknls" />;
     if (name.includes("paper"))
-      return <FileText className="h-6 w-6 text-primary" data-oid=".dezqy2" />;
-    return <Info className="h-6 w-6 text-primary" data-oid="norgku9" />; // Default
+      return <FileText className="h-6 w-6 text-green-400" data-oid=".dezqy2" />;
+    return <Info className="h-6 w-6 text-green-400" data-oid="norgku9" />; // Default
   };
 
   if (isLoadingProduct || isLoadingPlantPart) {
     return (
       <div
-        className="bg-white rounded-xl shadow-md overflow-hidden"
+        className="bg-gray-900 rounded-xl shadow-lg shadow-black/50 overflow-hidden border border-green-500/30"
         data-oid="uj4ljub"
       >
         <div className="flex flex-col lg:flex-row" data-oid="8x.l1i9">
@@ -80,10 +80,10 @@ const ProductDetailView = ({
   if (!product) {
     return (
       <div
-        className="bg-white rounded-xl shadow-md p-8 text-center"
+        className="bg-gray-900 rounded-xl shadow-lg shadow-black/50 p-8 text-center border border-green-500/30"
         data-oid=".h.9lmm"
       >
-        Product not found
+        <p className="text-gray-300">Product not found</p>
       </div>
     );
   }
@@ -98,7 +98,7 @@ const ProductDetailView = ({
 
   return (
     <div
-      className="bg-white rounded-xl shadow-md overflow-hidden"
+      className="bg-gray-900 rounded-xl shadow-lg shadow-black/50 overflow-hidden border border-green-500/30"
       data-oid="a11ecko"
     >
       <div className="flex flex-col lg:flex-row" data-oid="1fir4gn">
@@ -114,7 +114,7 @@ const ProductDetailView = ({
 
             <div className="absolute top-4 left-4" data-oid="3gwfx-u">
               <Badge
-                className="bg-white/80 backdrop-blur-sm text-primary text-xs font-medium px-3 py-1 rounded-full"
+                className="bg-gray-800/80 backdrop-blur-sm text-green-400 text-xs font-medium px-3 py-1 rounded-full border border-green-500/50"
                 data-oid="tejkepk"
               >
                 Hemp ID: #{product.id}
@@ -128,7 +128,7 @@ const ProductDetailView = ({
               <div className="p-4 sm:p-6" data-oid="1-3n7zz">
                 <div className="flex items-center" data-oid="j_8em7v">
                   <div
-                    className="bg-primary/80 backdrop-blur-sm rounded-full p-2 mr-3"
+                    className="bg-green-500/20 backdrop-blur-sm rounded-full p-2 mr-3"
                     data-oid=".4gjhca"
                   >
                     {getIconForIndustry(industryNames[product.industryId])}
@@ -151,14 +151,14 @@ const ProductDetailView = ({
 
           {/* Thumbnail gallery */}
           <div
-            className="grid grid-cols-4 gap-2 p-4 bg-neutral-lightest lg:hidden"
+            className="grid grid-cols-4 gap-2 p-4 bg-gray-800 lg:hidden"
             data-oid="u_j-.1k"
           >
             {productImages.map((img, index) => (
               <div
                 key={index}
                 className={`aspect-square overflow-hidden rounded-md cursor-pointer ${
-                  activeImageIndex === index ? "border-2 border-primary" : ""
+                  activeImageIndex === index ? "border-2 border-green-400" : "border border-gray-700"
                 }`}
                 onClick={() => setActiveImageIndex(index)}
                 data-oid="86p8r34"
@@ -181,17 +181,17 @@ const ProductDetailView = ({
             data-oid="eed22xo"
           >
             <div
-              className="bg-primary/10 rounded-full p-3 mr-4"
+              className="bg-green-500/10 rounded-full p-3 mr-4"
               data-oid="r5fvnxv"
             >
               {getIconForIndustry(industryNames[product.industryId])}
             </div>
             <div data-oid="cemhh3m">
-              <span className="text-primary font-medium" data-oid="eiw8.xr">
+              <span className="text-green-400 font-medium" data-oid="eiw8.xr">
                 {industryNames[product.industryId]}
               </span>
               <h2
-                className="text-2xl font-heading font-bold text-neutral-darkest"
+                className="text-2xl font-heading font-bold text-gray-100"
                 data-oid="eiseqnm"
               >
                 {product.name}
@@ -208,33 +208,33 @@ const ProductDetailView = ({
             data-oid="cl9e3ax"
           >
             <TabsList
-              className="border-b border-neutral-light w-full justify-start rounded-none bg-transparent"
+              className="border-b border-gray-700 w-full justify-start rounded-none bg-transparent"
               data-oid="75.wke_"
             >
               <TabsTrigger
                 value="overview"
-                className={`data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent px-1 py-4`}
+                className={`data-[state=active]:border-green-400 data-[state=active]:text-green-400 border-b-2 border-transparent px-1 py-4 text-gray-300`}
                 data-oid="4np3nna"
               >
                 Overview
               </TabsTrigger>
               <TabsTrigger
                 value="benefits"
-                className={`data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent px-1 py-4`}
+                className={`data-[state=active]:border-green-400 data-[state=active]:text-green-400 border-b-2 border-transparent px-1 py-4 text-gray-300`}
                 data-oid="f-:42::"
               >
                 Benefits
               </TabsTrigger>
               <TabsTrigger
                 value="processing"
-                className={`data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent px-1 py-4`}
+                className={`data-[state=active]:border-green-400 data-[state=active]:text-green-400 border-b-2 border-transparent px-1 py-4 text-gray-300`}
                 data-oid="5gppvlq"
               >
                 Processing
               </TabsTrigger>
               <TabsTrigger
                 value="market"
-                className={`data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent px-1 py-4`}
+                className={`data-[state=active]:border-green-400 data-[state=active]:text-green-400 border-b-2 border-transparent px-1 py-4 text-gray-300`}
                 data-oid="6:f8a3i"
               >
                 Market

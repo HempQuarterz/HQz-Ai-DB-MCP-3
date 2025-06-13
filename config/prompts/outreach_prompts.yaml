@@ -1,0 +1,160 @@
+partnership_outreach:
+  system: |
+    You are a business development expert specializing in B2B partnerships for the 
+    hemp industry. You craft personalized, professional outreach messages that 
+    open doors and create meaningful business relationships.
+  
+  user: |
+    Create a partnership outreach email for {company_name}.
+    
+    Company details:
+    - Industry: {industry}
+    - Size: {company_size}
+    - Known products/services: {products_services}
+    - Recent news/developments: {recent_news}
+    
+    Our value proposition:
+    {value_proposition}
+    
+    Partnership type: {partnership_type}
+    
+    Requirements:
+    - Highly personalized opening
+    - Clear mutual benefit
+    - Specific partnership proposal
+    - Professional yet warm tone
+    - 150-200 words
+    - Clear next steps
+    - No generic templates
+
+influencer_outreach:
+  system: |
+    You are a PR specialist who builds relationships with influencers and thought 
+    leaders in the sustainability and hemp industry space.
+  
+  user: |
+    Create an influencer outreach message for {influencer_name}.
+    
+    Influencer details:
+    - Platform: {platform}
+    - Follower count: {followers}
+    - Content focus: {content_focus}
+    - Recent posts about: {recent_topics}
+    
+    Campaign details:
+    - Product to promote: {product}
+    - Campaign goals: {goals}
+    - Compensation model: {compensation}
+    
+    Requirements:
+    - Acknowledge their specific work
+    - Align with their values
+    - Clear but not pushy
+    - Flexible collaboration options
+    - 125-150 words
+
+media_outreach:
+  system: |
+    You are a PR professional who secures media coverage for hemp industry 
+    innovations and company news.
+  
+  user: |
+    Create a media pitch for {publication_name} about {news_topic}.
+    
+    Publication details:
+    - Type: {pub_type}
+    - Typical coverage: {coverage_areas}
+    - Recent hemp articles: {recent_articles}
+    
+    Story angle: {story_angle}
+    
+    Key points:
+    {key_points}
+    
+    Requirements:
+    - Compelling subject line
+    - News hook in first sentence
+    - Why it matters to their readers
+    - Supporting data/statistics
+    - Expert sources available
+    - 200-250 words
+    - AP style
+
+follow_up_sequences:
+  first_follow_up:
+    system: |
+      You write friendly but professional follow-up emails that re-engage 
+      prospects without being pushy.
+    
+    user: |
+      Create a first follow-up email for {company_name}.
+      
+      Original outreach: {original_date}
+      Original topic: {original_topic}
+      
+      Requirements:
+      - Reference original email briefly
+      - Add new value/information
+      - Different angle/approach
+      - Shorter than original (75-100 words)
+      - Soft call-to-action
+  
+  second_follow_up:
+    system: |
+      You craft final follow-up messages that leave the door open while 
+      respecting the recipient's time.
+    
+    user: |
+      Create a second follow-up email for {company_name}.
+      
+      Previous attempts: {attempt_dates}
+      
+      Requirements:
+      - Acknowledge their busy schedule
+      - One specific value proposition
+      - Easy yes/no question
+      - 50-75 words
+      - Professional sign-off
+
+cold_email_templates:
+  manufacturer:
+    system: |
+      You are a B2B sales expert who connects hemp suppliers with manufacturers.
+    
+    user: |
+      Create a cold email for {manufacturer_name} in the {industry} sector.
+      
+      Their potential needs:
+      {identified_needs}
+      
+      Our relevant products:
+      {matching_products}
+      
+      Requirements:
+      - Research-based personalization
+      - Problem-solution approach
+      - Specific product benefits
+      - Industry-specific language
+      - Credibility indicators
+      - Clear CTA
+  
+  retailer:
+    system: |
+      You help hemp brands connect with retail buyers and purchasing managers.
+    
+    user: |
+      Create a cold email for {retailer_name}.
+      
+      Store type: {store_type}
+      Current product mix: {product_mix}
+      
+      Our products that fit:
+      {relevant_products}
+      
+      Requirements:
+      - Understand their customer base
+      - Margin and sales potential
+      - Easy integration with existing products
+      - Compliance assurances
+      - Sample offer
+      - 150-175 words

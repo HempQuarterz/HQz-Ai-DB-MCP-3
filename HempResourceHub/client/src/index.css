@@ -13,11 +13,51 @@
 @layer base {
   html {
     font-family: 'SweetLeaf', system-ui, sans-serif;
-    font-size: calc(1rem + 2px); /* Increase base font size by 2px */
+    font-size: 18px; /* Increased base font size from 16px to 18px */
+    @apply bg-gray-950 text-gray-100; /* Force dark background */
+  }
+  
+  body {
+    @apply bg-gray-950 text-gray-100 min-h-screen; /* Ensure dark theme throughout */
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'SweetLeaf', system-ui, sans-serif;
+  }
+  
+  /* Increase heading sizes */
+  h1 {
+    @apply text-5xl md:text-6xl lg:text-7xl;
+  }
+  
+  h2 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h3 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h4 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h5 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h6 {
+    @apply text-lg md:text-xl;
+  }
+  
+  /* Increase paragraph and general text sizes */
+  p {
+    @apply text-base md:text-lg leading-relaxed;
+  }
+  
+  /* Ensure all backgrounds are dark */
+  main, section, article, div {
+    @apply bg-transparent;
   }
 }
 
@@ -46,27 +86,28 @@
 }
 
 :root {
-      --background: 0 0% 100%;
---foreground: 240 10% 3.9%;
---muted: 240 4.8% 95.9%;
---muted-foreground: 240 3.8% 46.1%;
---popover: 0 0% 100%;
---popover-foreground: 240 10% 3.9%;
---card: 0 0% 100%;
---card-foreground: 240 10% 3.9%;
---border: 240 5.9% 90%;
---input: 240 5.9% 90%;
---primary: 142 76% 36%;
---primary-foreground: 355 100% 100%;
---secondary: 240 4.8% 95.9%;
---secondary-foreground: 240 5.9% 10%;
---accent: 240 4.8% 95.9%;
---accent-foreground: 240 5.9% 10%;
---destructive: 0 84.2% 60.2%;
---destructive-foreground: 0 0% 98%;
---ring: 142 76% 36%;
---radius: 0.5rem;
-  }
+  /* Dark theme by default */
+  --background: 0 0% 5%; /* Very dark background */
+  --foreground: 0 0% 95%; /* Light text */
+  --muted: 240 5% 15%; /* Dark muted backgrounds */
+  --muted-foreground: 240 5% 75%; /* Lighter muted text */
+  --popover: 0 0% 8%; /* Dark popover background */
+  --popover-foreground: 0 0% 95%; /* Light popover text */
+  --card: 0 0% 8%; /* Dark card background */
+  --card-foreground: 0 0% 95%; /* Light card text */
+  --border: 240 5% 20%; /* Dark borders */
+  --input: 240 5% 15%; /* Dark input backgrounds */
+  --primary: 142 76% 45%; /* Brighter green for dark theme */
+  --primary-foreground: 0 0% 100%; /* White text on primary */
+  --secondary: 240 5% 20%; /* Dark secondary */
+  --secondary-foreground: 0 0% 95%; /* Light secondary text */
+  --accent: 142 60% 40%; /* Green accent */
+  --accent-foreground: 0 0% 100%; /* White accent text */
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 142 76% 45%;
+  --radius: 0.75rem; /* Slightly larger radius */
+}
   .dark {
       --background: 240 10% 3.9%;
 --foreground: 0 0% 98%;
@@ -96,7 +137,55 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-gray-950 text-gray-100;
+  }
+  
+  /* Force dark backgrounds on all major containers */
+  #root, .app-container, main {
+    @apply bg-gray-950 text-gray-100;
+  }
+  
+  /* Dark theme for all cards and sections */
+  .card, section, article {
+    @apply bg-gray-900 text-gray-100;
+  }
+  
+  /* Ensure good contrast for all text */
+  p, span, div, li {
+    @apply text-gray-200;
+  }
+  
+  /* Links should be visible */
+  a {
+    @apply text-green-400 hover:text-green-300;
+  }
+  
+  /* Buttons need proper contrast */
+  button {
+    @apply text-base md:text-lg font-medium;
+  }
+  
+  /* Input fields */
+  input, textarea, select {
+    @apply bg-gray-800 text-gray-100 border-gray-700 text-base md:text-lg;
+  }
+  
+  /* Tables */
+  table {
+    @apply text-gray-200;
+  }
+  
+  th {
+    @apply bg-gray-800 text-gray-100 font-semibold;
+  }
+  
+  td {
+    @apply bg-gray-900 text-gray-200;
+  }
+  
+  /* Code blocks */
+  code, pre {
+    @apply bg-gray-800 text-gray-200;
   }
   
   /* Ensure text is readable */
@@ -297,5 +386,113 @@
         0 0 30px rgba(255, 255, 255, 0.7),
         0 0 40px rgba(255, 255, 255, 0.5);
     }
+  }
+  
+  /* Animation delay utilities */
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  .animation-delay-1000 {
+    animation-delay: 1000ms;
+  }
+  
+  .animation-delay-1500 {
+    animation-delay: 1500ms;
+  }
+  
+  /* Glassmorphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Hover lift effect */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Force dark theme on specific components */
+  .bg-white, .bg-gray-50, .bg-gray-100 {
+    @apply !bg-gray-900 !text-gray-100;
+  }
+  
+  .bg-gray-200 {
+    @apply !bg-gray-800;
+  }
+  
+  .text-black, .text-gray-900, .text-gray-800 {
+    @apply !text-gray-100;
+  }
+  
+  .text-gray-700, .text-gray-600 {
+    @apply !text-gray-300;
+  }
+  
+  .text-gray-500 {
+    @apply !text-gray-400;
+  }
+  
+  /* Ensure cards have dark theme */
+  [class*="card"], [class*="Card"] {
+    @apply !bg-gray-900 !text-gray-100 !border-gray-700;
+  }
+  
+  /* Navigation specific dark theme */
+  nav {
+    @apply !bg-black !text-gray-100;
+  }
+  
+  /* Footer dark theme */
+  footer {
+    @apply !bg-gray-900 !text-gray-300;
+  }
+  
+  /* Modal and dialog dark theme */
+  [role="dialog"], [role="alertdialog"] {
+    @apply !bg-gray-900 !text-gray-100;
+  }
+  
+  /* Dropdown menus */
+  [role="menu"], [role="listbox"] {
+    @apply !bg-gray-900 !text-gray-100 !border-gray-700;
+  }
+  
+  /* Tooltips */
+  [role="tooltip"] {
+    @apply !bg-gray-800 !text-gray-100;
+  }
+  
+  /* Badges and tags */
+  .badge, [class*="badge"], [class*="Badge"] {
+    @apply !text-sm md:!text-base;
+  }
+  
+  /* Ensure minimum text sizes */
+  .text-xs {
+    @apply !text-sm;
+  }
+  
+  .text-sm {
+    @apply !text-base;
+  }
+  
+  .text-base {
+    @apply md:!text-lg;
+  }
+  
+  .text-lg {
+    @apply md:!text-xl;
+  }
+  
+  .text-xl {
+    @apply md:!text-2xl;
   }
 }

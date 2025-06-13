@@ -2,20 +2,27 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, Shield, Command } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import HempQuarterzLogo from "@/assets/circle-logo.png";
 
 const Navbar = () => {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Redirect to search results page
-    console.log("Search query:", searchQuery);
-    // In a real app, we would redirect to a search results page
+    if (searchQuery.trim()) {
+      // For now, redirect to products page with search
+      setLocation(`/products/all?search=${encodeURIComponent(searchQuery)}`);
+    }
   };
 
   return (
@@ -107,35 +114,56 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Search on the right */}
+          {/* Search and Admin on the right */}
           <div
-            className="hidden sm:flex sm:items-center sm:pr-2"
+            className="hidden sm:flex sm:items-center sm:gap-4 sm:pr-2"
             data-oid="9gs1kwm"
           >
+            {/* Enhanced Search Bar */}
             <form
               onSubmit={handleSearch}
-              className="relative"
+              className={`relative transition-all duration-300 ${
+                searchFocused ? "w-64" : "w-48"
+              }`}
               data-oid="gf0llr_"
             >
-              <Input
-                type="text"
-                placeholder="Search..."
-                className="w-36 rounded-full px-4 py-2 border border-neutral-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-lg"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                data-oid="l4eoh17"
-              />
-
-              <Button
-                type="submit"
-                variant="ghost"
-                size="icon"
-                className="absolute inset-y-0 right-0 flex items-center pr-3"
-                data-oid="63alzio"
-              >
-                <Search className="h-5 w-5 text-white" data-oid="7jycgng" />
-              </Button>
+              <div className="relative group">
+                <Input
+                  type="text"
+                  placeholder="Search products, industries..."
+                  className="w-full rounded-full px-4 py-2 pr-10 bg-gray-900/80 border border-gray-700 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent focus:bg-gray-900 transition-all"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={() => setSearchFocused(false)}
+                  data-oid="l4eoh17"
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <Search className={`h-5 w-5 transition-colors ${searchQuery ? "text-green-400" : "text-gray-400"} group-hover:text-green-400`} />
+                </div>
+                {/* Search hint */}
+                <div className="absolute top-full mt-1 left-0 text-xs text-gray-500 opacity-0 group-focus-within:opacity-100 transition-opacity">
+                  Press Enter to search
+                </div>
+              </div>
             </form>
+
+            {/* Admin Access Button */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full border border-gray-700 hover:border-green-400 hover:bg-green-400/10 transition-all"
+                  onClick={() => setLocation("/admin")}
+                >
+                  <Shield className="h-5 w-5 text-gray-400 hover:text-green-400" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Admin Dashboard</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
 
           <div className="-mr-2 flex items-center sm:hidden" data-oid="sasr.ec">
@@ -253,6 +281,18 @@ const Navbar = () => {
                           Research
                         </div>
                       </Link>
+                      
+                      {/* Admin Link in Mobile Menu */}
+                      <div className="border-t border-gray-800 mt-4 pt-4">
+                        <Link href="/admin">
+                          <div
+                            className={`${location === "/admin" ? "text-green-400 font-medium" : "text-gray-400"} hover:text-green-400 px-3 py-2 text-xl cursor-pointer flex items-center gap-2`}
+                          >
+                            <Shield className="h-5 w-5" />
+                            Admin Dashboard
+                          </div>
+                        </Link>
+                      </div>
                     </nav>
                   </div>
                 </div>

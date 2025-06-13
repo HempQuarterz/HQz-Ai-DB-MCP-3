@@ -1,0 +1,100 @@
+{
+  "name": "Hemp Research Workflow",
+  "description": "Automated research workflow for discovering new hemp products and trends",
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "entry",
+      "name": "Start Research"
+    },
+    {
+      "id": "discover_sources",
+      "type": "action",
+      "agent": "research_agent",
+      "action": "discover_sources",
+      "params": {
+        "sources": ["government", "academic", "industry", "news"],
+        "limit": 20
+      }
+    },
+    {
+      "id": "scrape_data",
+      "type": "action",
+      "agent": "research_agent",
+      "action": "scrape_sources",
+      "depends_on": ["discover_sources"],
+      "params": {
+        "depth": 2,
+        "extract_images": true
+      }
+    },
+    {
+      "id": "validate_data",
+      "type": "action",
+      "agent": "research_agent",
+      "action": "validate_data",
+      "depends_on": ["scrape_data"]
+    },
+    {
+      "id": "structure_data",
+      "type": "action",
+      "agent": "research_agent",
+      "action": "structure_for_database",
+      "depends_on": ["validate_data"]
+    },
+    {
+      "id": "check_duplicates",
+      "type": "conditional",
+      "condition": "has_new_products",
+      "depends_on": ["structure_data"]
+    },
+    {
+      "id": "save_to_database",
+      "type": "action",
+      "agent": "research_agent",
+      "action": "save_products",
+      "depends_on": ["check_duplicates"],
+      "condition_result": true
+    },
+    {
+      "id": "generate_report",
+      "type": "action",
+      "agent": "research_agent",
+      "action": "generate_research_report",
+      "depends_on": ["save_to_database"]
+    },
+    {
+      "id": "end",
+      "type": "exit",
+      "depends_on": ["generate_report"]
+    }
+  ],
+  "edges": [
+    {"from": "start", "to": "discover_sources"},
+    {"from": "discover_sources", "to": "scrape_data"},
+    {"from": "scrape_data", "to": "validate_data"},
+    {"from": "validate_data", "to": "structure_data"},
+    {"from": "structure_data", "to": "check_duplicates"},
+    {"from": "check_duplicates", "to": "save_to_database", "condition": true},
+    {"from": "check_duplicates", "to": "generate_report", "condition": false},
+    {"from": "save_to_database", "to": "generate_report"},
+    {"from": "generate_report", "to": "end"}
+  ],
+  "error_handling": {
+    "retry_policy": {
+      "max_attempts": 3,
+      "backoff_factor": 2,
+      "retry_on": ["network_error", "rate_limit", "timeout"]
+    },
+    "fallback_strategy": "continue_with_partial"
+  },
+  "monitoring": {
+    "log_level": "INFO",
+    "metrics": ["execution_time", "success_rate", "data_volume"],
+    "alerts": {
+      "failure_threshold": 3,
+      "notification_channels": ["email", "slack"]
+    }
+  }
+}

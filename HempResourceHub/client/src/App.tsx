@@ -23,6 +23,7 @@ import SupabaseTest from "./components/supabase-test";
 import SupabaseIndustries from "./components/supabase-industries";
 import SupabaseTestConnection from "./components/supabase-test-connection";
 import DebugSupabase from "./pages/debug-supabase";
+import AdminPage from "./pages/admin";
 
 function Router() {
   return (
@@ -94,6 +95,7 @@ function Router() {
 
       <Route path="/debug" component={DebugSupabase} data-oid="1-dlpt_" />
       <Route path="/debug-supabase" component={DebugSupabase} data-oid="debug-sup" />
+      <Route path="/admin" component={AdminPage} data-oid="admin-page" />
       <Route component={NotFound} data-oid="94.5p89" />
     </Switch>
   );
@@ -104,9 +106,9 @@ function App() {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient} data-oid="u-8-pob">
         <TooltipProvider data-oid="0n1weth">
-          <div className="flex flex-col min-h-screen" data-oid="9aq6v3f">
+          <div className="flex flex-col min-h-screen bg-gray-950 text-gray-100" data-oid="9aq6v3f">
             <Navbar data-oid="1wj7t:9" />
-            <main className="flex-grow" data-oid="obhqq-s">
+            <main className="flex-grow bg-gray-950" data-oid="obhqq-s">
               <Router data-oid="geelxlm" />
             </main>
             <Footer data-oid="lyq7x7v" />

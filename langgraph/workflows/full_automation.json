@@ -1,0 +1,128 @@
+{
+  "name": "Full Hemp Automation Workflow",
+  "description": "Complete end-to-end automation workflow combining all agent capabilities",
+  "version": "1.0.0",
+  "trigger": {
+    "type": "schedule",
+    "cron": "0 9 * * *",
+    "timezone": "America/New_York"
+  },
+  "nodes": [
+    {
+      "id": "start",
+      "type": "entry",
+      "name": "Daily Automation Start"
+    },
+    {
+      "id": "compliance_check",
+      "type": "action",
+      "agent": "compliance_agent",
+      "action": "daily_compliance_scan",
+      "priority": 1
+    },
+    {
+      "id": "research_phase",
+      "type": "subgraph",
+      "workflow": "research_workflow",
+      "depends_on": ["compliance_check"],
+      "condition": "compliance_passed"
+    },
+    {
+      "id": "content_phase",
+      "type": "subgraph",
+      "workflow": "content_workflow",
+      "depends_on": ["research_phase"],
+      "condition": "new_products_found"
+    },
+    {
+      "id": "seo_analysis",
+      "type": "action",
+      "agent": "seo_agent",
+      "action": "comprehensive_site_analysis",
+      "depends_on": ["content_phase"]
+    },
+    {
+      "id": "monetization_analysis",
+      "type": "parallel",
+      "agent": "monetization_agent",
+      "action": "identify_opportunities",
+      "depends_on": ["research_phase"]
+    },
+    {
+      "id": "outreach_campaigns",
+      "type": "action",
+      "agent": "outreach_agent",
+      "action": "execute_daily_outreach",
+      "depends_on": ["content_phase"],
+      "params": {
+        "daily_limit": 50,
+        "priority_targets": true
+      }
+    },
+    {
+      "id": "performance_tracking",
+      "type": "action",
+      "agent": "core_agent",
+      "action": "track_daily_metrics",
+      "depends_on": ["seo_analysis", "monetization_analysis", "outreach_campaigns"]
+    },
+    {
+      "id": "generate_report",
+      "type": "action",
+      "agent": "core_agent",
+      "action": "generate_daily_report",
+      "depends_on": ["performance_tracking"]
+    },
+    {
+      "id": "send_notifications",
+      "type": "action",
+      "agent": "core_agent",
+      "action": "send_summary_notifications",
+      "depends_on": ["generate_report"],
+      "params": {
+        "channels": ["email", "slack"],
+        "recipients": ["admin", "stakeholders"]
+      }
+    },
+    {
+      "id": "end",
+      "type": "exit",
+      "depends_on": ["send_notifications"]
+    }
+  ],
+  "edges": [
+    {"from": "start", "to": "compliance_check"},
+    {"from": "compliance_check", "to": "research_phase", "condition": "passed"},
+    {"from": "compliance_check", "to": "send_notifications", "condition": "critical_issues"},
+    {"from": "research_phase", "to": ["content_phase", "monetization_analysis"]},
+    {"from": "content_phase", "to": ["seo_analysis", "outreach_campaigns"]},
+    {"from": ["seo_analysis", "monetization_analysis", "outreach_campaigns"], "to": "performance_tracking"},
+    {"from": "performance_tracking", "to": "generate_report"},
+    {"from": "generate_report", "to": "send_notifications"},
+    {"from": "send_notifications", "to": "end"}
+  ],
+  "global_settings": {
+    "max_execution_time": 7200,
+    "parallel_execution": true,
+    "error_tolerance": "partial_failure_allowed",
+    "checkpoint_interval": 300
+  },
+  "monitoring": {
+    "dashboards": ["agent_performance", "content_metrics", "revenue_tracking"],
+    "alerts": {
+      "critical_failures": {
+        "threshold": 1,
+        "channels": ["pagerduty", "email"]
+      },
+      "performance_degradation": {
+        "threshold": "20% below average",
+        "channels": ["slack"]
+      }
+    }
+  },
+  "cost_controls": {
+    "daily_token_limit": 1000000,
+    "daily_cost_limit": 50.00,
+    "fallback_on_limit": "gpt-4o-mini"
+  }
+}

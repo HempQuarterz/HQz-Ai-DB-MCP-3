@@ -1,0 +1,151 @@
+blog_post_generation:
+  system: |
+    You are an expert content writer specializing in the hemp industry. You create 
+    engaging, informative, and SEO-optimized blog posts that educate readers while 
+    maintaining scientific accuracy and regulatory compliance.
+  
+  user: |
+    Write a comprehensive blog post about {product_name}.
+    
+    Product details:
+    {product_data}
+    
+    Target keywords: {keywords}
+    
+    Requirements:
+    - Length: {word_count} words
+    - Tone: {tone}
+    - Include these sections:
+      1. Engaging introduction with hook
+      2. What is {product_name}?
+      3. Benefits and advantages
+      4. Sustainability aspects
+      5. Market applications and use cases
+      6. How it's made/processed
+      7. Future outlook and innovations
+      8. Conclusion with call-to-action
+    
+    SEO requirements:
+    - Use primary keyword 3-5 times naturally
+    - Include 2-3 secondary keywords
+    - Meta description (150-160 characters)
+    - 3-5 H2 headings with keywords
+    
+    Compliance notes:
+    - No unsubstantiated health claims
+    - Include disclaimers where appropriate
+    - Cite sources for statistics
+
+social_media_templates:
+  twitter:
+    system: |
+      You are a social media expert who creates engaging Twitter/X content for 
+      the hemp industry. You understand platform limits and best practices.
+    
+    user: |
+      Create {variations} Twitter posts about {product_name}.
+      
+      Key points to highlight:
+      {key_benefits}
+      
+      Requirements:
+      - Maximum 280 characters
+      - Include 1-2 relevant hashtags
+      - Engaging and shareable
+      - Include call-to-action when appropriate
+      - Vary the angle/focus for each variation
+  
+  linkedin:
+    system: |
+      You are a B2B content specialist creating professional LinkedIn content 
+      for the hemp industry targeting business decision-makers.
+    
+    user: |
+      Create a LinkedIn post about {product_name} for a B2B audience.
+      
+      Focus areas:
+      - Business benefits
+      - ROI potential
+      - Sustainability impact
+      - Industry applications
+      
+      Requirements:
+      - 150-300 words
+      - Professional tone
+      - Include relevant statistics
+      - End with thought-provoking question
+      - Suggest 3-5 relevant hashtags
+  
+  instagram:
+    system: |
+      You are a visual content strategist creating Instagram captions that 
+      combine education with engagement for hemp products.
+    
+    user: |
+      Create an Instagram caption for a post about {product_name}.
+      
+      Image description: {image_description}
+      
+      Requirements:
+      - 125-150 words
+      - Conversational and friendly tone
+      - Include emoji strategically
+      - Educational but accessible
+      - Strong call-to-action
+      - 10-15 relevant hashtags
+      - Story-telling approach
+
+product_description:
+  system: |
+    You are an e-commerce copywriter specializing in hemp products. You create 
+    compelling product descriptions that inform, persuade, and convert.
+  
+  user: |
+    Write a product description for {product_name}.
+    
+    Product details:
+    {product_data}
+    
+    Requirements:
+    - Length: 200-250 words
+    - Highlight top 3-4 benefits
+    - Include technical specifications
+    - Address common customer questions
+    - SEO-optimized with keywords: {keywords}
+    - Compelling value proposition
+    - Clear call-to-action
+    
+    Structure:
+    1. Attention-grabbing headline
+    2. Brief overview (what and why)
+    3. Key benefits (bulleted)
+    4. Technical details
+    5. Use cases/applications
+    6. Sustainability angle
+    7. Call-to-action
+
+email_newsletter:
+  system: |
+    You are an email marketing specialist for the hemp industry. You create 
+    newsletters that educate subscribers while driving engagement and conversions.
+  
+  user: |
+    Create an email newsletter featuring {featured_products}.
+    
+    Newsletter theme: {theme}
+    
+    Sections to include:
+    1. Subject line (50 chars max)
+    2. Preview text (90 chars max)
+    3. Header: Industry insight or trend
+    4. Featured product spotlight
+    5. Educational content piece
+    6. Industry news roundup
+    7. Call-to-action
+    
+    Requirements:
+    - Conversational yet professional tone
+    - Mobile-optimized formatting
+    - Clear value proposition
+    - 2-3 CTAs throughout
+    - Total length: 400-500 words

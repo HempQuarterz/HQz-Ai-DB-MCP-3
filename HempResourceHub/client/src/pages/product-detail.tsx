@@ -39,13 +39,13 @@ const ProductDetailPage = () => {
 
   if (!match) {
     return (
-      <div className="py-12 bg-neutral-lightest">
+      <div className="py-12 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl shadow-md p-8 text-center">
-            <h1 className="text-2xl font-heading font-bold text-neutral-darkest mb-4">Product Not Found</h1>
-            <p className="text-neutral-dark mb-6">The requested product could not be found.</p>
+          <div className="bg-gray-900 rounded-xl shadow-lg shadow-black/50 p-8 text-center border border-green-500/30">
+            <h1 className="text-2xl font-heading font-bold text-gray-100 mb-4">Product Not Found</h1>
+            <p className="text-gray-300 mb-6">The requested product could not be found.</p>
             <Link href="/">
-              <a className="text-primary hover:text-primary-dark font-medium">Return to Homepage</a>
+              <a className="text-green-400 hover:text-green-300 font-medium transition-colors">Return to Homepage</a>
             </Link>
           </div>
         </div>
@@ -72,7 +72,7 @@ const ProductDetailPage = () => {
         />
       </Helmet>
 
-      <div className="py-12 bg-neutral-lightest">
+      <div className="py-12 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {isLoadingProduct || isLoadingIndustries ? (
             <div className="mb-6">

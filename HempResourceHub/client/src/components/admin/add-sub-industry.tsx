@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { insertSubIndustrySchema } from "@shared/schema";
+import { insertIndustrySubCategorySchema } from "@shared/schema";
 import { queryClient } from "@/lib/queryClient";
 import {
   Select,
@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/select";
 
 // Create a form schema based on the insert schema
-const formSchema = insertSubIndustrySchema.extend({
+const formSchema = insertIndustrySubCategorySchema.extend({
   imageUrl: z.string().optional(),
 });
 

@@ -17,7 +17,7 @@ const AboutPage = () => {
       </Helmet>
 
       {/* Breadcrumb */}
-      <div className="bg-white py-6">
+      <div className="bg-gray-900 py-6 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[{ label: "Home", href: "/" }, { label: "About" }]}
@@ -26,12 +26,12 @@ const AboutPage = () => {
       </div>
 
       {/* Hero section */}
-      <div className="bg-green-50 py-12">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-950 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-green-700 text-outline-black">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-green-400">
             About Industrial Hemp
           </h1>
-          <p className="mt-4 text-lg text-neutral-dark max-w-3xl mx-auto">
+          <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
             Discover the remarkable history and diverse applications of one of
             the world's most versatile and sustainable crops.
           </p>
@@ -39,13 +39,13 @@ const AboutPage = () => {
       </div>
 
       {/* Executive Summary */}
-      <div className="bg-white py-16">
+      <div className="bg-gray-950 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg prose-green max-w-none">
-            <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-6">
+          <div className="prose prose-lg prose-invert max-w-none">
+            <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-6">
               Executive Summary
             </h2>
-            <p>
+            <p className="text-gray-300">
               Industrial hemp, a crop with a rich history dating back millennia,
               stands at the cusp of a significant resurgence due to its
               remarkable versatility. From its foundational uses in ancient
@@ -54,7 +54,7 @@ const AboutPage = () => {
               and pharmaceuticals, hemp demonstrates an extraordinary capacity
               to adapt and contribute across diverse sectors.
             </p>
-            <p>
+            <p className="text-gray-300">
               Driven by a growing global emphasis on sustainability, coupled
               with advancements in processing technologies and increasing market
               demand for natural alternatives, industrial hemp is poised to play
@@ -65,14 +65,14 @@ const AboutPage = () => {
       </div>
 
       {/* Introduction with side image */}
-      <div className="bg-neutral-lightest py-16">
+      <div className="bg-gray-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="prose prose-lg prose-green">
-              <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-6">
+            <div className="prose prose-lg prose-invert">
+              <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-6">
                 Introduction
               </h2>
-              <p>
+              <p className="text-gray-300">
                 Industrial hemp, scientifically classified as a variety of the
                 Cannabis sativa plant species, is distinguished primarily by its
                 exceptionally low concentration of tetrahydrocannabinol (THC),
@@ -81,7 +81,7 @@ const AboutPage = () => {
                 dry weight basis, a crucial threshold that differentiates it
                 both legally and practically from its psychoactive counterpart.
               </p>
-              <p>
+              <p className="text-gray-300">
                 The 2018 Farm Bill in the United States enshrined this THC limit
                 into law, effectively legalizing hemp and removing it from the
                 purview of the Controlled Substances Act. This legislative
@@ -90,7 +90,7 @@ const AboutPage = () => {
                 constrained by the plant's association with marijuana.
               </p>
             </div>
-            <div className="rounded-lg overflow-hidden shadow-lg">
+            <div className="rounded-lg overflow-hidden shadow-lg shadow-black/50 border border-green-500/30">
               <img
                 src={HempEcosystemImage}
                 alt="Comprehensive hemp ecosystem illustration showing various applications and uses"
@@ -102,9 +102,9 @@ const AboutPage = () => {
       </div>
 
       {/* Historical timeline */}
-      <div className="bg-white py-16">
+      <div className="bg-gray-950 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-12 text-center">
             A Journey Through Time: Historical Uses of Hemp
           </h2>
 
@@ -114,10 +114,10 @@ const AboutPage = () => {
               <div className="absolute -left-14 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">1</span>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-green-700 text-outline-black">
+              <h3 className="text-xl font-heading font-semibold text-green-400">
                 Ancient Beginnings (8000 BCE)
               </h3>
-              <p className="mt-2 text-neutral-dark">
+              <p className="mt-2 text-gray-300">
                 The earliest tangible evidence points to hemp's use
                 approximately 10,000 years ago. Archaeological findings in
                 ancient Mesopotamia (present-day Iraq), dating back to around
@@ -131,10 +131,10 @@ const AboutPage = () => {
               <div className="absolute -left-14 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">2</span>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-green-700 text-outline-black">
+              <h3 className="text-xl font-heading font-semibold text-green-400">
                 Paper Innovation (150 BCE)
               </h3>
-              <p className="mt-2 text-neutral-dark">
+              <p className="mt-2 text-gray-300">
                 A pivotal moment in the history of communication occurred around
                 150 BCE in China with the groundbreaking invention of paper made
                 entirely from hemp fibers. This innovation revolutionized
@@ -147,10 +147,10 @@ const AboutPage = () => {
               <div className="absolute -left-14 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">3</span>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-green-700 text-outline-black">
+              <h3 className="text-xl font-heading font-semibold text-green-400">
                 Age of Exploration (1492)
               </h3>
-              <p className="mt-2 text-neutral-dark">
+              <p className="mt-2 text-gray-300">
                 During the Age of Exploration, in 1492, Christopher Columbus's
                 ships, which famously embarked on voyages to North America,
                 relied heavily on hemp for their sails and rigging. This
@@ -163,10 +163,10 @@ const AboutPage = () => {
               <div className="absolute -left-14 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">4</span>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-green-700 text-outline-black">
+              <h3 className="text-xl font-heading font-semibold text-green-400">
                 American History (1776)
               </h3>
-              <p className="mt-2 text-neutral-dark">
+              <p className="mt-2 text-gray-300">
                 The Declaration of Independence, a foundational document in
                 American history, was drafted on hemp paper in 1776, further
                 symbolizing the plant's intimate connection to the birth of the
@@ -180,10 +180,10 @@ const AboutPage = () => {
               <div className="absolute -left-14 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">5</span>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-neutral-darkest">
+              <h3 className="text-xl font-heading font-semibold text-green-400">
                 Modern Revival (2018)
               </h3>
-              <p className="mt-2 text-neutral-dark">
+              <p className="mt-2 text-gray-300">
                 After decades of prohibition, the 2018 Farm Bill in the United
                 States effectively legalized hemp cultivation by removing it
                 from the Controlled Substances Act. This has catalyzed a
@@ -196,14 +196,14 @@ const AboutPage = () => {
       </div>
 
       {/* Modern Applications */}
-      <div className="bg-neutral-lightest py-16">
+      <div className="bg-gray-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-neutral-darkest mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-12 text-center">
             The Multifaceted Applications of Modern Industrial Hemp
           </h2>
 
-          <div className="prose prose-lg prose-green max-w-none mb-10">
-            <p>
+          <div className="prose prose-lg prose-invert max-w-none mb-10">
+            <p className="text-gray-300">
               The industrial hemp stalk is a versatile resource, yielding two
               primary types of fiber: the outer bast fibers and the inner hurd.
               Bast fibers, which constitute approximately 14% of the plant's
@@ -218,22 +218,22 @@ const AboutPage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-green-500">
-              <h3 className="text-xl font-heading font-semibold text-neutral-darkest mb-4">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-6 border-t-4 border-green-500">
+              <h3 className="text-xl font-heading font-semibold text-green-400 mb-4">
                 Textiles & Fabrics
               </h3>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Hemp fibers are transformed into durable textiles for clothing,
                 accessories, and home goods. Hemp fabric is naturally resistant
                 to mold, UV light, and offers 4x the strength of cotton.
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-green-500">
-              <h3 className="text-xl font-heading font-semibold text-neutral-darkest mb-4">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-6 border-t-4 border-green-500">
+              <h3 className="text-xl font-heading font-semibold text-green-400 mb-4">
                 Construction Materials
               </h3>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Hempcrete, made from hemp hurd mixed with lime, creates a
                 lightweight insulating material that is fire-resistant,
                 pest-resistant, and carbon-negative through carbon
@@ -241,11 +241,11 @@ const AboutPage = () => {
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-green-500">
-              <h3 className="text-xl font-heading font-semibold text-neutral-darkest mb-4">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-6 border-t-4 border-green-500">
+              <h3 className="text-xl font-heading font-semibold text-green-400 mb-4">
                 Food & Nutrition
               </h3>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Hemp seeds are rich in protein, essential fatty acids, and
                 numerous vitamins and minerals, making them a nutritious
                 addition to diets in the form of oils, protein powders, and
@@ -253,33 +253,33 @@ const AboutPage = () => {
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-green-500">
-              <h3 className="text-xl font-heading font-semibold text-neutral-darkest mb-4">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-6 border-t-4 border-green-500">
+              <h3 className="text-xl font-heading font-semibold text-green-400 mb-4">
                 Bioplastics
               </h3>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Hemp-based bioplastics offer a biodegradable and renewable
                 alternative to petroleum-based plastics, with applications
                 ranging from packaging materials to automotive components.
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-green-500">
-              <h3 className="text-xl font-heading font-semibold text-neutral-darkest mb-4">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-6 border-t-4 border-green-500">
+              <h3 className="text-xl font-heading font-semibold text-green-400 mb-4">
                 Biofuels
               </h3>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Hemp biomass can be converted into various biofuels including
                 biodiesel and ethanol, offering carbon-neutral alternatives to
                 fossil fuels with high energy efficiency.
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-green-500">
-              <h3 className="text-xl font-heading font-semibold text-neutral-darkest mb-4">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-6 border-t-4 border-green-500">
+              <h3 className="text-xl font-heading font-semibold text-green-400 mb-4">
                 Paper Products
               </h3>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Hemp paper requires fewer chemicals for processing than wood
                 pulp, can be recycled more times, and grows much faster than
                 trees, making it a sustainable option for the paper industry.
@@ -290,12 +290,12 @@ const AboutPage = () => {
       </div>
 
       {/* CTA section */}
-      <div className="bg-green-50 py-16">
+      <div className="bg-gradient-to-b from-gray-950 to-black py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-neutral-darkest mb-4">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-4">
             Explore Our Hemp Database
           </h2>
-          <p className="text-lg text-neutral-dark max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
             Discover the remarkable versatility of industrial hemp by exploring
             our comprehensive database of hemp applications, organized by plant
             parts and industries.

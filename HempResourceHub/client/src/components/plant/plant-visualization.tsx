@@ -26,7 +26,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
 
   if (isLoadingPlantType || isLoadingPlantParts) {
     return (
-      <div className="bg-neutral-lightest py-12" data-oid="cmfya16">
+      <div className="bg-gray-950 py-12" data-oid="cmfya16">
         <div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           data-oid="u2b_2h_"
@@ -42,7 +42,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
           </div>
 
           <div
-            className="bg-white rounded-2xl shadow-md overflow-hidden"
+            className="bg-gray-900 rounded-2xl shadow-lg shadow-black/50 overflow-hidden border border-green-500/30"
             data-oid="iraujgx"
           >
             <div
@@ -88,7 +88,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
   return (
     <div
       id={`${plantType?.name.toLowerCase().replace(/\s+/g, "-")}`}
-      className="py-12 bg-neutral-lightest"
+      className="py-12 bg-gray-950"
       data-oid="sbjdx0s"
     >
       <div
@@ -105,7 +105,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
                 <li data-oid="zpeh39h">
                   <Link href="/" data-oid="feh-z48">
                     <div
-                      className="text-neutral-medium hover:text-primary cursor-pointer"
+                      className="text-gray-400 hover:text-green-400 cursor-pointer transition-colors"
                       data-oid="wyqo_4q"
                     >
                       Home
@@ -114,7 +114,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
                 </li>
                 <li className="flex items-center" data-oid="868xe0r">
                   <svg
-                    className="h-5 w-5 text-neutral-medium"
+                    className="h-5 w-5 text-gray-500"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -130,7 +130,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
                     />
                   </svg>
                   <span
-                    className="text-neutral-dark font-medium ml-2"
+                    className="text-gray-300 font-medium ml-2"
                     data-oid="5qu2d3m"
                   >
                     {plantType?.name}
@@ -139,7 +139,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
               </ol>
             </nav>
             <h2
-              className="text-2xl sm:text-3xl font-heading font-bold text-neutral-darkest mt-2"
+              className="text-2xl sm:text-3xl font-heading font-bold text-green-400 mt-2"
               data-oid="tbczvfu"
             >
               {plantType?.name} Plant Parts
@@ -147,7 +147,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
           </div>
           <Link href="/" data-oid="6f:br7g">
             <div
-              className="text-primary hover:text-primary-dark font-medium flex items-center cursor-pointer"
+              className="text-green-400 hover:text-green-300 font-medium flex items-center cursor-pointer transition-colors"
               data-oid="m6-l:rh"
             >
               <span data-oid="bna7h-n">View Different Plant Type</span>
@@ -172,7 +172,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
         </div>
 
         <div
-          className="bg-white rounded-2xl shadow-md overflow-hidden"
+          className="bg-gray-900 rounded-2xl shadow-lg shadow-black/50 overflow-hidden border border-green-500/30"
           data-oid="h8_3civ"
         >
           <div className="grid grid-cols-1 lg:grid-cols-5" data-oid="td2ah8n">

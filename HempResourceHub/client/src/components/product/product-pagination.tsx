@@ -89,7 +89,7 @@ const ProductPagination = ({
         data-oid="qg5643."
       >
         <div data-oid="wpr6p58">
-          <p className="text-sm text-neutral-dark" data-oid="oyte9hv">
+          <p className="text-sm text-gray-300" data-oid="oyte9hv">
             Showing{" "}
             <span className="font-medium" data-oid="8-daaqo">
               {startItem}
@@ -115,7 +115,7 @@ const ProductPagination = ({
             <Button
               variant="outline"
               size="icon"
-              className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-neutral-light bg-white text-sm font-medium text-neutral-dark hover:bg-neutral-lightest"
+              className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-700 bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:border-green-500/50"
               disabled={currentPage === 1}
               onClick={() => onPageChange(currentPage - 1)}
               data-oid="2lhojhp"
@@ -131,7 +131,7 @@ const ProductPagination = ({
                 return (
                   <span
                     key={`ellipsis-${index}`}
-                    className="relative inline-flex items-center px-4 py-2 border border-neutral-light bg-white text-sm font-medium text-neutral-dark"
+                    className="relative inline-flex items-center px-4 py-2 border border-gray-700 bg-gray-800 text-sm font-medium text-gray-400"
                     data-oid="g4u6ugw"
                   >
                     ...
@@ -145,8 +145,8 @@ const ProductPagination = ({
                   variant={currentPage === page ? "default" : "outline"}
                   className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                     currentPage === page
-                      ? "z-10 bg-primary/5 border-primary text-primary"
-                      : "bg-white border-neutral-light text-neutral-dark hover:bg-neutral-lightest"
+                      ? "z-10 bg-green-500/20 border-green-400 text-green-400"
+                      : "bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:border-green-500/50"
                   }`}
                   onClick={() => onPageChange(page as number)}
                   data-oid="yy0-a.7"
@@ -159,7 +159,7 @@ const ProductPagination = ({
             <Button
               variant="outline"
               size="icon"
-              className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-neutral-light bg-white text-sm font-medium text-neutral-dark hover:bg-neutral-lightest"
+              className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-700 bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:border-green-500/50"
               disabled={currentPage === totalPages}
               onClick={() => onPageChange(currentPage + 1)}
               data-oid="703z7:3"

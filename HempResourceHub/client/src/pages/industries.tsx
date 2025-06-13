@@ -46,10 +46,10 @@ const IndustriesPage = () => {
 
   // Background colors for cards
   const cardColors = [
-    "bg-gradient-to-br from-green-50 to-green-100",
-    "bg-gradient-to-br from-emerald-50 to-emerald-100",
-    "bg-gradient-to-br from-teal-50 to-teal-100",
-    "bg-gradient-to-br from-green-100 to-emerald-50",
+    "bg-gradient-to-br from-gray-800 to-gray-900",
+    "bg-gradient-to-br from-gray-900 to-gray-800",
+    "bg-gradient-to-br from-gray-800 to-gray-900",
+    "bg-gradient-to-br from-gray-900 to-gray-800",
   ];
 
   return (
@@ -63,7 +63,7 @@ const IndustriesPage = () => {
       </Helmet>
 
       {/* Breadcrumb */}
-      <div className="bg-white py-6">
+      <div className="bg-gray-900 py-6 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[{ label: "Home", href: "/" }, { label: "Industries" }]}
@@ -72,12 +72,12 @@ const IndustriesPage = () => {
       </div>
 
       {/* Hero section */}
-      <div className="bg-primary-50 py-12">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-950 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-green-700 text-outline-black">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-green-400">
             Industrial Hemp Industry Applications
           </h1>
-          <p className="mt-4 text-lg text-neutral-dark max-w-3xl mx-auto">
+          <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
             Discover how industrial hemp is revolutionizing various industries
             with sustainable, eco-friendly solutions and innovative
             applications.
@@ -86,9 +86,9 @@ const IndustriesPage = () => {
       </div>
 
       {/* Industries grid */}
-      <div className="bg-white py-16">
+      <div className="bg-gray-950 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-12 text-center">
             Explore Industries Using Hemp
           </h2>
 
@@ -110,7 +110,7 @@ const IndustriesPage = () => {
               {industries?.map((industry: Industry, index: number) => (
                 <Card
                   key={industry.id}
-                  className={`overflow-hidden border border-green-200 ${cardColors[index % cardColors.length]}`}
+                  className={`overflow-hidden border border-green-500/30 hover:border-green-400/50 transition-all ${cardColors[index % cardColors.length]} hover:shadow-lg hover:shadow-green-500/20`}
                 >
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
@@ -121,18 +121,18 @@ const IndustriesPage = () => {
                       >
                         {industryIcons[industry.name] || "🌿"}
                       </span>
-                      <h3 className="text-xl font-heading font-semibold text-green-700 text-outline-black">
+                      <h3 className="text-xl font-heading font-semibold text-green-400">
                         {industry.name}
                       </h3>
                     </div>
-                    <p className="text-neutral-dark mb-6">
+                    <p className="text-gray-300 mb-6">
                       {industryDescriptions[industry.name] ||
                         "Industrial hemp provides sustainable solutions for this industry with its versatile applications."}
                     </p>
                     <Link href={`/industry/${industry.id}`}>
                       <Button
                         variant="outline"
-                        className="group border-green-600 text-green-700 hover:bg-green-50"
+                        className="group border-green-500/50 text-green-400 hover:bg-green-500/10 hover:border-green-400"
                       >
                         Explore Applications
                         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -147,33 +147,33 @@ const IndustriesPage = () => {
       </div>
 
       {/* Industry stats section */}
-      <div className="bg-neutral-lightest py-16">
+      <div className="bg-gray-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-12">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-12">
             Hemp Industry Growth
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-sm p-8">
-              <div className="text-4xl font-bold text-green-600 text-outline-black mb-2">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-8 border border-green-500/30">
+              <div className="text-4xl font-bold text-green-400 mb-2">
                 35%
               </div>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Annual growth in the hemp textiles market
               </p>
             </div>
-            <div className="bg-white rounded-lg shadow-sm p-8">
-              <div className="text-4xl font-bold text-green-600 text-outline-black mb-2">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-8 border border-green-500/30">
+              <div className="text-4xl font-bold text-green-400 mb-2">
                 $15B
               </div>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Projected global hemp market by 2027
               </p>
             </div>
-            <div className="bg-white rounded-lg shadow-sm p-8">
-              <div className="text-4xl font-bold text-green-600 text-outline-black mb-2">
+            <div className="bg-gray-800 rounded-lg shadow-lg shadow-black/50 p-8 border border-green-500/30">
+              <div className="text-4xl font-bold text-green-400 mb-2">
                 25+
               </div>
-              <p className="text-neutral-dark">
+              <p className="text-gray-300">
                 Major industries using hemp materials
               </p>
             </div>
@@ -182,12 +182,12 @@ const IndustriesPage = () => {
       </div>
 
       {/* CTA section */}
-      <div className="bg-primary-50 py-16">
+      <div className="bg-gradient-to-b from-gray-950 to-black py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-neutral-darkest mb-4">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-4">
             Discover Hemp Plant Types
           </h2>
-          <p className="text-lg text-neutral-dark max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
             Explore different hemp plant types and their specific applications
             across industries.
           </p>

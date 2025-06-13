@@ -55,17 +55,17 @@ const ProductListingPage = () => {
 
   if (!match) {
     return (
-      <div className="py-12 bg-neutral-lightest">
+      <div className="py-12 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl shadow-md p-8 text-center">
-            <h1 className="text-2xl font-heading font-bold text-neutral-darkest mb-4">
+          <div className="bg-gray-900 rounded-xl shadow-lg shadow-black/50 p-8 text-center border border-green-500/30">
+            <h1 className="text-2xl font-heading font-bold text-gray-100 mb-4">
               Products Not Found
             </h1>
-            <p className="text-neutral-dark mb-6">
+            <p className="text-gray-300 mb-6">
               The requested products could not be found.
             </p>
             <Link href="/">
-              <a className="text-primary hover:text-primary-dark font-medium">
+              <a className="text-green-400 hover:text-green-300 font-medium transition-colors">
                 Return to Homepage
               </a>
             </Link>
@@ -106,7 +106,7 @@ const ProductListingPage = () => {
         />
       </Helmet>
 
-      <div className="py-12 bg-white">
+      <div className="py-12 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {isLoadingPlantPart ? (
             <div className="mb-6">
@@ -127,7 +127,7 @@ const ProductListingPage = () => {
                 ]}
               />
 
-              <h2 className="text-2xl font-heading font-bold text-neutral-darkest mt-2 mb-6">
+              <h2 className="text-2xl font-heading font-bold text-gray-100 mt-2 mb-6">
                 {plantPart?.name} Products
                 {selectedIndustry ? ` in ${selectedIndustryName}` : ""}
               </h2>
@@ -169,18 +169,18 @@ const ProductListingPage = () => {
                   ))}
                 </div>
               ) : (
-                <div className="bg-white rounded-xl shadow-sm p-8 text-center border border-neutral-light">
-                  <h3 className="text-xl font-heading font-semibold mb-2">
+                <div className="bg-gray-900 rounded-xl shadow-lg shadow-black/50 p-8 text-center border border-green-500/30">
+                  <h3 className="text-xl font-heading font-semibold text-gray-100 mb-2">
                     No Products Found
                   </h3>
-                  <p className="text-neutral-dark mb-4">
+                  <p className="text-gray-300 mb-4">
                     No products were found for the selected filters. Try
                     selecting a different industry or plant part.
                   </p>
                   {selectedIndustry && (
                     <button
                       onClick={() => setSelectedIndustry(null)}
-                      className="text-primary hover:text-primary-dark font-medium"
+                      className="text-green-400 hover:text-green-300 font-medium transition-colors"
                     >
                       Clear Industry Filter
                     </button>

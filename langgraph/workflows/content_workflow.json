@@ -1,0 +1,106 @@
+{
+  "name": "Hemp Content Generation Workflow",
+  "description": "Automated content creation workflow for blog posts, social media, and product descriptions",
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "entry",
+      "name": "Start Content Generation"
+    },
+    {
+      "id": "select_products",
+      "type": "action",
+      "agent": "content_agent",
+      "action": "select_products_for_content",
+      "params": {
+        "criteria": "new_or_trending",
+        "limit": 5
+      }
+    },
+    {
+      "id": "keyword_research",
+      "type": "action",
+      "agent": "seo_agent",
+      "action": "research_keywords",
+      "depends_on": ["select_products"]
+    },
+    {
+      "id": "generate_blog",
+      "type": "parallel",
+      "agent": "content_agent",
+      "action": "generate_blog_post",
+      "depends_on": ["keyword_research"],
+      "params": {
+        "word_count": 1500,
+        "tone": "informative",
+        "include_images": true
+      }
+    },
+    {
+      "id": "generate_social",
+      "type": "parallel",
+      "agent": "content_agent",
+      "action": "generate_social_media",
+      "depends_on": ["keyword_research"],
+      "params": {
+        "platforms": ["twitter", "linkedin", "instagram"],
+        "variations": 3
+      }
+    },
+    {
+      "id": "optimize_seo",
+      "type": "action",
+      "agent": "seo_agent",
+      "action": "optimize_content",
+      "depends_on": ["generate_blog", "generate_social"]
+    },
+    {
+      "id": "quality_check",
+      "type": "validation",
+      "agent": "content_agent",
+      "action": "quality_assessment",
+      "depends_on": ["optimize_seo"],
+      "params": {
+        "min_seo_score": 0.7,
+        "check_plagiarism": true,
+        "check_facts": true
+      }
+    },
+    {
+      "id": "schedule_publishing",
+      "type": "action",
+      "agent": "content_agent",
+      "action": "schedule_content",
+      "depends_on": ["quality_check"],
+      "params": {
+        "strategy": "optimal_timing",
+        "spread_days": 7
+      }
+    },
+    {
+      "id": "end",
+      "type": "exit",
+      "depends_on": ["schedule_publishing"]
+    }
+  ],
+  "edges": [
+    {"from": "start", "to": "select_products"},
+    {"from": "select_products", "to": "keyword_research"},
+    {"from": "keyword_research", "to": ["generate_blog", "generate_social"]},
+    {"from": ["generate_blog", "generate_social"], "to": "optimize_seo"},
+    {"from": "optimize_seo", "to": "quality_check"},
+    {"from": "quality_check", "to": "schedule_publishing", "condition": "passed"},
+    {"from": "quality_check", "to": "optimize_seo", "condition": "failed"},
+    {"from": "schedule_publishing", "to": "end"}
+  ],
+  "parallel_execution": {
+    "max_workers": 4,
+    "timeout_per_task": 300
+  },
+  "quality_thresholds": {
+    "seo_score": 0.7,
+    "readability_score": 0.8,
+    "uniqueness_score": 0.95
+  }
+}

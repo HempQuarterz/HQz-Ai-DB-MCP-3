@@ -30,7 +30,7 @@ const PlantTypesListPage = () => {
       </Helmet>
 
       {/* Breadcrumb */}
-      <div className="bg-white py-6">
+      <div className="bg-gray-900 py-6 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[{ label: "Home", href: "/" }, { label: "Plant Types" }]}
@@ -39,12 +39,12 @@ const PlantTypesListPage = () => {
       </div>
 
       {/* Hero section */}
-      <div className="bg-green-50 py-12">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-950 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-green-700 text-outline-black">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-green-400">
             Hemp Plant Types
           </h1>
-          <p className="mt-4 text-lg text-neutral-dark max-w-3xl mx-auto">
+          <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Industrial hemp is cultivated for specific purposes based on the
             variety. Learn about the different types of hemp plants and their
             unique characteristics.
@@ -53,12 +53,12 @@ const PlantTypesListPage = () => {
       </div>
 
       {/* Plant types grid */}
-      <div className="bg-white py-16">
+      <div className="bg-gray-950 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-8 text-center">
             Hemp Cultivation Varieties
           </h2>
-          <p className="text-center text-neutral-dark max-w-3xl mx-auto mb-12">
+          <p className="text-center text-gray-300 max-w-3xl mx-auto mb-12">
             Hemp plants are bred and cultivated for different purposes. Each
             type has unique characteristics optimized for specific industrial
             applications.
@@ -85,7 +85,7 @@ const PlantTypesListPage = () => {
               {plantTypes.map((plantType: PlantType) => (
                 <Card
                   key={plantType.id}
-                  className="overflow-hidden border border-green-200 hover:shadow-lg transition-shadow duration-300"
+                  className="overflow-hidden border border-green-500/30 hover:border-green-400/50 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 bg-gray-900"
                 >
                   <div className="aspect-video relative">
                     <img
@@ -106,26 +106,26 @@ const PlantTypesListPage = () => {
                       </h3>
                     </div>
                   </div>
-                  <CardContent className="p-6">
-                    <p className="text-neutral-dark mb-4">
+                  <CardContent className="p-6 bg-gray-900">
+                    <p className="text-gray-300 mb-4">
                       {plantType.description}
                     </p>
                     {plantType.characteristics && (
                       <div className="mb-4">
-                        <h4 className="font-medium text-green-700 mb-1">
+                        <h4 className="font-medium text-green-400 mb-1">
                           Characteristics:
                         </h4>
-                        <p className="text-sm text-neutral-medium">
+                        <p className="text-sm text-gray-400">
                           {plantType.characteristics}
                         </p>
                       </div>
                     )}
                     {plantType.plantingDensity && (
                       <div className="mb-4">
-                        <h4 className="font-medium text-green-700 mb-1">
+                        <h4 className="font-medium text-green-400 mb-1">
                           Planting Density:
                         </h4>
-                        <p className="text-sm text-neutral-medium">
+                        <p className="text-sm text-gray-400">
                           {plantType.plantingDensity}
                         </p>
                       </div>
@@ -134,7 +134,7 @@ const PlantTypesListPage = () => {
                       <div className="mt-2">
                         <Button
                           variant="outline"
-                          className="group border-green-600 text-green-700 hover:bg-green-50"
+                          className="group border-green-500/50 text-green-400 hover:bg-green-500/10 hover:border-green-400"
                         >
                           View Details
                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -150,105 +150,105 @@ const PlantTypesListPage = () => {
       </div>
 
       {/* Plant types comparison */}
-      <div className="bg-neutral-lightest py-16">
+      <div className="bg-gray-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-12 text-center">
             Hemp Plant Types Comparison
           </h2>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-neutral-light">
-              <thead className="bg-neutral-lightest">
+            <table className="min-w-full divide-y divide-gray-700">
+              <thead className="bg-gray-800">
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-sm font-semibold text-neutral-darkest uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-sm font-semibold text-gray-200 uppercase tracking-wider"
                   >
                     Plant Type
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-sm font-semibold text-neutral-darkest uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-sm font-semibold text-gray-200 uppercase tracking-wider"
                   >
                     Primary Purpose
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-sm font-semibold text-neutral-darkest uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-sm font-semibold text-gray-200 uppercase tracking-wider"
                   >
                     Characteristics
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-sm font-semibold text-neutral-darkest uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-sm font-semibold text-gray-200 uppercase tracking-wider"
                   >
                     Typical Yield
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-neutral-light">
+              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-neutral-darkest">
+                    <div className="font-medium text-gray-200">
                       Fiber Hemp
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Textile fibers, building materials
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Tall plants (3-5m), thin stalks, minimal branching
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       5-6 tons of fiber per acre
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-neutral-darkest">
+                    <div className="font-medium text-gray-200">
                       Grain/Seed Hemp
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Food, oil, nutritional products
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Medium height (2-3m), more branching, dense seed heads
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       800-1,200 lbs of seed per acre
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-neutral-darkest">
+                    <div className="font-medium text-gray-200">
                       Cannabinoid Hemp
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       CBD, CBG extraction for wellness products
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       Shorter (1-2m), bushy plants, flower-optimized
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-neutral-dark">
+                    <div className="text-sm text-gray-400">
                       1,000-2,000 lbs of flower per acre
                     </div>
                   </td>
@@ -260,12 +260,12 @@ const PlantTypesListPage = () => {
       </div>
 
       {/* CTA section */}
-      <div className="bg-green-50 py-16">
+      <div className="bg-gradient-to-b from-gray-950 to-black py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-700 text-outline-black mb-4">
+          <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-green-400 mb-4">
             Explore Hemp Plant Parts
           </h2>
-          <p className="text-lg text-neutral-dark max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
             Learn about the different parts of the hemp plant and their specific
             industrial applications.
           </p>

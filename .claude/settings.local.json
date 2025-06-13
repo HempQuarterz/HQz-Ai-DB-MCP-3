@@ -25,7 +25,12 @@
       "Bash(git commit:*)",
       "Bash(curl:*)",
       "mcp__puppeteer__puppeteer_navigate",
-      "mcp__puppeteer__puppeteer_screenshot"
+      "mcp__puppeteer__puppeteer_screenshot",
+      "mcp__supabase-mcp-server__list_migrations",
+      "Bash(mkdir:*)",
+      "mcp__supabase-mcp-server__apply_migration",
+      "mcp__puppeteer__puppeteer_evaluate",
+      "mcp__puppeteer__puppeteer_click"
     ],
     "deny": []
   }

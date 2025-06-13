@@ -58,11 +58,11 @@ const ImageGenerationDashboard = () => {
   // Helper functions
   const getStatusBadge = (status: string) => {
     const variants: Record<string, { className: string; icon: React.ReactNode }> = {
-      pending: { className: 'bg-yellow-100 text-yellow-800', icon: <Clock className="h-3 w-3" /> },
-      processing: { className: 'bg-blue-100 text-blue-800', icon: <RefreshCw className="h-3 w-3 animate-spin" /> },
-      completed: { className: 'bg-green-100 text-green-800', icon: <CheckCircle className="h-3 w-3" /> },
-      failed: { className: 'bg-red-100 text-red-800', icon: <XCircle className="h-3 w-3" /> },
-      retry: { className: 'bg-orange-100 text-orange-800', icon: <RefreshCw className="h-3 w-3" /> }
+      pending: { className: 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50', icon: <Clock className="h-3 w-3" /> },
+      processing: { className: 'bg-blue-500/20 text-blue-400 border border-blue-500/50', icon: <RefreshCw className="h-3 w-3 animate-spin" /> },
+      completed: { className: 'bg-green-500/20 text-green-400 border border-green-500/50', icon: <CheckCircle className="h-3 w-3" /> },
+      failed: { className: 'bg-red-500/20 text-red-400 border border-red-500/50', icon: <XCircle className="h-3 w-3" /> },
+      retry: { className: 'bg-orange-500/20 text-orange-400 border border-orange-500/50', icon: <RefreshCw className="h-3 w-3" /> }
     };
     
     const variant = variants[status] || variants.pending;

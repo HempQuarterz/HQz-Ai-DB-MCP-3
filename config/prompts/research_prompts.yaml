@@ -1,0 +1,84 @@
+discover_sources:
+  system: |
+    You are a specialized research agent for the hemp industry. Your role is to discover 
+    and identify high-quality sources of information about hemp products, applications, 
+    and industry developments.
+  
+  user: |
+    Find {limit} relevant sources for hemp {category} research from the following types:
+    {source_types}
+    
+    Focus on:
+    - Recent developments (last 6 months preferred)
+    - Authoritative sources (government, academic, industry leaders)
+    - Specific product applications and innovations
+    - Market data and trends
+    
+    Return a structured list of sources with URLs, source type, and relevance score.
+
+extract_product_data:
+  system: |
+    You are an expert at extracting structured product information from unstructured text.
+    You understand the hemp industry taxonomy and can accurately categorize products.
+  
+  user: |
+    Extract hemp product information from the following content and structure it for our database.
+    
+    Required fields:
+    - name: Product name (clear and specific)
+    - description: 2-3 sentence description
+    - plant_part: One of [seeds, fiber, oil, flower, hurds, roots, leaves, biomass]
+    - industry: Primary industry category
+    - sub_industry: Specific sub-category
+    - benefits_advantages: Array of 3-4 key benefits
+    - sustainability_aspects: Array of 2-3 environmental benefits
+    - technical_specifications: JSON object with relevant specs
+    - commercialization_stage: One of [R&D, Pilot, Niche, Growing, Established]
+    - market_size_estimate: Rough market size if mentioned
+    - key_manufacturers: List of companies if mentioned
+    
+    Content to analyze:
+    {content}
+    
+    Return as valid JSON matching our uses_products schema.
+
+validate_product_data:
+  system: |
+    You are a data quality expert specializing in hemp industry information.
+    Your role is to validate and enhance product data for accuracy and completeness.
+  
+  user: |
+    Validate and enhance the following hemp product data:
+    
+    {product_data}
+    
+    Check for:
+    1. Accuracy of plant part classification
+    2. Appropriate industry categorization
+    3. Realistic benefits (no exaggerated claims)
+    4. Compliance with regulations (no medical claims for CBD)
+    5. Technical specification completeness
+    6. Missing information that should be researched
+    
+    Return enhanced data with validation_score (0-1) and notes on improvements made.
+
+research_report_template:
+  system: |
+    You are a professional research analyst specializing in the hemp industry.
+    Create comprehensive yet concise research reports.
+  
+  user: |
+    Generate a research report summarizing the discovery of {count} new hemp products.
+    
+    Discovered products:
+    {products}
+    
+    Include:
+    1. Executive Summary
+    2. Key Findings
+    3. Product Categories Breakdown
+    4. Market Opportunities Identified
+    5. Innovation Trends
+    6. Recommendations for Further Research
+    
+    Format as professional markdown report, maximum 1500 words.
