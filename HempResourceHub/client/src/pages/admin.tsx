@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { AgentStatusCards } from "@/components/admin/agent-status-cards";
 
 // Lazy load the agent monitoring dashboard for better performance
 const AgentMonitoringDashboard = lazy(() => import("@/components/admin/agent-monitoring-dashboard"));
@@ -79,49 +80,7 @@ const AdminPage = () => {
           </TabsContent>
           
           <TabsContent value="ai-agents">
-            <div className="space-y-6">
-              <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold">AI Agent Monitoring</h2>
-                <p className="text-muted-foreground mt-2">
-                  Monitor and manage your AI agents in real-time
-                </p>
-              </div>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Agent Status</CardTitle>
-                  <CardDescription>Current status of all AI agents</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div className="p-4 border rounded-lg">
-                      <div className="font-semibold">Research Agent</div>
-                      <Badge className="mt-1 bg-green-500">Active</Badge>
-                    </div>
-                    <div className="p-4 border rounded-lg">
-                      <div className="font-semibold">Content Agent</div>
-                      <Badge className="mt-1 bg-green-500">Active</Badge>
-                    </div>
-                    <div className="p-4 border rounded-lg">
-                      <div className="font-semibold">SEO Agent</div>
-                      <Badge className="mt-1 bg-green-500">Active</Badge>
-                    </div>
-                    <div className="p-4 border rounded-lg">
-                      <div className="font-semibold">Compliance Agent</div>
-                      <Badge className="mt-1 bg-green-500">Active</Badge>
-                    </div>
-                    <div className="p-4 border rounded-lg">
-                      <div className="font-semibold">Outreach Agent</div>
-                      <Badge className="mt-1" variant="secondary">Pending</Badge>
-                    </div>
-                    <div className="p-4 border rounded-lg">
-                      <div className="font-semibold">Monetization Agent</div>
-                      <Badge className="mt-1" variant="secondary">Pending</Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <AgentStatusCards />
           </TabsContent>
         </Tabs>
       </div>

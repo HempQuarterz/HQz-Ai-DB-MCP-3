@@ -237,7 +237,7 @@ const ImageGenerationDashboard = () => {
                     {providerStats?.map((provider) => (
                       <TableRow key={provider.provider}>
                         <TableCell className="font-medium capitalize">
-                          {provider.provider.replace('_', ' ')}
+                          {provider.provider?.replace('_', ' ') || 'Unknown'}
                         </TableCell>
                         <TableCell className="text-right">{provider.total_generated}</TableCell>
                         <TableCell className="text-right">
@@ -293,7 +293,7 @@ const ImageGenerationDashboard = () => {
                             </Link>
                           </TableCell>
                           <TableCell className="capitalize">
-                            {item.provider.replace('_', ' ')}
+                            {item.provider?.replace('_', ' ') || 'Unknown'}
                           </TableCell>
                           <TableCell>{getStatusBadge(item.status)}</TableCell>
                           <TableCell>{item.attempts}</TableCell>
@@ -352,7 +352,7 @@ const ImageGenerationDashboard = () => {
                 <Card key={provider.provider}>
                   <CardHeader>
                     <CardTitle className="text-lg capitalize">
-                      {provider.provider.replace('_', ' ')}
+                      {provider.provider?.replace('_', ' ') || 'Unknown'}
                     </CardTitle>
                     <CardDescription>
                       Last used: {provider.last_used ? new Date(provider.last_used).toLocaleDateString() : 'Never'}
@@ -424,7 +424,7 @@ const ImageGenerationDashboard = () => {
                           <TableCell>{product.industry_name}</TableCell>
                           <TableCell>
                             <Badge variant="secondary" className="capitalize">
-                              {product.issue_type.replace('_', ' ')}
+                              {product.issue_type?.replace('_', ' ') || 'Unknown'}
                             </Badge>
                           </TableCell>
                           <TableCell className="text-sm text-muted-foreground">
