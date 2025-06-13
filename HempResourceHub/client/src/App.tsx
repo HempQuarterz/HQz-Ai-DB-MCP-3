@@ -24,6 +24,7 @@ import SupabaseIndustries from "./components/supabase-industries";
 import SupabaseTestConnection from "./components/supabase-test-connection";
 import DebugSupabase from "./pages/debug-supabase";
 import AdminPage from "./pages/admin";
+import PokedexDemo from "./pages/pokedex-demo";
 
 function Router() {
   return (
@@ -96,6 +97,7 @@ function Router() {
       <Route path="/debug" component={DebugSupabase} data-oid="1-dlpt_" />
       <Route path="/debug-supabase" component={DebugSupabase} data-oid="debug-sup" />
       <Route path="/admin" component={AdminPage} data-oid="admin-page" />
+      <Route path="/pokedex-demo" component={PokedexDemo} data-oid="pokedex-demo" />
       <Route component={NotFound} data-oid="94.5p89" />
     </Switch>
   );

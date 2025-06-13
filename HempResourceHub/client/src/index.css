@@ -86,7 +86,7 @@
 }
 
 :root {
-  /* Dark theme by default */
+  /* Dark theme by default - Pokemon Pokedex Inspired */
   --background: 0 0% 5%; /* Very dark background */
   --foreground: 0 0% 95%; /* Light text */
   --muted: 240 5% 15%; /* Dark muted backgrounds */
@@ -97,15 +97,30 @@
   --card-foreground: 0 0% 95%; /* Light card text */
   --border: 240 5% 20%; /* Dark borders */
   --input: 240 5% 15%; /* Dark input backgrounds */
-  --primary: 142 76% 45%; /* Brighter green for dark theme */
+  
+  /* Primary Colors - Pokedex Theme */
+  --primary: 142 63% 17%; /* Deep hemp green #2D5016 */
   --primary-foreground: 0 0% 100%; /* White text on primary */
-  --secondary: 240 5% 20%; /* Dark secondary */
-  --secondary-foreground: 0 0% 95%; /* Light secondary text */
-  --accent: 142 60% 40%; /* Green accent */
+  --secondary: 193 100% 50%; /* Bright scientific teal #00D4FF */
+  --secondary-foreground: 0 0% 0%; /* Black text on secondary */
+  --accent: 261 73% 53%; /* Futuristic purple #8B5CF6 */
   --accent-foreground: 0 0% 100%; /* White accent text */
+  
+  /* Status Indicator Colors */
+  --status-growing: 142 70% 45%; /* Growing green */
+  --status-established: 193 100% 50%; /* Established blue */
+  --status-research: 261 73% 53%; /* Research purple */
+  --status-speculative: 25 95% 53%; /* Speculative orange */
+  
+  /* Additional Pokedex Colors */
+  --holographic: 193 100% 50%; /* Holographic teal */
+  --electric: 48 100% 50%; /* Electric yellow */
+  --glow-green: 142 100% 50%; /* Bright glow green */
+  --matrix-green: 120 100% 40%; /* Matrix effect green */
+  
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 142 76% 45%;
+  --ring: 193 100% 50%; /* Teal ring for focus states */
   --radius: 0.75rem; /* Slightly larger radius */
 }
   .dark {
@@ -407,6 +422,116 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Pokemon Pokedex Style Effects */
+  .holographic {
+    background: linear-gradient(135deg, 
+      hsl(var(--holographic) / 0.3) 0%, 
+      hsl(var(--accent) / 0.3) 25%, 
+      hsl(var(--electric) / 0.3) 50%, 
+      hsl(var(--holographic) / 0.3) 75%, 
+      hsl(var(--accent) / 0.3) 100%);
+    background-size: 400% 400%;
+    animation: holographic-shift 3s ease infinite;
+  }
+  
+  @keyframes holographic-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .pokedex-border {
+    position: relative;
+    border: 2px solid hsl(var(--holographic));
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  
+  .pokedex-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, 
+      hsl(var(--holographic)), 
+      hsl(var(--accent)), 
+      hsl(var(--holographic)));
+    border-radius: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  .pokedex-border:hover::before {
+    opacity: 1;
+    animation: border-pulse 2s linear infinite;
+  }
+  
+  @keyframes border-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  /* Status Badge Colors */
+  .status-growing {
+    background-color: hsl(var(--status-growing) / 0.2);
+    color: hsl(var(--status-growing));
+    border: 1px solid hsl(var(--status-growing) / 0.5);
+  }
+  
+  .status-established {
+    background-color: hsl(var(--status-established) / 0.2);
+    color: hsl(var(--status-established));
+    border: 1px solid hsl(var(--status-established) / 0.5);
+  }
+  
+  .status-research {
+    background-color: hsl(var(--status-research) / 0.2);
+    color: hsl(var(--status-research));
+    border: 1px solid hsl(var(--status-research) / 0.5);
+  }
+  
+  .status-speculative {
+    background-color: hsl(var(--status-speculative) / 0.2);
+    color: hsl(var(--status-speculative));
+    border: 1px solid hsl(var(--status-speculative) / 0.5);
+  }
+  
+  /* Glow Effects */
+  .glow-teal {
+    box-shadow: 
+      0 0 20px hsl(var(--holographic) / 0.5),
+      0 0 40px hsl(var(--holographic) / 0.3),
+      0 0 60px hsl(var(--holographic) / 0.1);
+  }
+  
+  .glow-purple {
+    box-shadow: 
+      0 0 20px hsl(var(--accent) / 0.5),
+      0 0 40px hsl(var(--accent) / 0.3),
+      0 0 60px hsl(var(--accent) / 0.1);
+  }
+  
+  .text-glow-teal {
+    text-shadow: 
+      0 0 10px hsl(var(--holographic) / 0.8),
+      0 0 20px hsl(var(--holographic) / 0.6),
+      0 0 30px hsl(var(--holographic) / 0.4);
+  }
+  
+  /* 3D Card Effect */
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+  }
+  
+  .card-3d:hover {
+    transform: rotateY(5deg) rotateX(-5deg);
+  }
+  
+  .card-3d-content {
+    transform: translateZ(50px);
   }
   
   /* Hover lift effect */

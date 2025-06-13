@@ -22,13 +22,13 @@ const Footer = () => {
         >
           <div data-oid="u87jru.">
             <h3
-              className="text-xl font-heading font-bold mb-4 text-outline-white"
+              className="text-xl font-heading font-bold mb-4"
               data-oid="vm0mlot"
             >
               HempDB
             </h3>
             <p
-              className="text-neutral-light mb-6 text-outline-white"
+              className="text-neutral-light mb-6"
               data-oid="c12ao.1"
             >
               A comprehensive database of industrial hemp applications across
@@ -62,7 +62,7 @@ const Footer = () => {
 
           <div data-oid="5p99y2k">
             <h3
-              className="text-lg font-heading font-medium mb-4 text-outline-white"
+              className="text-lg font-heading font-medium mb-4"
               data-oid="5gpb.h0"
             >
               Quick Links
@@ -71,7 +71,7 @@ const Footer = () => {
               <li data-oid="ubx7pf4">
                 <Link href="/" data-oid="kyns.np">
                   <div
-                    className="text-neutral-light hover:text-white transition-colors text-outline-white cursor-pointer"
+                    className="text-neutral-light hover:text-white transition-colors cursor-pointer"
                     data-oid=":0n5u62"
                   >
                     Home
@@ -81,7 +81,7 @@ const Footer = () => {
               <li data-oid="xhs08i-">
                 <Link href="/about" data-oid="qve.3oe">
                   <div
-                    className="text-neutral-light hover:text-white transition-colors text-outline-white cursor-pointer"
+                    className="text-neutral-light hover:text-white transition-colors cursor-pointer"
                     data-oid="7m4hzg6"
                   >
                     About Hemp
@@ -91,7 +91,7 @@ const Footer = () => {
               <li data-oid="kyvrumb">
                 <Link href="/plant-types" data-oid=":0ci1nd">
                   <div
-                    className="text-neutral-light hover:text-white transition-colors text-outline-white cursor-pointer"
+                    className="text-neutral-light hover:text-white transition-colors cursor-pointer"
                     data-oid="bj3tq31"
                   >
                     Plant Types
@@ -101,7 +101,7 @@ const Footer = () => {
               <li data-oid="5hq52qv">
                 <Link href="/plant-parts" data-oid="r00dmq7">
                   <div
-                    className="text-neutral-light hover:text-white transition-colors text-outline-white cursor-pointer"
+                    className="text-neutral-light hover:text-white transition-colors cursor-pointer"
                     data-oid="a7tv0bx"
                   >
                     Parts of Plant
@@ -111,7 +111,7 @@ const Footer = () => {
               <li data-oid="vvrnx1n">
                 <Link href="/industries" data-oid="j25og0e">
                   <div
-                    className="text-neutral-light hover:text-white transition-colors text-outline-white cursor-pointer"
+                    className="text-neutral-light hover:text-white transition-colors cursor-pointer"
                     data-oid="q.dipeb"
                   >
                     Industries
@@ -121,7 +121,7 @@ const Footer = () => {
               <li data-oid="sxut4xk">
                 <Link href="/legal" data-oid="r45cthc">
                   <div
-                    className="text-neutral-light hover:text-white transition-colors text-outline-white cursor-pointer"
+                    className="text-neutral-light hover:text-white transition-colors cursor-pointer"
                     data-oid="wytqr3o"
                   >
                     Legal Status
@@ -131,7 +131,7 @@ const Footer = () => {
               <li data-oid="dad9t7i">
                 <Link href="/resources" data-oid="jq3.igj">
                   <div
-                    className="text-neutral-light hover:text-white transition-colors text-outline-white cursor-pointer"
+                    className="text-neutral-light hover:text-white transition-colors cursor-pointer"
                     data-oid="dhq3u9p"
                   >
                     Research Resources
@@ -143,13 +143,13 @@ const Footer = () => {
 
           <div data-oid="u05f84g">
             <h3
-              className="text-lg font-heading font-medium mb-4 text-outline-white"
+              className="text-lg font-heading font-medium mb-4"
               data-oid="tocyy0e"
             >
               Subscribe
             </h3>
             <p
-              className="text-neutral-light mb-4 text-outline-white"
+              className="text-neutral-light mb-4"
               data-oid="bpkelr1"
             >
               Join our newsletter to receive updates on new hemp applications
@@ -178,7 +178,7 @@ const Footer = () => {
               </div>
             </form>
             <p
-              className="text-xs text-neutral-medium text-outline-white"
+              className="text-xs text-neutral-medium"
               data-oid="h1h0vvt"
             >
               By subscribing, you agree to our Privacy Policy and consent to
@@ -191,13 +191,13 @@ const Footer = () => {
           className="mt-12 pt-8 border-t border-neutral-dark text-neutral-medium flex flex-col sm:flex-row justify-between items-center"
           data-oid="wd49fe7"
         >
-          <p className="text-sm text-outline-white" data-oid="lu-e6:y">
+          <p className="text-sm" data-oid="lu-e6:y">
             © {new Date().getFullYear()} HempDB. All rights reserved.
           </p>
           <div className="mt-4 sm:mt-0 flex space-x-6" data-oid="sa28bh0">
             <Link href="/privacy" data-oid="ju7u4lt">
               <div
-                className="text-sm text-neutral-medium hover:text-white transition-colors text-outline-white cursor-pointer"
+                className="text-sm text-neutral-medium hover:text-white transition-colors cursor-pointer"
                 data-oid=".pom2fn"
               >
                 Privacy Policy
@@ -205,7 +205,7 @@ const Footer = () => {
             </Link>
             <Link href="/terms" data-oid="u36.:ki">
               <div
-                className="text-sm text-neutral-medium hover:text-white transition-colors text-outline-white cursor-pointer"
+                className="text-sm text-neutral-medium hover:text-white transition-colors cursor-pointer"
                 data-oid="us4yil8"
               >
                 Terms of Service
@@ -213,7 +213,7 @@ const Footer = () => {
             </Link>
             <Link href="/contact" data-oid="tq4rraj">
               <div
-                className="text-sm text-neutral-medium hover:text-white transition-colors text-outline-white cursor-pointer"
+                className="text-sm text-neutral-medium hover:text-white transition-colors cursor-pointer"
                 data-oid="o.ql8ms"
               >
                 Contact

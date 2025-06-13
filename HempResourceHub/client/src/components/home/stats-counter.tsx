@@ -22,7 +22,7 @@ const StatsCounter = () => {
         data-oid="hvwkybp"
       >
         <h2
-          className="text-2xl sm:text-3xl font-heading font-bold text-white mb-6 text-outline-white"
+          className="text-2xl sm:text-3xl font-heading font-bold text-white mb-6"
           data-oid="p625.42"
         >
           Explore All Hemp Applications
@@ -51,13 +51,13 @@ const StatsCounter = () => {
 
           <div className="mt-10 text-white" data-oid="7_k171r">
             <p
-              className="text-xl sm:text-2xl opacity-95 mb-3 text-outline-white font-medium"
+              className="text-xl sm:text-2xl opacity-95 mb-3 font-medium"
               data-oid="cfc7q:c"
             >
               Total Documented Hemp Applications:
             </p>
             <div
-              className="text-5xl sm:text-6xl font-bold text-outline-white"
+              className="text-5xl sm:text-6xl font-bold"
               data-oid="0kl:de2"
             >
               {isLoading ? (
@@ -74,7 +74,7 @@ const StatsCounter = () => {
               )}
             </div>
             <p
-              className="mt-4 text-base sm:text-lg md:text-xl opacity-95 max-w-2xl mx-auto text-outline-white font-medium"
+              className="mt-4 text-base sm:text-lg md:text-xl opacity-95 max-w-2xl mx-auto font-medium"
               data-oid="zj82nir"
             >
               Our database continues to grow as research uncovers new industrial
