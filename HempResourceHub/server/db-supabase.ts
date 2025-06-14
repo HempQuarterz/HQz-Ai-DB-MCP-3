@@ -2,6 +2,10 @@ import { Pool } from 'pg';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from '@shared/schema';
 import { createClient } from '@supabase/supabase-js';
+import dns from 'dns';
+
+// Force DNS to use IPv4
+dns.setDefaultResultOrder('ipv4first');
 
 // Get Supabase URL and key from environment variables
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL;
@@ -14,9 +18,15 @@ const supabase = createClient(
 );
 
 // Create a PostgreSQL pool that connects to Supabase
-// Using the connection string from the DATABASE_URL environment variable
+// Parse the connection string to force IPv4
+const dbUrl = new URL(process.env.DATABASE_URL || '');
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  host: dbUrl.hostname,
+  port: parseInt(dbUrl.port || '5432'),
+  database: dbUrl.pathname.slice(1),
+  user: dbUrl.username,
+  password: decodeURIComponent(dbUrl.password),
   ssl: {
     rejectUnauthorized: false
   }

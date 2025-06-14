@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { InfoIcon } from "lucide-react";
 import { PlantPart } from "@shared/schema";
 import PlantPartSelector from "./plant-part-selector";
+import { getPlaceholderImage } from "@/lib/placeholder";
 
 interface PlantVisualizationProps {
   plantTypeId: number;
@@ -187,7 +188,7 @@ const PlantVisualization = ({ plantTypeId }: PlantVisualizationProps) => {
                     plantType?.id === 1
                       ? "https://www.greenentrepreneur.com/wp-content/uploads/2024/01/hemp_field_aerial_view_a_field_of_industrial_hemp_plants_cannabis_sativa_1600.jpg"
                       : plantType?.imageUrl ||
-                        "https://via.placeholder.com/800x1000"
+                        getPlaceholderImage(800, 1000, `${plantType?.name || 'Hemp Plant'} Diagram`)
                   }
                   alt={`${plantType?.name} diagram`}
                   className="w-full rounded-lg"

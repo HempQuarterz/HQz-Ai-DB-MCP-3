@@ -55,13 +55,29 @@ export async function getProviderStats(): Promise<ProviderStats[]> {
 export async function getProductsNeedingAttention(
   limit: number = 50
 ): Promise<ProductNeedingAttention[]> {
+  // Since products_needing_attention view doesn't exist, 
+  // we'll query uses_products directly for products without images
   const { data, error } = await supabase
-    .from('products_needing_attention')
-    .select('*')
+    .from('uses_products')
+    .select('id, name, description, image_url')
+    .or('image_url.is.null,image_url.eq.')
     .limit(limit);
   
   if (error) throw error;
-  return data || [];
+  
+  // Transform to match ProductNeedingAttention interface
+  return (data || []).map(product => ({
+    id: product.id,
+    hemp_product_id: product.id,
+    name: product.name,
+    product_name: product.name,
+    plant_part_name: 'Unknown',
+    industry_name: 'Unknown',
+    issue_type: product.image_url ? 'placeholder' : 'no_image',
+    reason: product.image_url ? 'No valid image' : 'No image',
+    created_at: new Date().toISOString(),
+    image_url: product.image_url
+  }));
 }
 
 // Image Comparisons

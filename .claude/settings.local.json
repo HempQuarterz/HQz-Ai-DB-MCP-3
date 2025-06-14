@@ -30,7 +30,11 @@
       "Bash(mkdir:*)",
       "mcp__supabase-mcp-server__apply_migration",
       "mcp__puppeteer__puppeteer_evaluate",
-      "mcp__puppeteer__puppeteer_click"
+      "mcp__puppeteer__puppeteer_click",
+      "Bash(nslookup:*)",
+      "Bash(host:*)",
+      "Bash(ping:*)",
+      "Bash(bash:*)"
     ],
     "deny": []
   }

@@ -1,6 +1,10 @@
 import { Pool } from 'pg';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from '@shared/schema';
+import dns from 'dns';
+
+// Force DNS to use IPv4
+dns.setDefaultResultOrder('ipv4first');
 
 // Log that we're connecting to the database
 console.log('Connecting to PostgreSQL database...');
@@ -20,8 +24,15 @@ if (!process.env.DATABASE_URL) {
 let db: any;
 
 if (process.env.NODE_ENV !== 'test' && process.env.DATABASE_URL) {
+  // Parse the connection string to extract components
+  const dbUrl = new URL(process.env.DATABASE_URL);
+  
   const connectionConfig = {
-    connectionString: process.env.DATABASE_URL,
+    host: dbUrl.hostname,
+    port: parseInt(dbUrl.port || '5432'),
+    database: dbUrl.pathname.slice(1),
+    user: dbUrl.username,
+    password: decodeURIComponent(dbUrl.password),
     ssl: {
       rejectUnauthorized: false
     }

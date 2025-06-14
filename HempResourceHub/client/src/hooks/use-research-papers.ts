@@ -6,6 +6,10 @@ export function useResearchPapers() {
   return useQuery<ResearchPaper[]>({
     queryKey: ["/api/research-papers"],
     queryFn: getQueryFn({ on401: "returnNull" }),
+    retry: false,
+    // Return empty array on error to prevent UI crashes
+    select: (data) => data || [],
+    placeholderData: [],
   });
 }
 

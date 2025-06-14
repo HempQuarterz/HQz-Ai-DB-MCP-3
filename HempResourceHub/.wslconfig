@@ -1,0 +1,7 @@
+[wsl2]
+# Disable IPv6
+ipv6=false
+
+# Optional: Set DNS servers to IPv4 only
+[network]
+generateResolvConf = false

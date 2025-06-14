@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Breadcrumb from "@/components/ui/breadcrumb";
 import { PlantType } from "@shared/schema";
 import { useState, useEffect } from "react";
+import { getPlaceholderImage } from "@/lib/placeholder";
 
 const PlantTypesPage = () => {
   const { data: plantTypesData, isLoading } = usePlantTypes();
@@ -81,7 +82,7 @@ const PlantTypesPage = () => {
                     <img
                       src={
                         plantType.imageUrl ||
-                        "https://via.placeholder.com/800x1000"
+                        getPlaceholderImage(800, 1000, plantType.name)
                       }
                       alt={`${plantType.name} plant`}
                       className="h-full w-full object-cover transition-all duration-500 ease-in-out group-hover:scale-105"

@@ -14,6 +14,7 @@ import {
   CheckCircle,
   ExternalLink,
 } from "lucide-react";
+import { getPlaceholderImage } from "@/lib/placeholder";
 
 interface ProductDetailViewProps {
   productId: number;
@@ -90,7 +91,7 @@ const ProductDetailView = ({
 
   // Mock image gallery with main image and thumbnails
   const productImages = [
-    product.imageUrl || "https://via.placeholder.com/1000x1000",
+    product.imageUrl || getPlaceholderImage(1000, 1000, product.name),
     "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&h=150",
     "https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&h=150",
     "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&h=150",

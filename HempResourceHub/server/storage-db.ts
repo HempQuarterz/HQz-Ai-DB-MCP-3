@@ -8,6 +8,11 @@ import {
   researchEntries as researchPapers, type ResearchEntry as ResearchPaper, type InsertResearchEntry as InsertResearchPaper
 } from "@shared/schema";
 import { db } from "./db";
+
+// Check if database is connected
+const isDatabaseConnected = () => {
+  return db && typeof db.select === 'function';
+};
 import { eq, sql, and, like, ilike, or } from "drizzle-orm";
 import { IStorage } from "./storage";
 
@@ -30,6 +35,10 @@ export class DatabaseStorage implements IStorage {
 
   // Plant type methods
   async getAllPlantTypes(): Promise<PlantType[]> {
+    if (!isDatabaseConnected()) {
+      console.error('Database not connected in getAllPlantTypes');
+      throw new Error('Database connection unavailable');
+    }
     return await db.select().from(plantTypes);
   }
 
@@ -64,6 +73,10 @@ export class DatabaseStorage implements IStorage {
 
   // Industry methods
   async getAllIndustries(): Promise<Industry[]> {
+    if (!isDatabaseConnected()) {
+      console.error('Database not connected in getAllIndustries');
+      throw new Error('Database connection unavailable');
+    }
     return await db.select().from(industries);
   }
 
@@ -191,6 +204,10 @@ export class DatabaseStorage implements IStorage {
 
   // Research paper methods
   async getAllResearchPapers(): Promise<ResearchPaper[]> {
+    if (!isDatabaseConnected()) {
+      console.error('Database not connected in getAllResearchPapers');
+      throw new Error('Database connection unavailable');
+    }
     return await db.select().from(researchPapers);
   }
 

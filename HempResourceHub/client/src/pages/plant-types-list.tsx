@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { usePlantTypes } from "@/hooks/use-plant-data";
 import Breadcrumb from "@/components/ui/breadcrumb";
+import { getPlaceholderImage } from "@/lib/placeholder";
 
 const PlantTypesListPage = () => {
   const { data: plantTypesData, isLoading } = usePlantTypes();
@@ -93,7 +94,7 @@ const PlantTypesListPage = () => {
                         plantType.id === 1
                           ? "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Hanffeld.jpg/1200px-Hanffeld.jpg"
                           : plantType.imageUrl ||
-                            "https://via.placeholder.com/800x450?text=Hemp+Plant+Type"
+                            getPlaceholderImage(800, 450, plantType.name)
                       }
                       alt={`${plantType.name} plant type`}
                       className="h-full w-full object-cover"

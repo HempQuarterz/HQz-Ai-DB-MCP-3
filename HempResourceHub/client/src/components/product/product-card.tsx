@@ -15,6 +15,7 @@ import {
   Home,
   ArrowRight,
 } from "lucide-react";
+import { getPlaceholderImage } from "@/lib/placeholder";
 
 interface ProductCardProps {
   product: HempProduct;
@@ -84,7 +85,7 @@ const ProductCard = ({
 
       <div className="w-full h-40" data-oid="r092_vl">
         <img
-          src={product.imageUrl || "https://via.placeholder.com/800x400"}
+          src={product.imageUrl || getPlaceholderImage(800, 400, product.name)}
           alt={product.name}
           className="w-full h-full object-cover"
           data-oid="3mq4y:."

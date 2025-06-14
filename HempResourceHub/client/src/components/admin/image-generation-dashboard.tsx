@@ -287,9 +287,9 @@ const ImageGenerationDashboard = () => {
                         <TableRow key={item.id}>
                           <TableCell>
                             <Link href={`/product/${item.hemp_product_id}`}>
-                              <a className="text-primary hover:underline">
+                              <span className="text-primary hover:underline cursor-pointer">
                                 {item.product_name || `Product #${item.hemp_product_id}`}
-                              </a>
+                              </span>
                             </Link>
                           </TableCell>
                           <TableCell className="capitalize">
@@ -415,9 +415,9 @@ const ImageGenerationDashboard = () => {
                         <TableRow key={product.id}>
                           <TableCell>
                             <Link href={`/product/${product.id}`}>
-                              <a className="text-primary hover:underline">
+                              <span className="text-primary hover:underline cursor-pointer">
                                 {product.name}
-                              </a>
+                              </span>
                             </Link>
                           </TableCell>
                           <TableCell>{product.plant_part_name}</TableCell>
