@@ -9,6 +9,34 @@ import { PlantType } from "@shared/schema";
 import { useState, useEffect } from "react";
 import { getPlaceholderImage } from "@/lib/placeholder";
 
+// Plant Type Image component with error handling
+const PlantTypePageImage = ({ plantType, className }: { plantType: PlantType; className: string }) => {
+  const [imageError, setImageError] = useState(false);
+  
+  const handleImageError = () => {
+    setImageError(true);
+  };
+  
+  if (!plantType.imageUrl || imageError) {
+    return (
+      <img
+        src={getPlaceholderImage(800, 1000, plantType.name)}
+        alt={`${plantType.name} plant placeholder`}
+        className={className}
+      />
+    );
+  }
+  
+  return (
+    <img
+      src={plantType.imageUrl}
+      alt={`${plantType.name} plant`}
+      className={className}
+      onError={handleImageError}
+    />
+  );
+};
+
 const PlantTypesPage = () => {
   const { data: plantTypesData, isLoading } = usePlantTypes();
   const [plantTypes, setPlantTypes] = useState<PlantType[]>([]);
@@ -79,12 +107,8 @@ const PlantTypesPage = () => {
               {plantTypes.map((plantType: PlantType) => (
                 <div key={plantType.id} className="relative group">
                   <div className="relative h-80 w-full overflow-hidden rounded-lg bg-gray-900 shadow-lg shadow-black/50 transition-all duration-300 ease-in-out group-hover:shadow-green-500/20 border border-green-500/30 group-hover:border-green-400/50">
-                    <img
-                      src={
-                        plantType.imageUrl ||
-                        getPlaceholderImage(800, 1000, plantType.name)
-                      }
-                      alt={`${plantType.name} plant`}
+                    <PlantTypePageImage
+                      plantType={plantType}
                       className="h-full w-full object-cover transition-all duration-500 ease-in-out group-hover:scale-105"
                     />
 

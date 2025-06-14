@@ -11,6 +11,7 @@ const IMAGE_PROVIDERS = {
   PLACEHOLDER: 'placeholder',
   STABLE_DIFFUSION: 'stable_diffusion',
   DALL_E: 'dall_e',
+  IMAGEN_3: 'imagen_3',
   MIDJOURNEY: 'midjourney'
 };
 
@@ -94,6 +95,10 @@ serve(async (req) => {
             
             case IMAGE_PROVIDERS.DALL_E:
               imageUrl = await generateDallE(item.prompt);
+              break;
+            
+            case IMAGE_PROVIDERS.IMAGEN_3:
+              imageUrl = await generateImagen3(item.prompt);
               break;
             
             default:
@@ -211,10 +216,12 @@ async function selectBestProvider(): Promise<string> {
   // Check which providers have API keys configured
   const hasStabilityKey = !!Deno.env.get('STABILITY_API_KEY');
   const hasOpenAIKey = !!Deno.env.get('OPENAI_API_KEY');
+  const hasGeminiKey = !!Deno.env.get('GEMINI_API_KEY');
   
   const availableProviders = [];
   if (hasStabilityKey) availableProviders.push(IMAGE_PROVIDERS.STABLE_DIFFUSION);
   if (hasOpenAIKey) availableProviders.push(IMAGE_PROVIDERS.DALL_E);
+  if (hasGeminiKey) availableProviders.push(IMAGE_PROVIDERS.IMAGEN_3);
   
   if (availableProviders.length === 0) {
     console.warn('No AI provider API keys found, using placeholder');
@@ -333,6 +340,63 @@ async function generateDallE(prompt: string): Promise<string> {
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from('hemp-product-images')
     .upload(fileName, new Uint8Array(imageBuffer), {
+      contentType: 'image/png',
+      cacheControl: '3600',
+      upsert: false
+    });
+  
+  if (uploadError) {
+    throw uploadError;
+  }
+  
+  const { data: { publicUrl } } = supabase.storage
+    .from('hemp-product-images')
+    .getPublicUrl(fileName);
+  
+  return publicUrl;
+}
+
+async function generateImagen3(prompt: string): Promise<string> {
+  const apiKey = Deno.env.get('GEMINI_API_KEY');
+  if (!apiKey) {
+    throw new Error('Gemini API key not configured');
+  }
+
+  // Google Gemini API with Imagen 3 model
+  const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:generateImages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-goog-api-key': apiKey
+    },
+    body: JSON.stringify({
+      prompt: prompt,
+      number_of_images: 1,
+      aspect_ratio: '1:1',
+      safety_filter_level: 'BLOCK_ONLY_HIGH',
+      person_generation: 'ALLOW_ADULT'
+    })
+  });
+  
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Imagen 3 API error: ${response.status} - ${error}`);
+  }
+  
+  const data = await response.json();
+  
+  if (!data.generatedImages || data.generatedImages.length === 0) {
+    throw new Error('No images generated from Imagen 3 API');
+  }
+  
+  // Get the base64 image data
+  const imageBase64 = data.generatedImages[0].bytesBase64Encoded;
+  const imageBuffer = Uint8Array.from(atob(imageBase64), c => c.charCodeAt(0));
+  
+  const fileName = `hemp-product-imagen3-${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
+  const { data: uploadData, error: uploadError } = await supabase.storage
+    .from('hemp-product-images')
+    .upload(fileName, imageBuffer, {
       contentType: 'image/png',
       cacheControl: '3600',
       upsert: false

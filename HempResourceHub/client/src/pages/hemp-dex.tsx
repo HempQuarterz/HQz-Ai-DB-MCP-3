@@ -13,6 +13,35 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SearchIcon, SlidersHorizontal, Leaf } from "lucide-react";
+import { getPlaceholderImage } from "@/lib/placeholder";
+
+// Plant Dex Image component with error handling
+const PlantDexImage = ({ plant, className }: { plant: PlantType; className: string }) => {
+  const [imageError, setImageError] = useState(false);
+  
+  const handleImageError = () => {
+    setImageError(true);
+  };
+  
+  if (!plant.imageUrl || imageError) {
+    return (
+      <img
+        src={getPlaceholderImage(128, 128, plant.name)}
+        alt={`${plant.name} placeholder`}
+        className={className}
+      />
+    );
+  }
+  
+  return (
+    <img
+      src={plant.imageUrl}
+      alt={plant.name}
+      className={className}
+      onError={handleImageError}
+    />
+  );
+};
 
 const HempDex = () => {
   const { data: plantTypesData, isLoading } = usePlantTypes();
@@ -188,18 +217,13 @@ const HempDex = () => {
                       </span>
                     </div>
                     <div className="p-4 flex flex-col items-center">
-                      <div className="h-36 w-36 rounded-full bg-gradient-to-br from-green-900/50 to-green-700/30 flex items-center justify-center mb-4">
-                        {plant.imageUrl ? (
-                          <img
-                            src={plant.imageUrl}
-                            alt={plant.name}
-                            className="h-32 w-32 object-cover rounded-full"
-                          />
-                        ) : (
-                          <Leaf className="h-20 w-20 text-green-400" />
-                        )}
+                      <div className="h-36 w-36 rounded-full bg-gradient-to-br from-green-900/50 to-green-700/30 flex items-center justify-center mb-4 overflow-hidden">
+                        <PlantDexImage
+                          plant={plant}
+                          className="h-32 w-32 object-cover rounded-full"
+                        />
                       </div>
-                      <h3 className="text-xl font-heading font-semibold text-green-400 text-outline-white text-center">
+                      <h3 className="text-xl font-heading font-semibold text-green-400 text-center">
                         {plant.name}
                       </h3>
                       <p className="mt-2 text-xs text-gray-300 text-center line-clamp-2">

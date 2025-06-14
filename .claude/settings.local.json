@@ -34,7 +34,20 @@
       "Bash(nslookup:*)",
       "Bash(host:*)",
       "Bash(ping:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "Bash(python:*)",
+      "Bash(sudo apt-get:*)",
+      "Bash(sudo apt-get install:*)",
+      "Bash(node:*)",
+      "Bash(mv:*)",
+      "WebFetch(domain:cloud.google.com)",
+      "mcp__Context7__resolve-library-id",
+      "Bash(npm install:*)",
+      "Bash(npm run check:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(pkill:*)",
+      "Bash(true)"
     ],
     "deny": []
   }

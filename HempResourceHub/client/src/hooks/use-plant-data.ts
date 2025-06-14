@@ -35,9 +35,9 @@ async function fetchPlantTypes() {
 
 export function usePlantTypes() {
   return useQuery({
-    queryKey: ['plant_types'],
+    queryKey: ['plant_types_v2'], // Changed key to force cache miss
     queryFn: fetchPlantTypes,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 0, // TEMPORARY: Force fresh data
   });
 }
 

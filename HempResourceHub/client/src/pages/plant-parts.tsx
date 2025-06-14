@@ -5,6 +5,36 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Breadcrumb from "@/components/ui/breadcrumb";
+import { getPlaceholderImage } from "@/lib/placeholder";
+import { useState } from "react";
+
+// Plant Part Image component with error handling
+const PlantPartImage = ({ plantPart, className }: { plantPart: any; className: string }) => {
+  const [imageError, setImageError] = useState(false);
+  
+  const handleImageError = () => {
+    setImageError(true);
+  };
+  
+  if (!plantPart.image_url || imageError) {
+    return (
+      <img
+        src={getPlaceholderImage(400, 400, plantPart.name)}
+        alt={`${plantPart.name} placeholder`}
+        className={className}
+      />
+    );
+  }
+  
+  return (
+    <img
+      src={plantPart.image_url}
+      alt={`${plantPart.name}`}
+      className={className}
+      onError={handleImageError}
+    />
+  );
+};
 
 const PlantPartsPage = () => {
   const { data: plantParts, isLoading } = useAllPlantParts();
@@ -70,9 +100,8 @@ const PlantPartsPage = () => {
                 plantParts.map((plantPart: any) => (
                   <div key={plantPart.id} className="relative group">
                     <div className="relative h-80 w-full overflow-hidden rounded-lg bg-gray-900 shadow-lg shadow-black/50 transition-all duration-300 ease-in-out group-hover:shadow-green-500/20 border border-green-500/30 group-hover:border-green-400/50">
-                      <img
-                        src={plantPart.image_url || "/placeholder-hemp.jpg"}
-                        alt={`${plantPart.name}`}
+                      <PlantPartImage
+                        plantPart={plantPart}
                         className="h-full w-full object-cover transition-all duration-500 ease-in-out group-hover:scale-105"
                       />
 
