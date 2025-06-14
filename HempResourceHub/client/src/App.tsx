@@ -108,9 +108,9 @@ function App() {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient} data-oid="u-8-pob">
         <TooltipProvider data-oid="0n1weth">
-          <div className="flex flex-col min-h-screen bg-gray-950 text-gray-100" data-oid="9aq6v3f">
+          <div className="flex flex-col min-h-screen text-gray-100 relative" data-oid="9aq6v3f">
             <Navbar data-oid="1wj7t:9" />
-            <main className="flex-grow bg-gray-950" data-oid="obhqq-s">
+            <main className="flex-grow relative z-10" data-oid="obhqq-s">
               <Router data-oid="geelxlm" />
             </main>
             <Footer data-oid="lyq7x7v" />

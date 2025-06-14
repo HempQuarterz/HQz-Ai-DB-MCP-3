@@ -28,8 +28,8 @@ const HomepageHero = () => {
           }}
         />
         
-        {/* Gradient overlay for better contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80 z-10" />
+        {/* Lighter gradient overlay to show animated background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 z-10" />
         
         {/* Animated green particles effect */}
         <div className="absolute inset-0 z-20">

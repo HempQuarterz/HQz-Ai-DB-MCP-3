@@ -14,11 +14,33 @@
   html {
     font-family: 'SweetLeaf', system-ui, sans-serif;
     font-size: 18px; /* Increased base font size from 16px to 18px */
-    @apply bg-gray-950 text-gray-100; /* Force dark background */
+    @apply text-gray-100; /* Keep text light but remove bg override */
   }
   
   body {
-    @apply bg-gray-950 text-gray-100 min-h-screen; /* Ensure dark theme throughout */
+    @apply text-gray-100 min-h-screen;
+    background: 
+      linear-gradient(135deg, #000000 0%, #1f2937 40%, #064e3b 100%),
+      radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.1) 0%, transparent 50%) !important;
+    background-attachment: fixed !important;
+  }
+  
+  /* Force the animated background on all major containers */
+  html, body, #root {
+    background: 
+      linear-gradient(135deg, #000000 0%, #1f2937 40%, #064e3b 100%),
+      radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.2) 0%, transparent 50%) !important;
+    background-attachment: fixed !important;
+  }
+  
+  /* Override any conflicting Tailwind classes */
+  .bg-gray-950, .bg-black {
+    background: 
+      linear-gradient(135deg, #000000 0%, #1f2937 40%, #064e3b 100%),
+      radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.15) 0%, transparent 50%) !important;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -48,6 +70,103 @@
   
   h6 {
     @apply text-lg md:text-xl;
+  }
+}
+
+/* Custom animations for the animated background */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-10px);
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(100vh + 100px));
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 15s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 6s ease-in-out infinite;
+  }
+  
+  .animate-scan {
+    animation: scan 12s linear infinite;
+  }
+  
+  /* Animated background particles - more visible */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(3px 3px at 20px 30px, rgba(16, 185, 129, 0.9), transparent),
+      radial-gradient(2px 2px at 40px 70px, rgba(52, 211, 153, 0.8), transparent),
+      radial-gradient(2px 2px at 90px 40px, rgba(16, 185, 129, 0.7), transparent),
+      radial-gradient(1px 1px at 130px 80px, rgba(52, 211, 153, 0.6), transparent),
+      radial-gradient(3px 3px at 160px 30px, rgba(16, 185, 129, 0.8), transparent),
+      radial-gradient(2px 2px at 200px 60px, rgba(34, 197, 94, 0.7), transparent);
+    background-repeat: repeat;
+    background-size: 250px 120px;
+    animation: float 20s ease-in-out infinite;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(2px 2px at 50px 50px, rgba(34, 197, 94, 0.8), transparent),
+      radial-gradient(3px 3px at 100px 100px, rgba(16, 185, 129, 0.6), transparent),
+      radial-gradient(2px 2px at 150px 150px, rgba(52, 211, 153, 0.8), transparent),
+      radial-gradient(1px 1px at 80px 200px, rgba(16, 185, 129, 0.5), transparent),
+      radial-gradient(2px 2px at 220px 180px, rgba(34, 197, 94, 0.7), transparent);
+    background-repeat: repeat;
+    background-size: 300px 250px;
+    animation: float 25s ease-in-out infinite reverse;
+    z-index: -1;
+    pointer-events: none;
   }
   
   /* Increase paragraph and general text sizes */

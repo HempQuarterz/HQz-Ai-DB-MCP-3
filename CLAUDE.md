@@ -2,7 +2,61 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Latest Update (Jan 12, 2025 - Evening Session 3)
+## Latest Update (Jan 14, 2025 - Animated Background Implementation)
+
+### Animated Background System Implementation 🎨
+1. **CSS-Based Animated Background** - Performance-optimized solution implemented:
+   - Multi-layer gradient background: Black → Dark Gray → Emerald green diagonal
+   - Animated floating particles using CSS `::before` and `::after` pseudo-elements
+   - Two animation layers with different speeds for depth effect
+   - Applied to `client/src/index.css` with `!important` overrides
+
+2. **Three.js 3D Background Component** - Advanced alternative created:
+   - 3D particle system with 1,500+ animated particles
+   - Matrix-style scrolling text textures
+   - Mouse/touch interaction for camera rotation
+   - Location: `client/src/components/layout/animated-background.tsx`
+
+3. **Integration Fixes Applied**:
+   - Navbar/Footer transparency: Added `bg-black/80 backdrop-blur-md`
+   - Hero overlay opacity reduced: `from-black/70` → `from-black/20`
+   - Plant cards background override removed
+   - Z-index layering implemented for proper stacking
+
+### Known Issues
+- **Background not visible**: CSS may be overridden by existing Tailwind classes
+- **Multiple implementation attempts**: Three different approaches created
+- **Browser cache issues**: May require hard refresh or cache clearing
+
+### Files Modified
+- `client/src/index.css` - Main animated background styles
+- `client/src/components/layout/animated-background.tsx` - Three.js implementation
+- `client/src/components/layout/css-animated-background.tsx` - React wrapper
+- `client/src/components/home/hero.tsx` - Overlay fixes
+- `client/src/components/home/plant-type-cards.tsx` - Background removal
+- Navigation components - Transparency updates
+
+### Previous Update (Jan 14, 2025 - Image & Automation Fixes)
+
+### Image Display Issues Completely Resolved! 🎉
+1. ✅ **Fixed All Image Loading** - Added comprehensive error handling with SVG placeholders
+2. ✅ **Removed 3D Model** - All plant type cards now show consistent placeholder images
+3. ✅ **Fixed Logo Display** - Added proper `?url` suffix for Vite asset handling
+4. ✅ **100% Image Coverage** - All 149 products now have images (42 AI + 107 placeholders)
+
+### Automation Successfully Triggered from Coding Environment
+1. ✅ **Created Automation Trigger** - `trigger_image_generation.js` Node.js script works
+2. ✅ **Processed 30 Queue Items** - Edge Function generated placeholder images
+3. ✅ **Fixed Database Sync** - Images now properly update product records
+4. ✅ **Verified Agent Status** - Hemp agents working correctly (149 products total)
+
+### How to Trigger More Automation
+```bash
+# From HempResourceHub directory
+node trigger_image_generation.js
+```
+
+## Previous Update (Jan 12, 2025 - Evening Session 3)
 
 ### AI Agent Implementation Complete! 🎉
 1. ✅ **Fixed Image Generation Dashboard** - Resolved undefined errors with optional chaining

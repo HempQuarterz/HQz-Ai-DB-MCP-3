@@ -5,7 +5,37 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { PlantType } from "@shared/schema";
 import SimpleHempModel from "@/components/models/SimpleHempModel";
 import { Leaf, ArrowRight, Sparkles } from "lucide-react";
-import hempEcosystemImage from "@/assets/images/hemp-ecosystem.webp";
+import hempEcosystemImage from "@/assets/images/hemp-ecosystem.webp?url";
+import { getPlaceholderImage } from "@/lib/placeholder";
+import { useState } from "react";
+
+// Image component with error handling
+const PlantImage = ({ plantType, className }: { plantType: PlantType; className: string }) => {
+  const [imageError, setImageError] = useState(false);
+  
+  const handleImageError = () => {
+    setImageError(true);
+  };
+  
+  if (!plantType.imageUrl || imageError) {
+    return (
+      <img
+        src={getPlaceholderImage(400, 300, plantType.name)}
+        alt={`${plantType.name} plant placeholder`}
+        className={className}
+      />
+    );
+  }
+  
+  return (
+    <img
+      src={plantType.imageUrl}
+      alt={`${plantType.name} plant`}
+      className={className}
+      onError={handleImageError}
+    />
+  );
+};
 
 const PlantTypeCards = () => {
   const { data: plantTypesData, isLoading } = usePlantTypes();
@@ -13,8 +43,9 @@ const PlantTypeCards = () => {
 
   // DEBUG: Log plantTypes to verify data is being received
   console.log("PlantTypeCards: plantTypes", plantTypes);
+  console.log("PlantTypeCards: first plant type imageUrl:", plantTypes[0]?.imageUrl);
   return (
-    <div className="py-16 relative overflow-hidden bg-gradient-to-b from-black via-gray-950 to-black" data-oid="l3y5paq">
+    <div className="py-16 relative overflow-hidden" data-oid="l3y5paq">
       {/* Enhanced background with animated particles */}
       <div className="absolute inset-0">
         {/* Gradient mesh background */}
@@ -114,21 +145,12 @@ const PlantTypeCards = () => {
                   {/* Card background with gradient */}
                   <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
                   
-                  {/* Image or 3D model */}
+                  {/* Plant Image */}
                   <div className="absolute inset-0 overflow-hidden">
-                    {plantType.id === 1 ? (
-                      <div className="h-full w-full">
-                        <SimpleHempModel
-                          className="h-full w-full opacity-60 group-hover:opacity-80 transition-opacity duration-500"
-                        />
-                      </div>
-                    ) : (
-                      <img
-                        src={plantType.imageUrl || "/placeholder-hemp.jpg"}
-                        alt={`${plantType.name} plant`}
-                        className="h-full w-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700"
-                      />
-                    )}
+                    <PlantImage
+                      plantType={plantType}
+                      className="h-full w-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700"
+                    />
                   </div>
                   
                   {/* Gradient overlays */}

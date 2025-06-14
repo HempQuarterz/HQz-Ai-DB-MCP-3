@@ -9,7 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import HempQuarterzLogo from "@/assets/circle-logo.png";
+import HempQuarterzLogo from "@/assets/circle-logo.png?url";
 
 const Navbar = () => {
   const [location, setLocation] = useLocation();
@@ -26,7 +26,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-black shadow-md" data-oid="h2fdc:v">
+    <nav className="bg-black/80 backdrop-blur-md shadow-md relative z-20" data-oid="h2fdc:v">
       <div
         className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 bg-black"
         data-oid="92uq7ki"
