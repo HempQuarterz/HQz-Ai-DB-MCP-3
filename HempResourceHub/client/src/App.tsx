@@ -7,6 +7,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import NotFound from "@/pages/not-found";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import { ThreeJSBackground } from "@/components/layout/ThreeJSBackground";
 import HomePage from "@/pages/home";
 import AboutPage from "@/pages/about";
 import PlantPartsPage from "@/pages/plant-parts";
@@ -109,6 +110,7 @@ function App() {
       <QueryClientProvider client={queryClient} data-oid="u-8-pob">
         <TooltipProvider data-oid="0n1weth">
           <div className="flex flex-col min-h-screen text-gray-100 relative" data-oid="9aq6v3f">
+            <ThreeJSBackground />
             <Navbar data-oid="1wj7t:9" />
             <main className="flex-grow relative z-10" data-oid="obhqq-s">
               <Router data-oid="geelxlm" />

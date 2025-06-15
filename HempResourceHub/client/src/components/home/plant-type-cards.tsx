@@ -79,12 +79,14 @@ const PlantTypeCards = () => {
           </div>
           
           <h2 className="text-3xl sm:text-4xl font-heading font-bold mb-4">
-            <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(34,197,94,0.8)]"
+                  style={{ textShadow: '0 0 30px rgba(34, 197, 94, 0.5), 0 0 50px rgba(34, 197, 94, 0.3)' }}>
               Choose Your Hemp Focus
             </span>
           </h2>
           
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-100 max-w-3xl mx-auto font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
+             style={{ textShadow: '1px 1px 3px rgba(0, 0, 0, 0.9)' }}>
             Each hemp variety is optimized for specific applications. Select a type to discover 
             its unique industrial potential and sustainable solutions.
           </p>
@@ -112,7 +114,7 @@ const PlantTypeCards = () => {
                     data-oid="j:sifwx"
                   ></div>
                 </div>
-                <div className="p-6 bg-black/90" data-oid="v:zbg.7">
+                <div className="p-6 bg-black/40" data-oid="v:zbg.7">
                   <Skeleton
                     className="h-6 w-3/4 mb-2 bg-green-900/40"
                     data-oid="l_-_.o."
@@ -142,8 +144,8 @@ const PlantTypeCards = () => {
                   className="group relative h-96 rounded-2xl overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Card background with gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+                  {/* Card background with semi-transparent gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900/30 via-gray-800/30 to-gray-900/30" />
                   
                   {/* Plant Image */}
                   <div className="absolute inset-0 overflow-hidden">
@@ -163,6 +165,9 @@ const PlantTypeCards = () => {
                   
                   {/* Content */}
                   <div className="relative h-full flex flex-col justify-end p-8 z-10">
+                    {/* Background for better text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent -m-8" />
+                    <div className="relative z-10">
                     {/* Icon */}
                     <div className="mb-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-500/20 border border-green-400/50 group-hover:bg-green-500/30 transition-colors">
@@ -184,6 +189,7 @@ const PlantTypeCards = () => {
                     <div className="mt-6 flex items-center gap-2 text-green-400 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                       <span className="text-sm font-medium">Explore Applications</span>
                       <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                    </div>
                     </div>
                   </div>
                   
